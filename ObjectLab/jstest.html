@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+
+////////// WORK IN PROGRESS/////////////
+
+/////////////FUNCTIONS/////////////////////////////////////////////////////////////////////////
+
+function eg(circle)
+{
+	this.circle = circle;	// This is a area in space, circle will either be 0 (meaning no circle a.k.a negation) or 1 (meaning there is a circle in the plane)
+	this.contents = [];	// This is everything that can be inside a circle (or no circle) such as letters (i.e. P,Q,R) or other circles
+}
+function op(name,truth)
+{				// Name is just the name of the operand, such as P or Q
+	if (truth == 0)
+	{this.name = name}	// Truth is just an identifier right now to show if this object is negated
+	if (truth == 1)		// (ex: ( P ) = not negated)
+	{this.name = "'"+name}; // (ex: ( 'P ) = negated) 
+	this.truth = truth;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//// The first four tests here are the basic required states that these objects should be able to handle, test 5 is the fourth axiom in Bill's email (most complex) ////
+
+
+var eg1 = new eg(0);
+//document.write(eg1);
+
+//// The first test ////
+var op1 = new op("P",0);
+var op2 = new op("Q",0);
+	eg1.contents.push(op1);
+	eg1.contents.push(op2);
+document.write("<br>");
+document.write("The negation of the outer circle (eg1) is " + eg1.circle);
+document.write("<br>");
+document.write("Contents of eg1 are " + eg1.contents[0].name + " , " + eg1.contents[1].name);
+////
+document.write("<br>");
+eg1.contents.pop();
+eg1.contents.pop();
+document.write("<br>");
+////
+ 
+////The second test ////
+var op3 = new op("P",0);
+var op4 = new op("Q",1);
+	eg1.contents.push(op3);
+	eg1.contents.push(op4);
+document.write("<br>");
+document.write("The negation of the outer circle (eg1) is " + eg1.circle);
+document.write("<br>");
+document.write("Contents of eg1 are " + eg1.contents[0].name + " , " + eg1.contents[1].name);
+////
+document.write("<br>");
+eg1.contents.pop();
+eg1.contents.pop();
+document.write("<br>");
+////
+
+////The third test ////
+eg1.circle = false;
+var op5 = new op("P",1);
+var op6 = new op("Q",0);
+	eg1.contents.push(op5);
+	eg1.contents.push(op6);
+	eg1.circle = 1;
+document.write("<br>");
+document.write("The negation of the outer circle (eg1) is " + eg1.circle);
+document.write("<br>");
+document.write("Contents of eg1 are " + eg1.contents[0].name + " , " + eg1.contents[1].name);
+////
+document.write("<br>");
+eg1.contents.pop();
+eg1.contents.pop();
+document.write("<br>");
+////
+
+////The fourth test ////
+var op6 = new op("P",1);
+var op7 = new op("P",1);
+var op8 = new op("P",1);
+var eg2 = new eg(1);
+	eg1.contents.push(op6);
+	eg1.contents.push(op7);
+	eg2.contents.push(eg1);
+	eg2.contents.push(op8);
+document.write("<br>");
+document.write("The negation of the outer circle (eg2) is " + eg2.circle);
+document.write("<br>");
+document.write("Contents of eg2 is " + eg2.contents[1].name + " and another circle with negation " + eg2.contents[0].circle
+		+ " with contents " + eg2.contents[0].contents[0].name + " , " + eg2.contents[0].contents[1].name );
+////
+document.write("<br>");
+document.write("<br>");
+////
+
+////The fifth test ////
+var eg3 = new eg(1);
+var eg4 = new eg(1);
+var op10 = new op("Q",0);
+var op11 = new op("R",1);
+var op12 = new op("P",0);
+var op13 = new op("Q",0);
+var op14 = new op("P",1);
+var op15 = new op("R",1);
+	eg4.contents.push(op10);
+	eg4.contents.push(op11);
+	eg3.contents.push(eg4);
+	eg3.contents.push(op12);
+	eg3.contents.push(op13);
+	eg3.contents.push(op14);
+	eg3.contents.push(op15);
+document.write("<br>");
+document.write("The negation of the outer circle (eg3) is " + eg3.circle);
+document.write("<br>");
+
+document.write("Contents of eg3 are: <br> the circle with negation " + eg3.contents[0].circle + " with contents " + eg3.contents[0].contents[0].name 
+		+ " , " + eg3.contents[0].contents[1].name + "<br> and " + eg3.contents[1].name + " , " + eg3.contents[2].name 
+		+ " , " + eg3.contents[3].name + " , " + eg3.contents[4].name);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+document.write("<br>");
+document.write("<br>");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////  Recursive traversal function  ///////////////////////////////////////////////////////
+///// The output is a little difficult to follow, but it works as intended (as of now). /////////////
+///// I've seen some stuff that may or may not be issues down the line, but this is a good start ////
+/////     for traversing the nest. //////////////////////////////////////////////////////////////////
+
+function iterate(obj) {
+    for (var property in obj) {
+        if (obj.hasOwnProperty(property)) {
+            if (typeof obj[property] == "object")
+                iterate(obj[property]);
+            else
+                document.write(property + "   " + obj[property]);
+		document.write("<br>");
+        }
+    }
+}
+document.write("<br>");
+
+iterate(eg3);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+document.write("<br>");
+document.write("<br>");
+document.write("END");
+
+</script>
+
+</body>
+</html>
