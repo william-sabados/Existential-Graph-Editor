@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>egObject Test</h1>
+
+<p id="demo">This page demonstrates the egObj.</p>
+
+<p><strong>Note:</strong> The following are examples of egObjects being constructed and the types fo constructions that are possible.</p>
+
+<script src="egObj.js"></script>
+<script>
+document.write("-------------- <br>");
+
+// Build an EG that is just P ^ Q.
+var eg1 = new egAssertion("P", false);
+eg1.addTerm("Q");
+document.write("Terms in eg1 are: " + eg1.toString());
+
+document.write("<br> <br>");
+
+// Build an EG that is !(P ^ Q).
+var eg2 = new egAssertion("P", true);
+eg2.addTerm("Q");
+document.write("Terms in eg2 are: " + eg2.toString());
+
+document.write("<br> <br>");
+
+// Build an EG that is P ^ !Q.
+var eg3 = new egAssertion("P", false);
+eg3.addTerm(new egAssertion("Q", true));
+document.write("Terms in eg3 are: " + eg3.toString());
+
+document.write("<br> <br>");
+
+// Build an EG that is !( ! ^ !P)
+var eg4 = new egAssertion("", true);
+eg4.addTerm(new egAssertion("", true));
+eg4.addTerm(new egAssertion("P", true));
+document.write("Terms in eg4 are: " + eg4.toString());
+
+document.write("<br> <br>");
+
+// Build an EG that is !( ! ^ !P)
+var eg5 = new egAssertion("", true);
+var eg5b = new egAssertion("", true);
+eg5b.addTerm(new egAssertion("P", true));
+eg5b.addTerm(new egAssertion("P", true));
+eg5.addTerm(eg5b);
+eg5.addTerm(new egAssertion("P", true));
+document.write("Terms in eg5 are: " + eg5.toString());
+
+</script>
+</body>
+</html>
