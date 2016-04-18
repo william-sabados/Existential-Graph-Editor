@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+    
+
+    <title>Sample EG Editor</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="lib/bootstrap/bootstrap.css" rel="stylesheet">
+
+
+    <!-- Get version 1.1.0 of Fabric.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.1.0/fabric.all.min.js" ></script>
+ 
+  <!-- Get the highest 1.X version of jQuery from CDN. Required for ready() function. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+    <script type="text/javascript" src="client/js/fab.js"></script>
+
+  
+  
+ <body>
+ <div class="page-header">
+  <h1>EG_Editor <small>UAH SMAP</small></h1>
+</div>
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2">
+  <span class="input-group-addon" id="basic-addon2"><button id="add">Submit</button></span>
+</div>
+
+<p>&nbsp;</p>
+
+  <div class="panel panel-default">
+   <div class="panel-body">
+     
+
+      <div class="Row">
+       <div class="Column"><canvas id="canvas" height="450" width="1535"></canvas></div>
+      </div>
+
+     
+  </div>
+</div>
+
+  <div class="panel-footer">EG_Editor UAH          by: Jason Thomas, Telly Polychroniades</div>
+  </body>
+  
+  
+  <script>
+  canvas = new fabric.Canvas('canvas');
+$( '#add' ).click(function(){ addsomething(); });
+
+function addsomething(){
+
+  var rect = new fabric.Rect({
+    left: 40,
+    top: 40,
+    //fill: 'black',
+    width: 40,
+    height: 40
+  });
+  canvas.add(rect);
+  canvas.renderAll();
+}
+</script>
+</head>
+</html>

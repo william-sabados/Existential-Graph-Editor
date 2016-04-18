@@ -1,0 +1,24 @@
+{
+  "name": "eg_editor",
+  "version": "0.0.1",
+  "description": "existential graph editor for SMAP",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/william-sabados/Existential-Graph-Editor.git"
+  },
+  "author": "Jason Thomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/william-sabados/Existential-Graph-Editor/issues"
+  },
+  "homepage": "https://github.com/william-sabados/Existential-Graph-Editor#readme",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4"
+  }
+}
