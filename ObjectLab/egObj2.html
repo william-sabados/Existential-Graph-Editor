@@ -3,28 +3,47 @@
 <body>
 <script>
 
-function egAssertion(term, isNegated)
+/*function egAssertion(isNegated)
 {
-	// Object Constructor
-	// ========================================================================
+	
 	this.isNegated = isNegated;	// Expected values [true|false] If true, the terms of the assertion are negated.  
 
 	this.terms = new Array();	// Array that holds the terms (or symbols) of the assertion.   
-	this.terms.push(term);		// It is assumed that all of the terms in the array are joined by conjunction.
+	//this.terms.push(term);		// It is assumed that all of the terms in the array are joined by conjunction.
 								// Expected values in the array are individual terms (e.g. P,Q,R) or nested egAssertion objects.
 	
-	// Object Methods
-	// ========================================================================
 	
-	// negate()
-	//-------------------------------------------------------------------------
-	// Negate toggles the isNegated property between TRUE and FALSE;
 	this.negate = function() {
 		if (this.isNegated == true)
 			this.isNegated = false;
 		else 
 			this.isNegated = true;
-	};
+	};*/
+//////////////////////////////////////////////////////////
+
+function egAssertion()
+{
+	if (arguments.length == 1){
+		this.isNegated = arguments[0];
+		this.terms = new Array();
+		//document.write("HI");
+		//document.write("<br>");
+	}
+	else {
+		this.isNegated = arguments[1];
+		this.terms = new Array();
+		this.terms.push(arguments[0]);
+		//document.write("BYE");	
+		//document.write("<br>");
+	}
+
+	this.negate = function() {
+		if (this.isNegated == true)
+			this.isNegated = false;
+		else 
+			this.isNegated = true;
+	};	
+
 	
 	
 	// setNegate(value)
@@ -135,46 +154,38 @@ function egAssertion(term, isNegated)
 
 ////////////////// Functions tested for first 3 cases ////////////////////////
 
-document.write("-------------- <br>");
+document.write("------- class worked ------- <br>");
+document.write("<br> <br>");
 
-// Build an EG that is just P ^ Q.
-var eg1 = new egAssertion("P", false);
-eg1.addTerm("Q");
+
+var eg1 = new egAssertion("P",true);
+
+//document.write(eg1.isNegated);
+document.write("<br>");
 document.write("Terms in eg1 are: " + eg1.toString());
 document.write("<br>");
+//document.write(eg1);
 
-eg1.insertTerm("R",1);
-document.write("<br>");
-document.write("Terms in eg1 after insert method are: " + eg1.toString());
-document.write("<br>");
-document.write("Return method: ");
-document.write(eg1.returnTerm(1));
-document.write("<br>");
-eg1.removeTerm(1);
-eg1.setNegate(false);
-document.write("Terms in eg1 after remove and setNegate methods are: " + eg1.toString());
 
-document.write("<br> <br> <br>");
+//////// //////// //////// ////////
 
-// Build an EG that is !(P ^ Q).
-var eg2 = new egAssertion("P", true);
-eg2.addTerm("Q");
-document.write("Terms in eg2 are: " + eg2.toString());
-document.write("<br>");
+// Build an EG that is !( ! ^ !P)
+var eg4 = new egAssertion(true);
+eg4.addTerm(new egAssertion(true));
+eg4.addTerm(new egAssertion("P", true));
+document.write("Terms in eg4 are: " + eg4.toString());
+document.write("<br> <br>");
 
-eg2.insertTerm("R",1);
-document.write("<br>");
-document.write("Terms in eg2 after insert method are: " + eg2.toString());
-document.write("<br>");
-document.write("Return method: ");
-document.write(eg2.returnTerm(1))
-document.write("<br>");
-eg2.removeTerm(1);
-eg2.setNegate(false);
-document.write("Terms in eg2 after remove and setNegate methods are: " + eg2.toString());
+// Build an EG that is !( ! ^ !P)
+var eg5 = new egAssertion(true);
+var eg5b = new egAssertion(true);
+eg5b.addTerm(new egAssertion("P", true));
+eg5b.addTerm(new egAssertion("P", true));
+eg5.addTerm(eg5b);
+eg5.addTerm(new egAssertion("P", true));
+document.write("Terms in eg5 are: " + eg5.toString());
 
-document.write("<br> <br> <br>");
-
+document.write("<br> <br>");
 // Build an EG that is P ^ !Q.
 var eg3 = new egAssertion("P", false);
 eg3.addTerm(new egAssertion("Q", true));
@@ -194,24 +205,24 @@ eg3.setNegate(true);
 document.write("Terms in eg3 after remove and setNegate methods are: " + eg3.toString());
 
 
-//////// //////// //////// ////////
+document.write("<br> <br>");
+// Build an EG that is just P ^ Q.
+var eg1 = new egAssertion("P", false);
+eg1.addTerm("Q");
+document.write("Terms in eg1 are: " + eg1.toString());
 
-// Build an EG that is !( ! ^ !P)
-//var eg4 = new egAssertion("", true);
-//eg4.addTerm(new egAssertion("", true));
-//eg4.addTerm(new egAssertion("P", true));
-//document.write("Terms in eg4 are: " + eg4.toString());
-//document.write("<br> <br>");
+eg1.insertTerm("R",1);
+document.write("<br>");
+document.write("Terms in eg1 after insert method are: " + eg1.toString());
+document.write("<br>");
+document.write("Return method: ");
+document.write(eg1.returnTerm(1));
+document.write("<br>");
+eg1.removeTerm(1);
+eg1.setNegate(false);
+document.write("Terms in eg1 after remove and setNegate methods are: " + eg1.toString());
 
-// Build an EG that is !( ! ^ !P)
-//var eg5 = new egAssertion("", true);
-//var eg5b = new egAssertion("", true);
-//eg5b.addTerm(new egAssertion("P", true));
-//eg5b.addTerm(new egAssertion("P", true));
-//eg5.addTerm(eg5b);
-//eg5.addTerm(new egAssertion("P", true));
-//document.write("Terms in eg5 are: " + eg5.toString());
-
+document.write("<br> <br> <br>");
 
 </script>
 </body>
