@@ -12,7 +12,7 @@
     "angular": "^1.5.4",
     "bootstrap": "^3.3.6"
   },
-   "install": {
-    "path": "client/lib"
+  "install": {
+    "path": "DemoGUI/client/libs"
   }
 }

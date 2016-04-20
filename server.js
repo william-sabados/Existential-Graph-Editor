@@ -5,7 +5,7 @@ var path = require('path');
 var port = process.env.PORT;
 
 app.set('view engine', 'ejs');
-app.set('views' , path.resolve(__dirname, 'client', 'views'));
+app.set('views' , path.resolve(__dirname,'DemoGUI', 'client', 'views'));
 
 app.use(express.static(path.resolve(__dirname, 'client')));
 
