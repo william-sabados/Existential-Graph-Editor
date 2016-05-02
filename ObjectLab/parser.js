@@ -1,12 +1,12 @@
 function egAssertion()
 {
-	/*if (arguments.length == 0)
+	if (arguments.length == 0)
 	{
-		document.write("<br>WORKED<br>");
+		//document.write("<br>WORKED<br>");
 		this.isNegated = true;
 		this.terms = new Array();
 		
-	}*/
+	}
 	if (arguments.length == 1){
 		this.isNegated = arguments[0];
 		this.terms = new Array();
@@ -122,6 +122,8 @@ function egAssertion()
 	
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function foo(parsed)
 {
 	document.write("<br>Parsed = ",parsed);
@@ -157,9 +159,9 @@ function foo(parsed)
 		document.write("<br>newAssert = ",newAssert);
 		//document.write("<br>",count);
 
-		if ((parsed[i] == "(" || parsed[i] == "!(") && count > 1)
+		if ((parsed[i] == "(" || parsed[i] == "!(") )//&& count > 1)
 		{
-			for (var j = i+1 ; j < parsed.length ; j++)
+			for (var j = i+1 ; j < parsed.length - 1 ; j++)
 			{
 				if (parsed[j] == "(" || parsed[j] == "!(")
 				{
@@ -187,15 +189,15 @@ function foo(parsed)
 		//document.write("<br>",newAssert);
 		//document.write("<br>",i);
 	}
-	
+	//document.write("<br>",count);
 	//document.write("<br>newAssert = ",newAssert);
 	
 }	
 
 //str = "!(!(!A^!B)^!C)";
 str = "(((A^B)^(C^D)^(E)))";
-str = "(((A^B)))";
 str = "(A^B)";
+//str = "((A^B^C^D))";
 document.write("<br><br>",str);
 document.write("<br><br>",str.match(/!\(|\w|!\w|\)|\(/gi)); //<---regex to parse 'str'
 document.write("<br><br>--------------------------------------------------<br><br>");
@@ -203,14 +205,18 @@ var parse = str.match(/!\(|\w|!\w|\)|\(/gi);	//<-array of parsed input
 //document.write("<br>",parsed);
 
 //document.print("<br>",foo(parse));
-foo(parse);
+//foo(parse);
 
 //var one = (foo(parsed));
 //document.write("<br>",parse);
 
+var eg1 = new egAssertion();
+document.write("<br><br>",eg1,"<br><br>");
+eg1.addTerm(foo(parse));
+document.write("<br><br>",eg1);
 
 
-document.write("<br><br>-------------------------------------------------<br>INNER");
+document.write("<br><br>-------------------------------------------------<br>SCRIPT WORKED");
 
 
 
