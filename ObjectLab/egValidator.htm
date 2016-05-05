@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>egObject Test</h1>
+
+<p id="demo">This page demonstrates the egObj.</p>
+
+<p><strong>Note:</strong> The following are examples of egObjects being constructed and the types fo constructions that are possible.</p>
+
+<script src="egAssertionClass.js"></script>
+<script src="parser.js"></script>
+<script src="parseTester.js"></script>
+<script src="validator.js"></script>
+
+
+<script>
+
+var str = "(A)";
+
+
+// REGEX for matching number of parenthesis
+//------------------------------------------
+document.write("<br>",str.match(/\(|!\(/gi) ,"<br>",(str.match(/\(|!\(/gi)).length);	//open braces
+
+document.write("<br>",str.match(/\)/gi)     ,"<br>",(str.match(/\)/gi)).length);	//closing braces
+
+	//- - - - - - - - - - - - -
+	document.write("<br>");
+	//- - - - - - - - - - - - -
+
+
+//REGEX for matching correct syntax
+//----------------------------------
+document.write("<br><br>",str.match(/\w\^\w/gi));			//matches a module (i.e. A^B )
+
+
+document.write("<br><br>",str.match(/(\w)|(\(\w\))|(!\w)|(!\(\w\))/gi));//matches any single type of letter (i.e. A,(A),!A,!(A) )
+
+									//combination of previous 2 regex to match any case of (A^B)
+document.write("<br><br>",str.match(/(\(|!\()((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^((\w)|(\(\w\))|(!\w)|(!\(\w\)))(\))/gi));	
+
+
+document.write("<br><br>",str.match(/^(\(\w\^)(\w\^)*(\w\))$/gi));	//matches any amount letters joined by ^
+
+
+									//(OLD)matches any amount of any type of terms - works (won't match single letts i.e. (A)
+document.write("<br><br>",str.match(/^((\(|!\()((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^)(((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^)*(((\w)|(\(\w\))|(!\w)|(!\(\w\)))\))$/gi));
+	
+
+									//(NEW)matches any amount of any type of terms - works (problem with -> nested stuff i.e. ((A)) or !(!(A)) )
+document.write("<br><br>",str.match(/(^((\(|!\()((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^)(((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^)*(((\w)|(\(\w\))|(!\w)|(!\(\w\)))\))$)|(\w)|(\(\w\))|(!\w)|(!\(\w\))/gi));
+
+
+					//use previous regex as a 'module' to match anything - TESTING CURRENTLY
+document.write("<br><br>",str.match(/(\(|!\()*(^((\(|!\()((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^)(((\w)|(\(\w\))|(!\w)|(!\(\w\)))\^)*(((\w)|(\(\w\))|(!\w)|(!\(\w\)))\))$)+(\)$)*/gi));
+
+
+
+
+
+document.write("<br><br>--------------------------SCRIPT DONE");
+</script>
+
+
+</body>
+</html>
