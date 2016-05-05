@@ -1,235 +1,96 @@
-function egAssertion()
-{
-	if (arguments.length == 0)
-	{
-		//document.write("<br>WORKED<br>");
-		this.isNegated = true;
-		this.terms = new Array();
-		
-	}
-	if (arguments.length == 1){
-		this.isNegated = arguments[0];
-		this.terms = new Array();
-	}
-	else {
-		this.isNegated = arguments[1];
-		this.terms = new Array();
-		this.terms.push(arguments[0]);
-	}
 
-	this.negate = function() {
-		if (this.isNegated == true)
-			this.isNegated = false;
-		else 
-			this.isNegated = true;
-	};	
-	
-	// setNegate(value)
-	//-------------------------------------------------------------------------
-	this.setNegate = function(value){
-		this.isNegated = value;
-	};
-	
-	// addTerm()
-	//-------------------------------------------------------------------------
-	this.addTerm = function(term) {
-		this.terms.push(term)	
-	};
-	
-	//insertTerm(term, index)
-	//-------------------------------------------------------------------------
-	this.insertTerm = function(term,index){
-		//this.terms[index].addTerm(term)
-		//document.write(this.terms.join())
-		console.log(this.terms.join())
-		this.terms.splice(index,0,term)
-		//document.write(this.terms.join())
-		console.log(this.terms.join())
-	};	
-	
-	//returnTerm(index)
-	//-------------------------------------------------------------------------
-	this.returnTerm = function(index){
-		return this.terms[index];
-	}; 
-	
-	// removeTerm(index)
-	//-------------------------------------------------------------------------
-	this.removeTerm = function(index){
-		this.terms.splice(index,1);
-		this.terms.join();
-	};
-	
-	// toString()
-	//-------------------------------------------------------------------------
-	// This method iterates through the terms of the assertion and creates
-	// string friendly output.
-	this.toString = function() {
-		var termsText = "";
-		
-		// Check to see if this assertion is negated.
-		if (this.isNegated == true)
-			termsText = "!( ";
-		else termsText = "( ";
-		
-		for (var i=0; i < this.terms.length; i++) {
-			// If not first term add conjunction symbol.
-			if (i != 0)
-				termsText = termsText + " ^ ";
-			
-			// Based on what's in the term we decide what to do.
-			if (this.terms[i] == "")								// This checks to see if the term is an empty string (i.e. "")	
-				termsText = termsText + " ";
-			else if (this.terms[i] instanceof egAssertion)		// It contains another egAssertion object. Recursive dive.
-				termsText = termsText + this.toStringDive(this.terms[i]);
-			else												// Just a plain old text term, just print it.
-				termsText = termsText + this.terms[i];
-		}
-		
-		termsText = termsText + " )";
-		return termsText;
-	};
-	
-	// toStringDive()
-	//-------------------------------------------------------------------------
-	// This is a recursive method the dives through the terms objects and creates
-	// string friendly output.
-	this.toStringDive = function(edObj) {
-		var termsText = "";
-		
-		// Check to see if this assertion is negated.
-		if (edObj.isNegated == true)
-			termsText = "!( ";
-		else termsText = "( ";
-		
-		for (var i=0; i < edObj.terms.length; i++) {
-			// If not first term add conjunction symbol.
-			if (i != 0)
-				termsText = termsText + " ^ ";
-		
-			// Based on what's in the term we decide what to do.
-			if (edObj.terms[i] == "")						// This checks to see if the term is an empty string (i.e. "")	
-				termsText = termsText + " ";
-			else if (edObj.terms[i] instanceof egAssertion)	// This checks to see if the term is an empty string (i.e. "")
-				termsText = termsText + this.toStringDive(edObj.terms[i]);
-			else										// Just a plain old text term, just print it.
-				termsText = termsText + edObj.terms[i];
-		}
-		
-		termsText = termsText + " )";
-		return termsText;
-	}
-	
+function create_EG_Assertion(input)
+{
+	return parse_Items(input.match(/!\(|\w|!\w|\)|\(/gi));
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+function parse_Items(array_Items)
+{ 
+	// create_EG_Assertion new assertion object.
+	var newObject = new egAssertion();
 
-function foo(parsed)
-{
-	document.write("<br>Parsed = ",parsed);
-	var stackCount = 0, count;
-	count = 0;
-	for (var i = 0 ; i < (parsed.length-1) ; i++)
+	// Check to see if the input assertion is wrapped in ()'s or not.
+	if ((array_Items[0] == "(") && (array_Items[array_Items.length-1] == ")"))
 	{
+		// The assertion is wrapped in ()'s and is not negated.
+		newObject.setNegate(false);
 		
-		if (parsed[i] == "!(")
-		{
-			var newAssert = new egAssertion(true);
-			newAssert.setNegate(true);
-			//newAssert.addTerm(parsed[i]);
-			stackCount++;
-			count++;
-			//document.write(parsed[i]);
-		}
-		else if (parsed[i] == "(")
-		{
-			var newAssert = new egAssertion(false);
-			newAssert.setNegate(false);
-			//newAssert.addTerm(parsed[i]);
-			stackCount++;
-			count++;
-			//document.write(parsed[i]);
-		}
-		
-		else if (parsed[i] != ")")
-		{
-			newAssert.addTerm(parsed[i]);
-			//document.write("<br>",parsed[i]);
-		}
-		document.write("<br>newAssert = ",newAssert);
-		//document.write("<br>",count);
-
-		if ((parsed[i] == "(" || parsed[i] == "!(") )//&& count > 1)
-		{
-			for (var j = i+1 ; j < parsed.length - 1 ; j++)
-			{
-				if (parsed[j] == "(" || parsed[j] == "!(")
-				{
-					stackCount++;
-					//document.write(parsed[j]);
-				}
-				else if (parsed[j] == ")" && stackCount != 1)
-				{
-					stackCount--;
-					//document.write(parsed[j]);
-				}
-				else if (parsed[j] == ")" && stackCount == 1)
-				{
-					//document.write("<br>",parsed.slice(i,j));
-					newAssert.addTerm = foo(parsed.slice(i,j));
-					//document.write(parsed[j]);
-				}
-			}
-			//i = j;
-			
-
-		}
-		
-		//document.write("<br>",parsed[i]);
-		//document.write("<br>",newAssert);
-		//document.write("<br>",i);
+		// Remove the ()'s from the array.
+		array_Items = array_Items.slice(1,array_Items.length-1);
 	}
-	//document.write("<br>",count);
-	//document.write("<br>newAssert = ",newAssert);
-	
-}	
+	else if ((array_Items[0] == "!(") && (array_Items[array_Items.length-1] == ")"))
+	{
+		// The assertion is wrapped in !()'s and is negated.
+		newObject.setNegate(true);
+		
+		// Remove the !()'s from the array.
+		array_Items = array_Items.slice(1,array_Items.length-1);
+	}	
+	// Might need to add an else to catch malformed assertion strings here.
 
-//str = "!(!(!A^!B)^!C)";
+	// Iterate through the assertion array and either add terms or recursively call this method to add
+	// nested objects.
+	for (var i = 0 ; i < array_Items.length ; i++)
+	{
+		// If we find a ( or !( we found a nested object.  Find the closing ) and recursively call this method on it.
+		if ((array_Items[i] == "(" || array_Items[i] == "!(") )
+		{
+			var parenCount = 1;
+			
+			// Looking for the closing ) starting with the next item in the array.
+			for (var j = i+1 ; j < array_Items.length; j++)
+			{
+				if (array_Items[j] == "(" || array_Items[j] == "!(")
+				{
+					// If we find ( or !( increase the parentCount.
+					parenCount++;
+				}
+				else if (array_Items[j] == ")" && parenCount != 1)
+				{
+					// If we find a ) but the count isn't 1 then that belongs to a nested set.  
+					parenCount--;
+				}
+				else if (array_Items[j] == ")" && parenCount == 1)
+				{
+					// We found the closing ).  Recursively call this method and add the resulting
+					// object to the terms of this object.
+					newObject.addTerm(parse_Items(array_Items.slice(i,j+1)));	
+					
+					// Jump past the nested object in the array and continue.
+					i = j;
+				}
+			}	
+		}
+		else 
+		{
+			// If not an nested object just add the item to the object's terms.
+			newObject.addTerm(array_Items[i]);
+		}
+	}
+	
+	return newObject;
+}	
+/*
+// str = "!(!(!A^!B)^!C)";
+//str = "(C^(A^!B))";
 str = "(((A^B)^(C^D)^(E)))";
-str = "(A^B)";
+//str = "((A^B)^C)";
 //str = "((A^B^C^D))";
 document.write("<br><br>",str);
-document.write("<br><br>",str.match(/!\(|\w|!\w|\)|\(/gi)); //<---regex to parse 'str'
+document.write("<br><br>",str.match(/!\(|\w|!\w|\)|\(/gi)); //<---regex to parse_Items 'str'
 document.write("<br><br>--------------------------------------------------<br><br>");
-var parse = str.match(/!\(|\w|!\w|\)|\(/gi);	//<-array of parsed input
-//document.write("<br>",parsed);
+var example = str.match(/!\(|\w|!\w|\)|\(/gi);	//<-array of array_Items input
 
-//document.print("<br>",foo(parse));
-//foo(parse);
-
-//var one = (foo(parsed));
-//document.write("<br>",parse);
-
-var eg1 = new egAssertion();
-document.write("<br><br>",eg1,"<br><br>");
-eg1.addTerm(foo(parse));
-document.write("<br><br>",eg1);
-
-
-document.write("<br><br>-------------------------------------------------<br>SCRIPT WORKED");
+var eg1 = parse_Items(example);
 
 
 
+document.write("<br><br>-------------------------------------------------<br>");
+//document.write("Terms in eg5 are: " + eg1.toString());
+//document.write(create_EG_Assertion(str).toString());
 
-
-
-
-
-
-
-
-
-
-
+document.write("<br>-------------------------------------------------<br>SCRIPT WORKED");
+*/
+document.write("<br>-------------Parser Executed-------------");
 
 
