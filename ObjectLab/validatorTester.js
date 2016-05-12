@@ -2,31 +2,31 @@
 
 str = "()";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 str = "(A)";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 str = "((A^B)^C)";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 str = "(A^(B^C))";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 str = "!(!(A^!B)^!C)";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 str = "(!A^!(B^!C))";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 str = "!(H^(A^B)^C^!(E^!F)^D)";
 if (validate_input(str) == false)
-	document.write("<BR>FAILED - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 //////Known incorrect cases (not pass) ///////
 
@@ -84,16 +84,11 @@ if (validate_input(str) == true)
 
 str = "!(A)^!(B)^F76^((A))^(673628)";
 if (validate_input(str) == true)
-	document.write("<BR>INCORRECT - - - ",str);
+	document.write("<BR>:FAILED: - - - ",str);
 
 
 
-
-
-
-
-
-
+document.write("<br>------Validator Tester Executed---------");
 
 
 
