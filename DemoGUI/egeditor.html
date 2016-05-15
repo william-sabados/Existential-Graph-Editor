@@ -5,26 +5,21 @@
 	<title>EG_Editor</title>
 </head>
 <body>
-
 <h1>EG_Editor</h1><em>SMAP UAH</em>
-
 <!-- action - where the form send data to -->
 <!-- method - what HTTP method (get/post) -->
 <!-- content goes here -->
-
 <form>
 	<label for="getRadius">Expression:</label>
 	<input id="getRadius" type="text" placeholder=" enter expression"/>
-	<input type="button" id="draw" value="Circle" onclick="drawCircle();"/>
-	<input type="button" id="draw" value="Ellipse" onclick="drawEllipse();"/>
-	<input type="button" id="draw" value="P" onclick="drawP();"/>
-	<input type="button" id="draw" value="Q" onclick="drawQ();"/>
+	<input type="button" id="drawC" value="Circle" onclick="drawCircle();"/>
+	<input type="button" id="drawE" value="Ellipse" onclick="drawEllipse();"/>
+	<input type="button" id="drawP" value="P" onclick="drawP();"/>
+	<input type="button" id="drawQ" value="Q" onclick="drawQ();"/>
 	<input type="button" id="clear" value="Clear" onclick="clearArea();"/>
 	<br>
 	<canvas id="myCanvas"></canvas>
 	<script type="text/javascript" src="app.js"></script>
 </form>
-
-
 </body>
 </html>
