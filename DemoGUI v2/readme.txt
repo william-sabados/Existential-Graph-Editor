@@ -23,5 +23,5 @@ Alright, I think the process for getting VS Code to work with Github is as follo
    can start pulling and pushing updates from within VScode.
    (That's how this text was added to this file.)
    
-   This is a test to show Telly.
+
  
