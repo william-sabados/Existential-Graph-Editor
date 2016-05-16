@@ -1,29 +1,29 @@
 //(ex) -> ((A^B)^(C^D))
 //	   ->  (A^B) is a component
 
-// *** Change "checker" to true to enable ALL error and pass/fail outputs for testing *** //
+// *** NOTE: The check cases need to be in correct order to function as intended *** //
+
+// * Change "checker" to true to enable ALL error and pass/fail outputs for testing * //
 var checker = false ;
 
 function validate_input(str)
 {
-	//document.write("<br>",str);
+	if (checker) document.write("<br>String = ",str);
 	var tokenized = str.match(/!\(|\w|!\w|\)|\(|\^/gi);		//Tokenized array
-	//document.write("<br>",tokenized,"<br>");
+	if (checker) document.write("<br>Tokenized = ",tokenized,"<br>");
 
-	var arrP = new Array();		//Array of parenthesis (may not be used?)
-	var arrW = new Array();		//Array of everything but parenthesis
-	var letter_count = 0;
+	var arrP = new Array();		//Array of parentheses' indeces
+	var arrW = new Array();		//Array of everything but parenthesis - keeps track of things inside a pair of "()"
 
-	if (str=="()")
-	{
-		//document.write("<br>PASSED(0) - - -",str);	
-		return true;
-	}
-			
+	////////////////////////// START OF CHECKS ///////////////////////////////////
+	
+	//......
 	for (var x = 0; x < str.length-1; x++)
 	{
+		var check1 = str[x].match(/\w/gi);
+		var check2 = str[x+1].match(/\w/gi);
 		//Checks for any adjacent characters that are the same (cannot have any)
-		if (str[x] == str[x+1] && ((str[x] != "(" && str[x+1] != "(") && (str[x] != ")" && str[x+1] != ")")))
+		if ((check1 != null && check2 != null) && ((str[x] != "(" && str[x+1] != "(") && (str[x] != ")" && str[x+1] != ")")))
 		{
 			if (checker) document.write("<br>ERROR::Invalid adjacent inputs");
 			return false;
@@ -34,22 +34,36 @@ function validate_input(str)
 			if (checker) document.write("<br>ERROR::Invalid use of not");
 			return false;
 		}
-		
 	}
+	
+	//Checks for even amounts of letters and "^"'s
+	//Initial check for even ^'s
+	var check1 = str.match(/\w/gi);
+	var check2 = str.match(/\^/gi);
+	if (check1 != null && check2 == null && str.length > 4)
+	{if (checker) document.write("<br>ERROR::Uneven letters or carrots(1)");
+	return false;}
 	
 	//Checks for any bad input characters
 	if (str.match(/[^\w|\(|\)|\^|!]/gi))
 	{if (checker) document.write("<br>ERROR::Improper syntax"); 
 	return false;}
-
+	
 	//An egAssertion must be between a pair of "()"
 	else if ((tokenized[0] != "(" && tokenized[0] != "!(") || (tokenized[tokenized.length-1] != ")"))
 	{if (checker) document.write("<br>ERROR::Assertion must be between parenthesis"); 
 	return false;}
 
-	//Checks for the right amount of 'anded' things		
-	else if (str.match(/\^/gi) && str.match(/\w/gi) && (str.match(/\w/gi).length != str.match(/\^/gi).length+1))			
-	{if (checker) document.write("<br>ERROR::Uneven letters or carrots<br>"); 
+	//Checks a 'base case' of an empty assertion "()"
+	//Cases checked are: 1="()"; 2="!()"; 3="()^()"; 4="(())"
+	else if (str=="()" || str=="!()" || (str.match(/^(\(\)\^)(\(\)\^)*(\(\))$/gi)) || (str.match(/\(|!\(/gi).length == str.match(/\)/gi).length && !str.match(/[^\(|\)]/gi)))
+	{if (checker) document.write("<br>PASSED(0) - - -",str);	
+	return true;}
+	
+	//Checks for the right amount of 'anded' things	
+	//Secondary checks for ^'s are: ^ && \w are not null; amount of ^'s must be 1 less than amount of letters
+	else if (str.match(/\^/gi) != null && str.match(/\w/gi) != null && (str.match(/\w/gi).length != str.match(/\^/gi).length+1))			
+	{if (checker) document.write("<br>ERROR::Uneven letters or carrots(2)<br>"); 
 	return false;}
 
 	//Checks for even amount of braces
@@ -57,7 +71,9 @@ function validate_input(str)
 	{if (checker) document.write("<br>ERROR::Uneven brackets<br>"); 
 	return false;}
 
-	//Breaks up the string into indivudual components, and checks each one
+	////////////////////////// END OF CHECKS ///////////////////////////////////
+	//Initial checks all passed
+	//Breaks up the string into indivudual components, and further checks each one for correctness
 	else
 	{
 		for (var x = 0; x < tokenized.length; x++)		
@@ -70,8 +86,8 @@ function validate_input(str)
 			else if (tokenized[x] == ")")
 			{
 				var last_openBrace = arrP.pop();
-				//Checks for "^" being the first element inside arrW while checking a multi-component string
-				//  and places a pair of "(" ")" around the component, **it shouldn't have a pair before this point**
+				//Checks for "^" being the first element inside arrW while checking a multi-component string (i.e. "((A^B)^(C^D))")
+				//  and places a pair of '(' ')' around the component, **it shouldn't have a pair before this point**
 				if (arrW[0] == "^")
 				{
 					arrW.splice(0,1);
@@ -93,7 +109,7 @@ function validate_input(str)
 				x = x - temp.length;	//Resizes the "for" loop's index to adjust for the change in "tokenized"
 				
 				//Concatenates a string (check_string) to re-create the component/module
-				//	"check_string" is what the regex checks individually for correct format
+				//	"check_string" is the 'component' that the regex checks for correct format
 				var check_string = "";
 				for (var y = 0; y < temp.length; y++)
 				{
@@ -133,11 +149,10 @@ function validate_input(str)
 	return true;
 }
 
-//Test string
-str = "((A^B)^(C^D)^(E))";		
-//str = "(A^(B^C))";
-str = "!((A^!B)^(!C^D)^E)";
-str = "A";
+str = "(A)(A)";
+str = "((A)A)";
+str = "()^()^()";
+str = "(A)";
 
 validate_input(str);
 
