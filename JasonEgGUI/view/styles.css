@@ -14,7 +14,7 @@ section {
     padding: 4px;
 }
 #one{
-    width: 74%;
+    width: 76%;
     height: 420px;
     background: lightgrey;
     float: left;
@@ -24,7 +24,7 @@ section {
 #two{
     margin-bottom: 11px;
     height: 420px;
-    width: 320px;
+    width: 314px;
     background: #337ab7;
     border-radius: 15px;
     float: right;
@@ -38,7 +38,7 @@ section {
     height: 120px;
     width: 320px;
     padding: 10px;
-    margin-left: 84px;
+    margin-left: 56px;
     margin-right: 14px;
     margin-top: 1px;
     margin-bottom: 0px;
