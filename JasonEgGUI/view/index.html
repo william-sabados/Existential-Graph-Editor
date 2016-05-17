@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- meta tag goes here -->
+    <title>EG_Editor</title>
+   <!--custom stylesheets for jquery -->
+    <link rel="stylesheet" type="text/css" href="../view/styles.css">
+    <!-- Bootstrap core CSS-->
+    <link href="../libs/bootstrap/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap javascript link-->
+    <script src="../libs/bootstrap/bootstrap.js"></script>
+    <!--jquery link -->
+    <script type="text/javascript" src="../jquery-2.2.3.js"></script>
+    <!--link to custom javascript file -->
+    <script type="text/javascript" src="app.js"></script>
+    <!--link to joint.js.css-->
+    <link rel="stylesheet" href="../libs/joint/joint.css" />
+    <!--link to jquery.js-->
+    <script src="../libs/jquery.js"></script>
+    <!--link to lodash.js-->
+    <script src="../libs/lodash.js"></script>
+    <!--link to backbone.js-->
+    <script src="../backbone.js"></script>
+    <!--link to joint.js-->
+    <script src="../libs/joint/joint.js"></script>
+    <!--link to jcanvas.js-->
+    <script src="../libs/jcanvas.js"></script>
+</head>
+<body>
+<div class="page-header">
+    <h1>EG Editor -UAH-<small> SMAP</small></h1>
+    <img id="uah" src="../images/uahLogo.png" />
+
+</div>
+<form>
+        <label class="label label-primary" for="drawType">Enter Expression (e, c, p, q):</label>
+    <div class="input-group">
+        <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2">
+        <span  class="input-group-addon" id="drawC" onclick="return OnClickDraw();">Submit</span>
+        <span  class="input-group-addon" id="clear" onclick="return clearArea();">Clear</span>
+        <span  class="input-group-addon" id="save">Save</span>
+    </div>
+</form>
+<br>
+<p></p>
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <section>
+            <div id="one"><canvas id="myCanvas" ></canvas></div>
+            <div id="two"><canvas id="sideCanvas" ></canvas></div>
+        </section>
+    </div>
+    <!--br-->
+    <div class="list-group">
+        <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">This is a UAH Project Done by the SMAP Center</h4>
+            <p class="list-group-item-text">...</p>
+        </a>
+    </div>
+
+    <div class="panel-footer">Developed by: Jason Thomas, Telly Polychroniades, & Dr. William Sabados</div>
+</div>
+</body>
+</html>
