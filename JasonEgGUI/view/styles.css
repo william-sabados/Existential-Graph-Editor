@@ -14,7 +14,7 @@ section {
     padding: 4px;
 }
 #one{
-    width: 84%;
+    width: 74%;
     height: 420px;
     background: lightgrey;
     float: left;
@@ -24,7 +24,7 @@ section {
 #two{
     margin-bottom: 11px;
     height: 420px;
-    width: 200px;
+    width: 320px;
     background: #337ab7;
     border-radius: 15px;
     float: right;
@@ -35,11 +35,25 @@ section {
 }
 #uah{
     float: right;
-    height: 100px;
-    width: 220px;
+    height: 120px;
+    width: 320px;
     padding: 10px;
-    margin-left: 35px;
+    margin-left: 84px;
     margin-right: 14px;
-    margin-top: 8px;
+    margin-top: 1px;
     margin-bottom: 0px;
+}
+#bt1{
+    width:90%;
+    height:20%;
+    margin-top: 1px;
+    margin-bottom: 3px;
+    margin-left: 14px;
+    margin-right: 3px;
+    border-radius: 20px;
+}
+#headSide1{
+    margin-left: 43%;
+    margin-top: 7px;
+    color: lightgray;
 }
