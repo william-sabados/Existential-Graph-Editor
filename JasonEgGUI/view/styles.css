@@ -54,6 +54,20 @@ section {
 }
 #headSide1{
     margin-left: 43%;
-    margin-top: 7px;
+    margin-top: 14px;
     color: lightgray;
+}
+#headSide2{
+    margin-left: 38%;
+    margin-top: 14px;
+    color: lightgray;
+}
+.btn-group-vertical{
+    width:90%;
+    height:20%;
+    margin-top: 1px;
+    margin-bottom: 3px;
+    margin-left: 14px;
+    margin-right: 3px;
+    border-radius: 20px;
 }
