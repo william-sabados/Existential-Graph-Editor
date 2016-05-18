@@ -2,26 +2,29 @@ function egAssertion()
 {
 	this.isNegated = false;
 	this.terms = [];
+	this.id = 0;
 	
-	// THIS PLACES AN UNDEFINED ITEM IN THE ARRAY.
-	if (arguments.length == 0)
+	if (arguments.length == 0)			//Creates empty eg
 	{
 		//document.write("<br>WORKED<br>");
 		this.isNegated = true;
 		this.terms = [];
-		
+		this.id = 0;
 	}
-	else if (arguments.length == 1){
+	else if (arguments.length == 1){	//Creates empty eg with given negation value
 		this.isNegated = arguments[0];
 		this.terms = [];
+		this.id = 0;
 	}
-	else {
+	else {								//Creates eg with given negation value and pushes a term
 		this.isNegated = arguments[1];
 		this.terms = [];
 		this.terms.push(arguments[0]);
+		this.id = 0;
 	}
     
-	
+	//toggles negation
+	//------------------------------------------------------------------------
 	this.negate = function() {
 		if (this.isNegated == true)
 			this.isNegated = false;
@@ -60,6 +63,52 @@ function egAssertion()
 		this.terms.join();
 	};
 	
+	////////////////////////////////////////////////////////////////////////////////////
+	//// NEW FUNCTIONS ////
+	
+	//searchTerm(object, id) - recursive maybe
+	//-------------------------------------------------------------------------	
+	this.searchTerm = function(object, id){
+		for (var x = 0; x < this.terms.length; x++)
+		{
+			
+		}
+	};
+		
+	//addDoubleNegation(object)
+	//-------------------------------------------------------------------------	
+	this.addDoubleNegation = function(object){
+		var newEG1 = new egAssertion(true);
+		newEG1.addTerm(object);
+		var newEG2 = new egAssertion(true);
+		newEG2.addTerm(newEG1)
+		return newEG2;
+	}
+	
+	//removeDoubleNegation(object)
+	//-------------------------------------------------------------------------	
+	this.removeDoubleNegation = function(object){
+		var str = object.toString();
+		var tokenized = str.match(/!\(|\w|!\w|\)|\(/gi);
+		var newEG = parse_Items(tokenized);
+		return newEG;
+	}
+	
+	//canRemoveNegation(object) - boolean
+	//-------------------------------------------------------------------------	
+	this.canRemoveNegation = function(object){
+		var str = object.toString();
+		//str.replace(/\s/g, '');	REGEX to strip any whitespace
+		if (str[0] != "!" && str[1] != "(" && str[str.length-1] != ")")
+			return false;
+		else if (str[2] != "!" && str[3] != "(" && str[str.length-2] != ")")
+			return false;
+		else 
+			return true;
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
 	// toString()
 	//-------------------------------------------------------------------------
 	// This method iterates through the terms of the assertion and create_EG_Assertions
