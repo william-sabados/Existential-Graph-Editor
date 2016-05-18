@@ -89,6 +89,7 @@ function egAssertion()
 	//-------------------------------------------------------------------------	
 	this.removeDoubleNegation = function(object){
 		var str = object.toString();
+		str = str.slice(4,str.length-2);
 		var tokenized = str.match(/!\(|\w|!\w|\)|\(/gi);
 		var newEG = parse_Items(tokenized);
 		return newEG;
