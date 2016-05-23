@@ -26,20 +26,19 @@ function searchObject2(object, id)
 			if (typeof object.terms[x].terms[y] === 'object')
 			{
 				//document.write("<br>YUS");
-				searchObject2(object.terms[x].terms[y],id);
+				return searchObject2(object.terms[x].terms[y],id);
 			}
 		}
-		document.write("<br>",object.terms[x]);
+		//document.write("<br>",object.terms[x]);
 		if (object.terms[x].id == id)
 		{
-			document.write("<br>FOUND:",object.terms[x]);
+			//document.write("<br>FOUND:",object.terms[x]);
 			return object.terms[x];
 		}
 		
 	}
 	return null;
 }
-
 //-------------------------------------------------------------------------
 	
 //addDoubleNegation(object)
