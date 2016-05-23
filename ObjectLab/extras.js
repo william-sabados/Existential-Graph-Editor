@@ -2,7 +2,6 @@
 //// NEW FUNCTIONS ////
 
 //searchObject(object, id) - recursive maybe
-//-------------------------------------------------------------------------	
 function searchObject(object, id)
 {
 	if (object.id === id) {return object;}
@@ -16,6 +15,32 @@ function searchObject(object, id)
 	}
 	return null;
 }
+//searchObject2(object, id) - recursive maybe
+function searchObject2(object, id)
+{
+	for (var x = 0; x < object.terms.length; x++)
+	{
+		for (var y = 0; y < object.terms[x].terms.length; y++)
+		{
+			//document.write("<br>",typeof object.terms[x].terms[y]);
+			if (typeof object.terms[x].terms[y] === 'object')
+			{
+				//document.write("<br>YUS");
+				searchObject2(object.terms[x].terms[y],id);
+			}
+		}
+		document.write("<br>",object.terms[x]);
+		if (object.terms[x].id == id)
+		{
+			document.write("<br>FOUND:",object.terms[x]);
+			return object.terms[x];
+		}
+		
+	}
+	return null;
+}
+
+//-------------------------------------------------------------------------
 	
 //addDoubleNegation(object)
 //-------------------------------------------------------------------------	
@@ -57,7 +82,6 @@ function canRemoveNegation(object)
 
 var eg1 = new egAssertion("P",true);
 eg1.id = 1;
-document.write("<br>",eg1.id);
 document.write("<br>EG1 stock = ",eg1);
 	
 eg1 = addDoubleNegation(eg1);
@@ -78,13 +102,43 @@ document.write("<br>");
 eg1 = new egAssertion("P",true);
 eg1.id = 1;
 eg1 = addDoubleNegation(eg1);
-document.write("<br>Search = ",searchObject(eg1,1));
 document.write("<br>EG1 = ",eg1);
+document.write("<br>Search = ",searchObject(eg1,1));
+
+document.write("<br>");
+var eg3 = new egAssertion("S",true);
+eg3.id = 1;
+var eg4 = new egAssertion("Q",true);
+eg4.id = 2;
+var eg5 = new egAssertion("R",true);
+eg5.id = 3;
+var eg6 = new egAssertion(true);
+eg6.addTerm(eg3);
+eg6.addTerm(eg4);
+eg6.addTerm(eg5);
+eg6 = addDoubleNegation(eg6);
+document.write("<br>EG6 = ",eg6);
+
+document.write("<br>Search = ",searchObject2(eg6,3));
+
+//document.write("<br>",typeof eg6.terms[0]);
+//document.write("<br>",eg6.terms[0].terms[0]);
+
 
 
 document.write("<br>------------Extras Executed--------------")
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
