@@ -2,6 +2,8 @@
 //// NEW FUNCTIONS ////
 
 //searchObject(object, id) - recursive maybe
+//	First test search function
+/*
 function searchObject(object, id)
 {
 	if (object.id === id) {return object;}
@@ -14,12 +16,13 @@ function searchObject(object, id)
 		}
 	}
 	return null;
-}
-//searchObject2(object, id) - recursive maybe
-function searchObject2(object, id)
+}*/
+//searchObject2(object, id) - recursive
+/*function searchObject2(object, id)
 {
 	for (var x = 0; x < object.terms.length; x++)
 	{
+		//document.write("<br>",object.terms[x]);
 		for (var y = 0; y < object.terms[x].terms.length; y++)
 		{
 			//document.write("<br>",typeof object.terms[x].terms[y]);
@@ -35,9 +38,22 @@ function searchObject2(object, id)
 			//document.write("<br>FOUND:",object.terms[x]);
 			return object.terms[x];
 		}
-		
 	}
 	return null;
+}*/
+function searchObject2(object, id)
+{
+	for (var x = 0; x < object.terms.length; x++)
+	{ 
+		if (typeof object.terms[x] != 'string')
+		{
+			searchObject2(object.terms[x],id);
+		}
+		if (object.terms[x].id == id)
+		{
+			return object.terms[x];
+		}
+	}
 }
 //-------------------------------------------------------------------------
 	
@@ -102,28 +118,41 @@ eg1 = new egAssertion("P",true);
 eg1.id = 1;
 eg1 = addDoubleNegation(eg1);
 document.write("<br>EG1 = ",eg1);
-document.write("<br>Search = ",searchObject(eg1,1));
+//document.write("<br>Search = ",searchObject(eg1,1));
 
 document.write("<br>");
 var eg3 = new egAssertion("S",true);
+//eg3.addTerm("T");
 eg3.id = 1;
 var eg4 = new egAssertion("Q",true);
+//eg4.addTerm("U");
 eg4.id = 2;
 var eg5 = new egAssertion("R",true);
+//eg5.addTerm("V");
 eg5.id = 3;
 var eg6 = new egAssertion(true);
+var eg11 = new egAssertion("X",true);
+eg11.id = 6;
+var eg22 = new egAssertion("Y",true);
+eg22.id = 7;
+var eg33 = new egAssertion("Z",true);
+eg33.id = 8;
+eg3.addTerm(eg11);
+eg4.addTerm(eg22);
+eg5.addTerm(eg33);
 eg6.addTerm(eg3);
 eg6.addTerm(eg4);
 eg6.addTerm(eg5);
-eg6 = addDoubleNegation(eg6);
-document.write("<br>EG6 = ",eg6);
+//eg6 = addDoubleNegation(eg6);
+document.write("<br>- - - - - - - - - - - - - - - -<br>EG6 = ",eg6);
 
-document.write("<br>Search = ",searchObject2(eg6,3));
+document.write("<br>Search = ",searchObject2(eg6,2));
 
-//document.write("<br>",typeof eg6.terms[0]);
-//document.write("<br>",eg6.terms[0].terms[0]);
+var test = new egAssertion();
+test = searchObject2(eg6,3);
+document.write("<br>Test = ",test);
 
-
+document.write("<br>", eg6.terms[0].terms[1].id);
 
 document.write("<br>------------Extras Executed--------------")
 	
