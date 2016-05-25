@@ -45,15 +45,27 @@ function searchObject2(object, id)
 {
 	for (var x = 0; x < object.terms.length; x++)
 	{ 
-		if (typeof object.terms[x] != 'string')
-		{
-			searchObject2(object.terms[x],id);
-		}
 		if (object.terms[x].id == id)
 		{
+			// Found what we were looking for.
 			return object.terms[x];
 		}
+		
+		if (typeof object.terms[x] == 'string')
+		{
+			// We found a string.  Do nothing.
+		}
+		else if (typeof object.terms[x] != 'string')
+		{
+			// We found an object we need to search the contents of.
+			var searchResult = searchObject2(object.terms[x],id);
+			
+			if (searchResult != null)
+				return searchResult;
+		}
 	}
+	
+	return null;
 }
 //-------------------------------------------------------------------------
 	
@@ -146,13 +158,13 @@ eg6.addTerm(eg5);
 //eg6 = addDoubleNegation(eg6);
 document.write("<br>- - - - - - - - - - - - - - - -<br>EG6 = ",eg6);
 
-document.write("<br>Search = ",searchObject2(eg6,2));
+document.write("<br>Search = ",searchObject2(eg6,3));
 
 var test = new egAssertion();
-test = searchObject2(eg6,3);
-document.write("<br>Test = ",test);
+//test = searchObject2(eg6,3);
+// document.write("<br>Test = ",test);
 
-document.write("<br>", eg6.terms[0].terms[1].id);
+//document.write("<br>", eg6.terms[0].terms[1].id);
 
 document.write("<br>------------Extras Executed--------------")
 	
