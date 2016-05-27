@@ -1,0 +1,106 @@
+
+#drawC {
+    color: #337ab7;
+}
+#clear {
+    color: #337ab7;
+}
+
+#save {
+    color: #337ab7;
+}
+section {
+    margin: auto;
+    padding: 4px;
+}
+#myholder{
+    width: 76%;
+    height: 470px;
+    background: lightgrey;
+    float: left;
+    border-radius: 15px;
+    margin-bottom: 11px;
+    stroke-linecap: 1px;
+}
+#two{
+    margin-bottom: 11px;
+    height: 470px;
+    width: 314px;
+    background: #337ab7;
+    border-radius: 15px;
+    float: right;
+}
+.panel-footer{
+    color: #337ab7;
+
+}
+#uah{
+    float: right;
+    height: 120px;
+    width: 320px;
+    padding: 10px;
+    margin-left: 56px;
+    margin-right: 14px;
+    margin-top: 1px;
+    margin-bottom: 0px;
+}
+#bt1{
+    width:90%;
+    height:20%;
+    margin-top: 0px;
+    margin-bottom: 1px;
+    margin-left: 14px;
+    margin-right: 3px;
+    border-radius: 20px;
+}
+#headSide1{
+    margin-left: 43%;
+    margin-top: 30px;
+    color: lightgray;
+}
+#headSide2{
+    margin-left: 38%;
+    margin-top: 30px;
+    color: lightgray;
+}
+.btn-group-vertical{
+    width:90%;
+    height:20%;
+    margin-top: 20px;
+    margin-bottom: 3px;
+    margin-left: 14px;
+    margin-right: 3px;
+    border-radius: 20px;
+}
+.modal-header{
+    background-color: #337ab7;
+    color: #ffffff;
+}
+.modal-footer{
+    background-color: #337ab7;
+}
+#uah2{
+    float: left;
+    height: 40px;
+    width: 90px;
+
+}
+.input-group{
+    width: 73.5%;
+    margin-right: 0px;
+    margin-left: 24px;
+}
+.uahImg{
+    float: right;
+    height: 60px;
+    width: 195px;
+    margin-right: 80px;
+    margin-left: 100px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+/*in-right: 80px;
+    margin-left: 100px;
+    margin-bottom: 3px;
+    margin-top: 0px;
+}*/
