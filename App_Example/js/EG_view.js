@@ -85,10 +85,10 @@ EG_View.prototype = {
     addNegatedAssertion: function (assertionValue) {
         
         // Prepare to add shape to the graph.        
-        var newRectangle = new joint.shapes.basic.Rect({
+        var newRectangle = new joint.shapes.basic.Circle({
             position: { x: 170, y: 25 },
             size: { width: 50, height: 40 },
-            attrs: { rect: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
+            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
         });
         
         // Notify controller that a new assertion is being added.
@@ -96,7 +96,30 @@ EG_View.prototype = {
         
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
+    },
+	
+	addAssertion: function (assertionValue) {
+        
+		////var newText = assertionValue;
+		
+        // Prepare to add shape to the graph.        
+        var newText = new joint.shapes.basic.Text({
+            position: { x: 170, y: 25 },
+            size: { width: 15, height: 22 },
+            attrs: { text: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
+        });
+        
+        // Notify controller that a new assertion is being added.
+        controller.addAssertion(assertionValue, newText.id);
+		
+        // Add the assertion to the graph.    
+        graph.addCells([newText]);
     }
     
 };
+
+
+
+
+
 
