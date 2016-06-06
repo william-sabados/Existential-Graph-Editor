@@ -14,6 +14,15 @@ EG_Model.prototype = {
             else {
                 this.model.addTerm(new egAssertion(assertionValue, true, id));
             }
+    },
+	addAssertion: function (assertionValue,id) {
+            //Check to see if this is the first assertion in the model.
+            if (this.model == null) {
+                this.model = new egAssertion(assertionValue, false, id);
+            }
+            else {
+                this.model.addTerm(new egAssertion(assertionValue, false, id));
+            }
     }
         
 }
