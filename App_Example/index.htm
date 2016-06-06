@@ -139,7 +139,7 @@
 
     <div class="panel-footer">Developed by: Jason Thomas, Telly Polychroniades, & Dr. William Sabados</div>
 </div>
-<!-- Modal -->
+<!-- Modal button one--> 
 <div class="modal fade" id="myAlert" role="dialog">
     <div class="modal-dialog">
 
@@ -156,12 +156,15 @@
                 <img id="uah2" src="./images/uahLogo.png">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				
+				
+				
             </div>
         </div>
 
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal button two-->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -180,12 +183,17 @@
                 <img id="uah2" src="./images/uahLogo.png">
                 <button id="AddNegatedAssertionButton" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				                
+                <script>
+                    // Wire-up event handler to the button.
+                    document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
+                </script>
             </div>
         </div>
 
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal button three-->
 <div class="modal fade" id="myModal2" role="dialog">
     <div class="modal-dialog">
 
@@ -207,7 +215,7 @@
                 
                 <script>
                     // Wire-up event handler to the button.
-                    document.getElementById("AddAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewAssertionValue").value);}
+                    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);}
                 </script>
             </div>
         </div>
@@ -220,10 +228,14 @@
         model = new EG_Model();
         controller = new EG_Controller(model, view);
         view.setController(controller);
-        
+      
         // Wire-up event handler to the button.
         document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
-        
+     	   
+	    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);}
+     
+		
+		
        
     </script>
 
