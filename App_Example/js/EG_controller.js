@@ -11,6 +11,12 @@ EG_Controller.prototype = {
 
         this.model.addNegatedAssertion(assertionValue,true,id);          
 
+    },
+	// Adds a new negated assertion to the model. 
+    addAssertion: function (assertionValue,id) {
+
+        this.model.addAssertion(assertionValue,true,id);          
+
     }
         
 }
