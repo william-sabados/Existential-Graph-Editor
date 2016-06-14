@@ -114,7 +114,22 @@ EG_View.prototype = {
 		
         // Add the assertion to the graph.    
         graph.addCells([newText]);
-    }
+    },
+	
+	check_expression: function (thing_to_check) {
+		
+		if (controller.check_expression(thing_to_check) != true)
+		{
+			
+		}
+		else
+		{
+			
+		}
+		
+	}
+	
+	
     
 };
 
