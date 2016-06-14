@@ -23,7 +23,17 @@ EG_Model.prototype = {
             else {
                 this.model.addTerm(new egAssertion(assertionValue, false, id));
             }
-    }
+    },
+	
+	check_expression: function (thing_to_check) {
+		
+		if (validate_input(thing_to_check) == true)
+		{
+			return parse_Items(thing_to_check);
+		}
+		else return false;
+		
+	}
         
 }
 
