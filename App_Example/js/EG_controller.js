@@ -17,7 +17,18 @@ EG_Controller.prototype = {
 
         this.model.addAssertion(assertionValue,true,id);          
 
-    }
+    },
+	
+	check_expression: function (thing_to_check) {
+		
+		if (this.model.check_expression(thing_to_check) != false)
+			return this.model.check_expression(thing_to_check);
+		else return false;
+		
+	}
+	
+	
+	
         
 }
     
