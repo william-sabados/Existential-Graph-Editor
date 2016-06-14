@@ -22,7 +22,7 @@
     <script src="./js/EG_view.js"></script>
     <script src="./js/EG_model.js"></script>
     <script src="./js/EG_controller.js"></script>
-    <script src="./js/egAssertionClass.js"></script>
+    <script src="./js/EGAssertionClass.js"></script>
     
 </head>
 <body>
@@ -86,11 +86,10 @@
 
     <form>
     <div class="input-group">
-        <input id="drawType" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2">
-        <span  class="input-group-addon" id="drawC" onclick="return OnClickDraw();">Submit</span>
-        <span  class="input-group-addon" id="clear" onclick="return clearArea();">Clear</span>
+        <input id="expression_to_graph" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2">
+        <span  class="input-group-addon" id="submit">Submit</span>
+        <span  class="input-group-addon" id="clear">Clear</span>
         <span  class="input-group-addon" id="save">Save</span>
-        <!--img class="uahImg" src="../images/uahLogo.png"-->
     </div>
 
 </form>
@@ -219,7 +218,6 @@
                 </script>
             </div>
         </div>
-
     </div>
 </div>
     <script>
@@ -234,7 +232,10 @@
      	   
 	    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);}
      
-		
+		document.getElementById("submit").onclick = function(){view.check_expression(document.getElementById("expression_to_graph").value);}
+
+
+
 		
        
     </script>
