@@ -92,7 +92,11 @@ EG_View.prototype = {
         });
         
         // Notify controller that a new assertion is being added.
-        controller.addNegatedAssertion(assertionValue, newRectangle.id);
+        // Get the existential graph (eg) id in return. 
+        var egId = controller.addNegatedAssertion(assertionValue);
+
+        // Add edId as a property to the graph element.
+        newRectangle.set('egId', egId);
         
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
@@ -110,8 +114,12 @@ EG_View.prototype = {
         });
         
         // Notify controller that a new assertion is being added.
-        controller.addAssertion(assertionValue, newText.id);
-		
+        // Get the existential graph (eg) id in return. 
+        var egId = controller.addAssertion(assertionValue);
+
+        // Add edId as a property to the graph element.
+		newText.set('egId', egId);
+
         // Add the assertion to the graph.    
         graph.addCells([newText]);
     },
