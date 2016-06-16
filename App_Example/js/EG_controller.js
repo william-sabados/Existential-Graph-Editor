@@ -35,8 +35,7 @@ EG_Controller.prototype = {
     incrementId() {
         this.egId++;
         return this.egId;
-    }
-        
+    }  
 }
     
     

@@ -226,6 +226,7 @@
         model = new EG_Model();
         controller = new EG_Controller(model, view);
         view.setController(controller);
+        model.setController(controller);
       
         // Wire-up event handler to the button.
         document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}

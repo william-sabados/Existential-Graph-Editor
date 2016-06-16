@@ -1,9 +1,14 @@
 function EG_Model() {
     this.model = null;
+    this.controller = null;
 };
 
 // Member functions that are added to the Modelr object.
 EG_Model.prototype = {
+    // Sets a reference to the controller.
+    setController: function (controller) {
+        this.controller = controller;
+    },
     
     // Adds a new negated assertion to the model. 
     addNegatedAssertion: function (assertionValue,id) {
