@@ -11,19 +11,19 @@
     <script src="./support_js/joint.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
+
     <!--Supporting CSS -->
     <link rel="stylesheet" type="text/css" href="./support_css/styles.css"/>
     <link rel="stylesheet" href="./support_js/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="./support_css/joint.css" />
-    
+
     <!-- EG Editor JS  -->
     <script src="./js/EG_view.js"></script>
     <script src="./js/EG_model.js"></script>
     <script src="./js/EG_controller.js"></script>
-    <script src="./js/EGAssertionClass.js"></script>
-    
+    <script src="./js/egAssertionClass.js"></script>
+
 </head>
 <body>
 
@@ -64,15 +64,15 @@
                     <li><a href="#">Multi Grid</a></li>
                 </ul>
             </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
-                <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">How To</a></li>
-                <li><a href="#">Forum</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-        </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">How To</a></li>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </li>
         </ul>
 
         <ul id="navhead" class="nav navbar-nav navbar-right">
@@ -84,12 +84,13 @@
 </nav>
 <img class="uahImg" src="./images/uahLogo.png">
 
-    <form>
+<form>
     <div class="input-group">
-        <input id="expression_to_graph" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2">
-        <span  class="input-group-addon" id="submit">Submit</span>
-        <span  class="input-group-addon" id="clear">Clear</span>
+        <input id="drawType" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2">
+        <span  class="input-group-addon" id="drawC" onclick="return OnClickDraw();">Submit</span>
+        <span  class="input-group-addon" id="clear" onclick="return clearArea();">Clear</span>
         <span  class="input-group-addon" id="save">Save</span>
+        <!--img class="uahImg" src="../images/uahLogo.png"-->
     </div>
 
 </form>
@@ -138,7 +139,7 @@
 
     <div class="panel-footer">Developed by: Jason Thomas, Telly Polychroniades, & Dr. William Sabados</div>
 </div>
-<!-- Modal button one--> 
+<!-- Modal button one-->
 <div class="modal fade" id="myAlert" role="dialog">
     <div class="modal-dialog">
 
@@ -155,9 +156,9 @@
                 <img id="uah2" src="./images/uahLogo.png">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				
-				
-				
+
+
+
             </div>
         </div>
 
@@ -175,14 +176,14 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewNegatedAssertionValue" type="text" name="addChar"><br>
+                <input id="NewNegatedAssertionValue" type="text" name="addChar" onfocus="clearInput(this)" autofocus/><br>
 
             </div>
             <div class="modal-footer">
                 <img id="uah2" src="./images/uahLogo.png">
-                <button id="AddNegatedAssertionButton" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                <button id="AddNegatedAssertionButton" type="button" class="btn btn-default" data-dismiss="modal" >Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				                
+
                 <script>
                     // Wire-up event handler to the button.
                     document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
@@ -204,42 +205,53 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewAssertionValue" type="text" name="addChar"><br>
+                <input id="NewAssertionValue" type="text" name="addChar" autofocus /><br>
 
             </div>
             <div class="modal-footer">
                 <img id="uah2" src="./images/uahLogo.png">
                 <button id="AddAssertionButton" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                
+
                 <script>
                     // Wire-up event handler to the button.
                     document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);}
                 </script>
             </div>
         </div>
+
     </div>
 </div>
-    <script>
-        // Wire up the MVC.
-        view = new EG_View();
-        model = new EG_Model();
-        controller = new EG_Controller(model, view);
-        view.setController(controller);
-        model.setController(controller);
-      
-        // Wire-up event handler to the button.
-        document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
-     	   
-	    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);}
-     
-		document.getElementById("submit").onclick = function(){view.check_expression(document.getElementById("expression_to_graph").value);}
+<script>
+    // Wire up the MVC.
+    view = new EG_View();
+    model = new EG_Model();
+    controller = new EG_Controller(model, view);
+    view.setController(controller);
+
+    // Wire-up event handler to the button.
+    document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
+        document.getElementById("NewNegatedAssertionValue").value="";document.getElementById("NewNegatedAssertionValue").focus();
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#NewNegatedAssertionValue').focus();
+        });
+
+    }
+
+    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);
+        document.getElementById("NewAssertionValue").value="";document.getElementById("NewAssertionValue").focus();
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#NewAssertionValue').focus();
+        });
+    }
 
 
+    function clearInput(input){
+        input.value="";
+    }
 
-		
-       
-    </script>
+
+</script>
 
 </body>
 </html>
