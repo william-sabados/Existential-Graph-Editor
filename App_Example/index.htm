@@ -163,7 +163,7 @@
         </div>
 
     </div>
-</div>
+</div>  
 <!-- Modal button two-->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -205,7 +205,7 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewAssertionValue" type="text" name="addChar" /><br>
+                <input id="NewAssertionValue" type="text" name="addChar" onfocus="clearInput(this)" autofocus/><br>
 
             </div>
             <div class="modal-footer">
@@ -232,7 +232,7 @@
     // Wire-up event handler to the button.
     document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
         document.getElementById("NewNegatedAssertionValue").value="";document.getElementById("NewNegatedAssertionValue").focus();
-        $('#myModal2').on('shown.bs.modal', function () {
+        $('#myModal').on('shown.bs.modal', function () {
             $('#NewNegatedAssertionValue').focus();
         });
 
@@ -240,7 +240,7 @@
 
     document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);
         document.getElementById("NewAssertionValue").value="";document.getElementById("NewAssertionValue").focus();
-        $('#myModal').on('shown.bs.modal', function () {
+        $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();
         });
     }
