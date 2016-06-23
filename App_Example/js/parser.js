@@ -7,7 +7,8 @@ function create_EG_Assertion(input)
 function parse_Items(array_Items)
 { 
 	// create_EG_Assertion new assertion object.
-	var newObject = new egAssertion();
+	var egID = controller.incrementID();
+	var newObject = new egAssertion(egID);
 
 	// Check to see if the input assertion is wrapped in ()'s or not.
 	if ((array_Items[0] == "(") && (array_Items[array_Items.length-1] == ")"))
