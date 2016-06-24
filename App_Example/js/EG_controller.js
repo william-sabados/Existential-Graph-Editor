@@ -35,7 +35,14 @@ EG_Controller.prototype = {
     incrementId() {
         this.egId++;
         return this.egId;
-    }  
+    }, 
+    // This function resets the controller's ID counter and notifies
+    // the model that it should also clear.
+    EGclear: function()
+    {
+        this.egId = 0;
+        model.EGclear();
+    },
 }
     
     

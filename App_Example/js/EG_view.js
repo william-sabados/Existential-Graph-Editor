@@ -120,7 +120,7 @@ EG_View.prototype = {
         // Add edId as a property to the graph element.
 		newText.set('egId', egId);
 
-        // Add the assertion to the graph.    
+        // Add the assertion to the graph. 
         graph.addCells([newText]);
     },
 	
@@ -135,9 +135,13 @@ EG_View.prototype = {
 			
 		}
 		
-	}
-	
-	
+	},
+// Clears the jointscript graph and informs the controller to clear as well.
+	EGclear: function()
+    {
+        graph.clear();
+        controller.EGclear();
+    },
     
 };
 

@@ -37,8 +37,13 @@ EG_Model.prototype = {
 			return parse_Items(thing_to_check);
 		}
 		else return false;
-		
-	}
+	},
+
+    // Returns the model to its original null state.
+    EGclear: function()
+    {
+        this.model = null;
+    }
         
 }
 
