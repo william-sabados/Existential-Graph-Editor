@@ -230,7 +230,7 @@
     view.setController(controller);
 
     // Wire-up event handler to the button.
-    document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
+    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
         document.getElementById("NewNegatedAssertionValue").value="";document.getElementById("NewNegatedAssertionValue").focus();
         $('#myModal').on('shown.bs.modal', function () {
             $('#NewNegatedAssertionValue').focus();
@@ -238,7 +238,7 @@
 
     }
 
-    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);
+    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value);
         document.getElementById("NewAssertionValue").value="";document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();
@@ -249,6 +249,16 @@
     function clearInput(input){
         input.value="";
     }
+    // Draw the new EG based on a model input.
+    OnClickDraw()
+    {
+        // Empty the graph first.
+        view.EGclear();
+        EGstring = document.getElementById("drawType").value;
+
+
+    }
+    // Function tie to clear everything.
     function clearArea()
     {
         view.EGclear();

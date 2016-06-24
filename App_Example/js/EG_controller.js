@@ -12,16 +12,17 @@ EG_Controller.prototype = {
     addNegatedAssertion: function (assertionValue) {
 
         var newId = this.incrementId();
-        this.model.addNegatedAssertion(assertionValue,true,newId);          
+        this.view.addNegatedAssertion(assertionValue,newId);          
         return newId;
     },
 	// Adds a new assertion to the model. 
     addAssertion: function (assertionValue) {
         var newId = this.incrementId();
-        this.model.addAssertion(assertionValue,true,newId);          
+        this.view.addAssertion(assertionValue,newId);          
         return newId;
     },
 	
+    //This needs to be reworked.
 	check_expression: function (thing_to_check) {
 		
 		if (this.model.check_expression(thing_to_check) != false)
