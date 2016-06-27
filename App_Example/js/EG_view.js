@@ -82,7 +82,7 @@ EG_View.prototype = {
     
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
     // TODO:  Needs to pick and empty place to add the new assertion.  
-    addNegatedAssertion: function (assertionValue,newId) {
+    addNegatedAssertion: function (assertionValue) {
         
         // Prepare to add shape to the graph.        
         var newRectangle = new joint.shapes.basic.Circle({
@@ -90,15 +90,19 @@ EG_View.prototype = {
             size: { width: 50, height: 40 },
             attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
         });
-        //
+        
+        // Notify controller that a new assertion is being added.
+        // Get the existential graph (eg) id in return. 
+        var egId = controller.addNegatedAssertion(assertionValue);
+
         // Add edId as a property to the graph element.
-        newRectangle.set('egId', newId);
+        newRectangle.set('egId', egId);
         
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
     },
 	
-	addAssertion: function (assertionValue,newId) {
+	addAssertion: function (assertionValue) {
         
 		////var newText = assertionValue;
 		
@@ -108,23 +112,26 @@ EG_View.prototype = {
             size: { width: 15, height: 22 },
             attrs: { text: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
         });
-     //
-     // Add edId as a property to the graph element.
-		newText.set('egId', newId);
+        
+        // Notify controller that a new assertion is being added.
+        // Get the existential graph (eg) id in return. 
+        var egId = controller.addAssertion(assertionValue);
+
+        // Add edId as a property to the graph element.
+		newText.set('egId', egId);
+
         // Add the assertion to the graph. 
         graph.addCells([newText]);
     },
 	
-    // I need to do this.
 	check_expression: function (thing_to_check) {
 		
-		if (controller.check_expression(thing_to_check) != false)
+		if (controller.check_expression(thing_to_check) != true)
 		{
-			return false;
+			
 		}
 		else
 		{
-            
 			
 		}
 		

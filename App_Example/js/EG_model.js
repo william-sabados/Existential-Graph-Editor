@@ -9,33 +9,25 @@ EG_Model.prototype = {
     setController: function (controller) {
         this.controller = controller;
     },
-
+    
     // Adds a new negated assertion to the model. 
-    addNegatedAssertion: function (assertionValue) {
-            // Notify controller that a new assertion is being added.
-            // Get the existential graph (eg) id in return. 
-            var egId = controller.addNegatedAssertion(assertionValue);
+    addNegatedAssertion: function (assertionValue,id) {
             //Check to see if this is the first assertion in the model.
             if (this.model == null) {
-            //Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
-                this.model = new egAssertion("", false, -1)
+                this.model = new egAssertion(assertionValue, true, id);
             }
-            //Now we can add the term.
-            this.model.addTerm(new egAssertion(assertionValue, true, egId));
-
+            else {
+                this.model.addTerm(new egAssertion(assertionValue, true, id));
+            }
     },
-	addAssertion: function (assertionValue) {
-            // Notify controller that a new assertion is being added.
-            // Get the existential graph (eg) id in return. 
-            var egId = controller.addAssertion(assertionValue);
+	addAssertion: function (assertionValue,id) {
             //Check to see if this is the first assertion in the model.
             if (this.model == null) {
-            // Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
-                this.model = new egAssertion("", false, -1)
+                this.model = new egAssertion(assertionValue, false, id);
             }
-            // Now we can add the term.
-            this.model.addTerm(new egAssertion(assertionValue, false, egId));
-
+            else {
+                this.model.addTerm(new egAssertion(assertionValue, false, id));
+            }
     },
 	
 	check_expression: function (thing_to_check) {
