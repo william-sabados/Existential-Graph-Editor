@@ -8,27 +8,29 @@ function EG_Controller(model, view) {
 // Member functions that are added to the Controller object.
 EG_Controller.prototype = {
     
-    // Adds a new negated assertion to the model. 
+    // Adds a new negated assertion to the view.
     addNegatedAssertion: function (assertionValue) {
 
         var newId = this.incrementId();
-        this.model.addNegatedAssertion(assertionValue,true,newId);          
+        this.view.addNegatedAssertion(assertionValue,newId);          
         return newId;
     },
-	// Adds a new assertion to the model. 
+	// Adds a new assertion to the view.
     addAssertion: function (assertionValue) {
         var newId = this.incrementId();
-        this.model.addAssertion(assertionValue,true,newId);          
+        this.view.addAssertion(assertionValue,newId);          
         return newId;
     },
 	
-	check_expression: function (thing_to_check) {
+    //This needs to be reworked.
+	/*check_expression: function (thing_to_check) {
 		
 		if (this.model.check_expression(thing_to_check) != false)
 			return this.model.check_expression(thing_to_check);
 		else return false;
 		
-	},
+	},*/
+
 	
     // This function handles incrementing the egID so that unique IDs
     // are created for each new assertion.
