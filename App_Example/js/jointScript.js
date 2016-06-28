@@ -29,6 +29,11 @@ r1.embed(r2);
 r1.embed(r3);
 graph.addCells([r1, r2, r3, r4]);
 
+// Returns the egId of whatever is selected
+getSelectionEgId = function(){
+    return (selection.model.prop('egId'));
+};
+
 // On cell click
 paper.on('cell:pointerdown',function(cellView,evt,x,y){
     // If there's already something selected, unhighlight it
