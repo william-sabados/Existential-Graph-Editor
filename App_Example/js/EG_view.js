@@ -110,7 +110,7 @@ EG_View.prototype = {
         var newText = new joint.shapes.basic.Text({
             position: { x: 170, y: 25 },
             size: { width: 15, height: 22 },
-            attrs: { text: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
+            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
         });
         
         // Notify controller that a new assertion is being added.
