@@ -22,11 +22,43 @@ EG_Controller.prototype = {
         return newId;
     },
 	
-	check_expression: function (thing_to_check) {
+check_expression: function (thing_to_check) {
 		
-		if (this.model.check_expression(thing_to_check) != false)
+		//Error cases 1-7 as returned by the validator function
+		if (model.check_expression(thing_to_check) == "error1")
+		{
+			return "error1";
+		}
+		else if (model.check_expression(thing_to_check) == "error2")
+		{
+			return "error2";
+		}
+		else if (model.check_expression(thing_to_check) == "error3")
+		{
+			return "error3";
+		}
+		else if (model.check_expression(thing_to_check) == "error4")
+		{
+			return "error4";
+		}
+		else if (model.check_expression(thing_to_check) == "error5")
+		{
+			return "error5";
+		}
+		else if (model.check_expression(thing_to_check) == "error6")
+		{
+			return "error6";
+		}
+		else if (model.check_expression(thing_to_check) == "error7")
+		{
+			return "error7";
+		}
+		
+		else 
+		{
 			return this.model.check_expression(thing_to_check);
-		else return false;
+		}
+		//else return false;
 		
 	},
 	

@@ -32,11 +32,43 @@ EG_Model.prototype = {
 	
 	check_expression: function (thing_to_check) {
 		
-		if (validate_input(thing_to_check) == true)
+		//Error cases 1-7 as returned by the validator function
+		if (validate_input(thing_to_check) == "error1")
+		{
+			return "error1";
+		}
+		else if (validate_input(thing_to_check) == "error2")
+		{
+			return "error2";
+		}
+		else if (validate_input(thing_to_check) == "error3")
+		{
+			return "error3";
+		}
+		else if (validate_input(thing_to_check) == "error4")
+		{
+			return "error4";
+		}
+		else if (validate_input(thing_to_check) == "error5")
+		{
+			return "error5";
+		}
+		else if (validate_input(thing_to_check) == "error6")
+		{
+			return "error6";
+		}
+		else if (validate_input(thing_to_check) == "error7")
+		{
+			return "error7";
+		}
+
+		/////////////////////////////////////////////////////
+		
+		else if (validate_input(thing_to_check) == true)
 		{
 			return parse_Items(thing_to_check);
 		}
-		else return false;
+		//else return false;
 		
 	}
         
