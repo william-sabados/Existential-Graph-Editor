@@ -98,6 +98,8 @@ EG_View.prototype = {
         // Add edId as a property to the graph element.
         newRectangle.set('egId', egId);
         
+        if(selection) selection.model.embed(newRectangle);
+
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
     },
@@ -119,6 +121,8 @@ EG_View.prototype = {
 
         // Add edId as a property to the graph element.
 		newText.set('egId', egId);
+
+        if(selection) selection.model.embed(newRectangle);
 
         // Add the assertion to the graph.    
         graph.addCells([newText]);
