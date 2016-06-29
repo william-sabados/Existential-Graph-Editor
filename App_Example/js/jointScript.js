@@ -31,7 +31,8 @@ graph.addCells([r1, r2, r3, r4]);
 
 // Returns the egId of whatever is selected
 getSelectionEgId = function(){
-    return (selection.model.prop('egId'));
+    if(selection) return (selection.model.prop('egId'));
+    else return 0;
 };
 
 // On cell click
@@ -40,6 +41,8 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
     if(selection) selection.unhighlight();
     // Select the cell the user is clicking on
     selection = cellView;
+    //Bring cell to front
+    selection.model.toFront({ deep: true });
     // Highlight the selection
     selection.highlight();
 });
