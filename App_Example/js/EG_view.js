@@ -82,7 +82,7 @@ EG_View.prototype = {
     
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
     // TODO:  Needs to pick and empty place to add the new assertion.  
-    addNegatedAssertion: function (assertionValue) {
+    addNegatedAssertion: function (assertionValue,newId) {
         
         // Prepare to add shape to the graph.        
         var newRectangle = new joint.shapes.basic.Circle({
@@ -90,19 +90,15 @@ EG_View.prototype = {
             size: { width: 50, height: 40 },
             attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
         });
-        
-        // Notify controller that a new assertion is being added.
-        // Get the existential graph (eg) id in return. 
-        var egId = controller.addNegatedAssertion(assertionValue);
-
+        //
         // Add edId as a property to the graph element.
-        newRectangle.set('egId', egId);
+        newRectangle.set('egId', newId);
         
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
     },
 	
-	addAssertion: function (assertionValue) {
+	addAssertion: function (assertionValue,newId) {
         
 		////var newText = assertionValue;
 		
@@ -112,58 +108,33 @@ EG_View.prototype = {
             size: { width: 15, height: 22 },
             attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
         });
-        
-        // Notify controller that a new assertion is being added.
-        // Get the existential graph (eg) id in return. 
-        var egId = controller.addAssertion(assertionValue);
-
-        // Add edId as a property to the graph element.
-		newText.set('egId', egId);
-
-        // Add the assertion to the graph.    
+     //
+     // Add edId as a property to the graph element.
+		newText.set('egId', newId);
+        // Add the assertion to the graph. 
         graph.addCells([newText]);
     },
 	
-check_expression: function (thing_to_check) {
+    // I need to do this.
+	check_expression: function (thing_to_check) {
 		
-		//Error cases 1-7 as returned by the validator function
-		if (controller.check_expression(thing_to_check) == "error1")
+		if (controller.check_expression(thing_to_check) != false)
 		{
-			alert("ERROR::Invalid adjacent inputs");
+			return false;
 		}
-		else if (model.check_expression(thing_to_check) == "error2")
-		{
-			alert("ERROR::Invalid use of not");
-		}
-		else if (controller.check_expression(thing_to_check) == "error3")
-		{
-			alert("ERROR::Uneven letters or carrots");
-		}
-		else if (controller.check_expression(thing_to_check) == "error4")
-		{
-			alert("ERROR::Improper syntax");
-		}
-		else if (controller.check_expression(thing_to_check) == "error5")
-		{
-			alert("ERROR::Assertion must be between parenthesis");
-		}
-		else if (controller.check_expression(thing_to_check) == "error6")
-		{
-			alert("ERROR::Uneven brackets");
-		}
-		else if (controller.check_expression(thing_to_check) == "error7")
-		{
-			alert("ERROR::FAILED");
-		}
-		
-		
 		else
 		{
+            
 			
 		}
 		
-	}
-	
+	},
+// Clears the jointscript graph and informs the controller to clear as well.
+	EGclear: function()
+    {
+        graph.clear();
+        controller.EGclear();
+    },
     
 };
 

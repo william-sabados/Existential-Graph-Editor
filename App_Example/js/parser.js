@@ -4,12 +4,9 @@ function create_EG_Assertion(input)
 	return parse_Items(input.match(/!\(|\w|!\w|\)|\(/gi));
 }
 
-function parse_Items(array_Items)
+function parse_Items(array_Items, model)
 { 
-	// create_EG_Assertion new assertion object.
-	var egID = controller.incrementID();
-	var newObject = new egAssertion(egID);
-
+	model = new egAssertion();
 	// Check to see if the input assertion is wrapped in ()'s or not.
 	if ((array_Items[0] == "(") && (array_Items[array_Items.length-1] == ")"))
 	{
@@ -65,11 +62,43 @@ function parse_Items(array_Items)
 		else 
 		{
 			// If not an nested object just add the item to the object's terms.
-			newObject.addTerm(array_Items[i]);
+			// Needs to keep going until it's not a term anymore.
+			negate = false;
+			term = "";
+			parseId = 0;
+			current = array_Items[i];
+			// If it's a "!", we still pursue the item, but we have to negate it.
+			if(current == "!")
+			{
+				i++;
+				current = array_Items[i];
+				negate = true;
+				// Time to circumvent the for loop a bit.
+				while(current != "(" && current != "^" && current != ")" && i < array_Items.length)
+				{
+					term += current;
+					i++;
+					current = array_Items[i];
+				}
+				if(term != "")
+					this.model.addNegatedAssertion(term);
+			}
+			// Okay, so it's not negated, but we need to go after the entire term.
+			else
+			{
+				while(current != '(' &&  current != '^' && current != ')' &&  i < array_Items.length)
+				{
+					term += array_Items[i];
+					i++;
+					current = array_Items[i];
+				}
+				if(term!= "")
+					this.model.addAssertion(term);
+			}
+			//
 		}
 	}
 	
-	return newObject;
 }	
 /*
 // str = "!(!(!A^!B)^!C)";

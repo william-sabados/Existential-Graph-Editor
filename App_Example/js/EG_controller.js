@@ -8,66 +8,43 @@ function EG_Controller(model, view) {
 // Member functions that are added to the Controller object.
 EG_Controller.prototype = {
     
-    // Adds a new negated assertion to the model. 
+    // Adds a new negated assertion to the view.
     addNegatedAssertion: function (assertionValue) {
 
         var newId = this.incrementId();
-        this.model.addNegatedAssertion(assertionValue,true,newId);          
+        this.view.addNegatedAssertion(assertionValue,newId);          
         return newId;
     },
-	// Adds a new assertion to the model. 
+	// Adds a new assertion to the view.
     addAssertion: function (assertionValue) {
         var newId = this.incrementId();
-        this.model.addAssertion(assertionValue,true,newId);          
+        this.view.addAssertion(assertionValue,newId);          
         return newId;
     },
 	
-check_expression: function (thing_to_check) {
+    //This needs to be reworked.
+	/*check_expression: function (thing_to_check) {
 		
-		//Error cases 1-7 as returned by the validator function
-		if (model.check_expression(thing_to_check) == "error1")
-		{
-			return "error1";
-		}
-		else if (model.check_expression(thing_to_check) == "error2")
-		{
-			return "error2";
-		}
-		else if (model.check_expression(thing_to_check) == "error3")
-		{
-			return "error3";
-		}
-		else if (model.check_expression(thing_to_check) == "error4")
-		{
-			return "error4";
-		}
-		else if (model.check_expression(thing_to_check) == "error5")
-		{
-			return "error5";
-		}
-		else if (model.check_expression(thing_to_check) == "error6")
-		{
-			return "error6";
-		}
-		else if (model.check_expression(thing_to_check) == "error7")
-		{
-			return "error7";
-		}
-		
-		else 
-		{
+		if (this.model.check_expression(thing_to_check) != false)
 			return this.model.check_expression(thing_to_check);
-		}
-		//else return false;
+		else return false;
 		
-	},
+	},*/
+
 	
     // This function handles incrementing the egID so that unique IDs
     // are created for each new assertion.
     incrementId() {
         this.egId++;
         return this.egId;
-    }  
+    }, 
+    // This function resets the controller's ID counter and notifies
+    // the model that it should also clear.
+    EGclear: function()
+    {
+        this.egId = 0;
+        model.EGclear();
+    },
 }
     
     
