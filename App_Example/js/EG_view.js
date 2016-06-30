@@ -72,27 +72,6 @@ function EG_View() {
     
 };
 
-//A function that picks an empty playce to find assertion
-findSpace= function(){
-        var isOpen = false;
-        while(!isOpen){
-            for(i=10; i<475; i++){
-                for(j=10; j<890; j ++){
-                    var modelIsInArea = graph.findModelsInArea(new g.rect(j-5, i-5, 60, 50));
-                    if(modelIsInArea.length == 0)
-                    {
-                        isOpen=true;
-                        emptyX = j;
-                        emptyY = i;
-                        break;
-                    }
-                    else continue;
-                }
-                break;
-            }
-        }
-    };
-
 // Member functions that are added to the View object.
 EG_View.prototype = {
     
@@ -105,12 +84,9 @@ EG_View.prototype = {
     // TODO:  Needs to pick and empty place to add the new assertion.  
     addNegatedAssertion: function (assertionValue,newId) {
         
-        //finds empty position
-        findSpace();
-
         // Prepare to add shape to the graph.        
         var newRectangle = new joint.shapes.basic.Circle({
-            position: { x: emptyX, y: emptyY },
+            position: { x: 170, y: 25 },
             size: { width: 50, height: 40 },
             attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
         });
@@ -128,13 +104,10 @@ EG_View.prototype = {
 	addAssertion: function (assertionValue,newId) {
         
 		////var newText = assertionValue;
-
-        //finds empty postion
-        findSpace();
 		
         // Prepare to add shape to the graph.        
         var newText = new joint.shapes.basic.Text({
-            position: { x: emptyX, y: emptyY },
+            position: { x: 170, y: 25 },
             size: { width: 15, height: 22 },
             attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
         });
