@@ -4,22 +4,23 @@ function egAssertion()
 	this.terms = [];
 	this.id = 0;
 	
-	if (arguments.length == 1)			//Creates empty eg with (0)id
+	if (arguments.length == 0)			//Creates empty eg
 	{
+		//document.write("<br>WORKED<br>");
 		this.isNegated = true;
 		this.terms = [];
-		this.id = arguments[0];
+		this.id = 0;
 	}
-	else if (arguments.length == 2){	//Creates empty eg with given (0)negation value and (1)id
+	else if (arguments.length == 1){	//Creates empty eg with given negation value
 		this.isNegated = arguments[0];
 		this.terms = [];
-		this.id = arguments[1];
+		this.id = 0;
 	}
-	else {								//Creates eg with given (0)term, (1)negation, and (2)id
+	else {								//Creates eg with given negation value and pushes a term
 		this.isNegated = arguments[1];
 		this.terms = [];
 		this.terms.push(arguments[0]);
-		this.id = arguments[2];
+		this.id = 0;
 	}
     
 	//toggles negation
@@ -126,17 +127,8 @@ function egAssertion()
 	
 }
 
-/*
-var eg1 = new egAssertion(1);
-document.write("<br>",eg1.toString());
-var eg2 = new egAssertion("False",2);
-document.write("<br>",eg2);
-var eg3 = new egAssertion("P","False",3);
-document.write("<br>",eg3);
-*/
+document.write("<br>----egAssertionClass Exetuded---------");
 
-
-document.write("<br>----egAssertionClass Execuded---------");
 
 
 

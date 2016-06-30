@@ -23,6 +23,8 @@
     <script src="./js/EG_model.js"></script>
     <script src="./js/EG_controller.js"></script>
     <script src="./js/egAssertionClass.js"></script>
+    <script src="./js/parser.js"></script>
+    <script src="./js/validator.js"></script>
 
 </head>
 <body>
@@ -249,6 +251,16 @@
     function clearInput(input){
         input.value="";
     }
+    function clearArea()
+    {
+        view.EGclear();
+    }
+    function  OnClickDraw()
+    {
+        view.EGclear();
+       if(document.getElementById("drawType").value != null)
+        model.check_expression(document.getElementById("drawType").value);
+    } 
 
 
 </script>
