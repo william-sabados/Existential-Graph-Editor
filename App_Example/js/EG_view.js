@@ -93,7 +93,10 @@ EG_View.prototype = {
         //
         // Add edId as a property to the graph element.
         newRectangle.set('egId', newId);
-        
+
+        //Embedding (if someone knows a better way, be my guest to change this)
+        if(selection) selection.model.embed(newRectangle);
+
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
     },
@@ -106,11 +109,14 @@ EG_View.prototype = {
         var newText = new joint.shapes.basic.Text({
             position: { x: 170, y: 25 },
             size: { width: 15, height: 22 },
-            attrs: { text: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
+            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
         });
      //
      // Add edId as a property to the graph element.
 		newText.set('egId', newId);
+
+        //Embedding (if someone knows a better way, be my guest to change this)
+        if(selection) selection.model.embed(newRectangle);
         // Add the assertion to the graph. 
         graph.addCells([newText]);
     },
