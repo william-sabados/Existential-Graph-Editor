@@ -84,6 +84,7 @@ EG_View.prototype = {
     // TODO:  Needs to pick and empty place to add the new assertion.  
     addNegatedAssertion: function (assertionValue,newId) {
         
+        w = assertionValue * 10;
         // Prepare to add shape to the graph.        
         var newRectangle = new joint.shapes.basic.Circle({
             position: { x: 170, y: 25 },
@@ -101,11 +102,11 @@ EG_View.prototype = {
 	addAssertion: function (assertionValue,newId) {
         
 		////var newText = assertionValue;
-		
+		w = assertionValue * 10;
         // Prepare to add shape to the graph.        
         var newText = new joint.shapes.basic.Text({
             position: { x: 170, y: 25 },
-            size: { width: 15, height: 22 },
+            size: { width: w, height: 22 },
             attrs: { text: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
         });
      //

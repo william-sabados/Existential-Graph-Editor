@@ -7,13 +7,15 @@ function egAssertion()
 	if (arguments.length == 0)			//Creates empty eg
 	{
 		//document.write("<br>WORKED<br>");
-		this.isNegated = true;
+		this.isNegated = false;
 		this.terms = [];
+		this.terms.push("");
 		this.id = 0;
 	}
 	else if (arguments.length == 1){	//Creates empty eg with given negation value
 		this.isNegated = arguments[0];
 		this.terms = [];
+		this.terms.push("");
 		this.id = 0;
 	}
 	else {								//Creates eg with given negation value and pushes a term
@@ -43,7 +45,11 @@ function egAssertion()
 	this.addTerm = function(term) {
 		this.terms.push(term)	
 	};
-	
+	// setValue()
+	//-------------------------------------------------------------------------
+	this.setValue = function(value) {
+		this.terms[0] = value;
+	}
 	//insertTerm(term, index)
 	//-------------------------------------------------------------------------
 	this.insertTerm = function(term,index){
