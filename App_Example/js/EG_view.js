@@ -76,25 +76,61 @@ function EG_View() {
 findSpace= function(){
         var isOpen = false;
         while(!isOpen){
-            for(i=10; i<440; i++){
-                for(j=10; j<950; j++){
-                    var modelIsInArea = graph.findModelsInArea(new g.rect(j-5, i-5, 60, 50));
-                    if(modelIsInArea.length == 0){
-                        isOpen=true;
-                        emptyX = j;
-                        emptyY = i;
-                        alert(emptyX);
-                        alert(emptyY);
-                        break;
+            if(selection){
+                for(i=0; i<selection.model.prop('size/height')-55; i+=5){
+                    for(j=0; j<selection.model.prop('size/width')-65; j+=5){
+                        var modelIsInArea = graph.findModelsInArea(new g.rect(selection.model.prop('position/x')+j+5, selection.model.prop('position/y')+i+5, 40, 30));
+                        alert(modelIsInArea.length);
+                        if(modelIsInArea.length == getNumParents(selection.model)+1){
+                            isOpen=true;
+                            emptyX = selection.model.prop('position/x')+j+10;
+                            emptyY = selection.model.prop('position/y')+i+10;
+                            break;
+                        }
+                        else continue;
                     }
+                    if(isOpen) break;
                     else continue;
                 }
-                if(isOpen) break;
-                else continue;
+                if(!isOpen) changeParentSize(selection.model,10,10);
+            }else{
+                for(i=10; i<440; i++){
+                    for(j=10; j<950; j++){
+                        var modelIsInArea = graph.findModelsInArea(new g.rect(j-5, i-5, 60, 50));
+                        if(modelIsInArea.length == 0){
+                            isOpen=true;
+                            emptyX = j;
+                            emptyY = i;
+                            break;
+                        }
+                        else continue;
+                    }
+                    if(isOpen) break;
+                    else continue;
+                }
             }
             if(!isOpen) alert('Can\'t find open space for assertion');
            // break;
         }
+    };
+
+    getNumParents = function(cell){
+        let numParents = 0;
+        let parentId = cell.get('parent');
+        if(parentId) numParents += 1 + getNumParents(graph.getCell(parentId));
+        return numParents;
+    };
+
+    changeParentSize = function(cell,width,height){
+        if(cell.get('parent')){
+            //if(cell.get('parent').prop('size/width') > cell.prop('size/width') && cell.get('parent').prop('size/height') > cell.prop('size/height')){
+                changeParentSize(graph.getCell(cell.get('parent')),cell.prop('size/width')+10,cell.prop('size/height')+10);
+            //}
+        }
+        cell.prop('size/width',(cell.prop('size/width')) + 10);
+        cell.prop('size/height',(cell.prop('size/height')) + 10);
+        //cell.prop('size/width',(cell.prop('size/width')) + width);
+        //cell.prop('size/height',(cell.prop('size/height')) + height);
     };
 
 // Member functions that are added to the View object.
@@ -147,8 +183,8 @@ EG_View.prototype = {
 		newText.set('egId', newId);
 
         //Embedding (if someone knows a better way, be my guest to change this)
-        //if(selection) selection.model.embed(newRectangle);
-        if(selection) alert('Embedding assertions does not currently work!');
+        if(selection) selection.model.embed(newText);
+        //if(selection) alert('Embedding assertions does not currently work!');
         // Add the assertion to the graph. 
         graph.addCells([newText]);
     },
@@ -172,6 +208,8 @@ EG_View.prototype = {
     {
         graph.clear();
         controller.EGclear();
+        if(selection) selection.unhighlight();
+        selection = null;
     },
     
 };
