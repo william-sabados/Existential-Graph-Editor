@@ -94,7 +94,6 @@ EG_View.prototype = {
         //
         // Add edId as a property to the graph element.
         newRectangle.set('egId', newId);
-        
 
         //Embedding (if someone knows a better way, be my guest to change this)
         if(selection) selection.model.embed(newRectangle);
@@ -110,13 +109,8 @@ EG_View.prototype = {
         // Prepare to add shape to the graph.        
         var newText = new joint.shapes.basic.Text({
             position: { x: 170, y: 25 },
-<<<<<<< HEAD
             size: { width: w, height: 22 },
             attrs: { text: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
-=======
-            size: { width: 15, height: 22 },
-            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
->>>>>>> refs/remotes/origin/master
         });
      //
      // Add edId as a property to the graph element.
