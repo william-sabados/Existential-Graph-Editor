@@ -88,7 +88,6 @@ EG_Model.prototype = {
 		}
 		//else return false;
 		
->>>>>>> refs/remotes/origin/master
 	},
 
     //Model informs the controller of its current layout.
