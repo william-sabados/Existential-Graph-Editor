@@ -9,13 +9,11 @@ function egAssertion()
 		//document.write("<br>WORKED<br>");
 		this.isNegated = false;
 		this.terms = [];
-		this.terms.push("");
 		this.id = 0;
 	}
 	else if (arguments.length == 1){	//Creates empty eg with given negation value
 		this.isNegated = arguments[0];
 		this.terms = [];
-		this.terms.push("");
 		this.id = 0;
 	}
 	else {								//Creates eg with given negation value and pushes a term
@@ -121,7 +119,7 @@ function egAssertion()
 			// Based on what's in the term we decide what to do.
 			if (edObj.terms[i] == "")						// This checks to see if the term is an empty string (i.e. "")	
 				termsText = termsText + " ";
-			else if (edObj.terms[i] instanceof egAssertion)	// This checks to see if the term is an empty string (i.e. "")
+			else if (edObj.terms[i] instanceof egAssertion)	// This checks to see if the term is an assertion. (i.e. "")
 				termsText = termsText + this.toStringDive(edObj.terms[i]);
 			else										// Just a plain old text term, just print it.
 				termsText = termsText + edObj.terms[i];
