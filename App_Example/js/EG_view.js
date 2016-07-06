@@ -122,16 +122,41 @@ EG_View.prototype = {
         graph.addCells([newText]);
     },
 	
-    // I need to do this.
-	check_expression: function (thing_to_check) {
+    check_expression: function (thing_to_check) {
 		
-		if (controller.check_expression(thing_to_check) != false)
+		//Error cases 1-7 as returned by the validator function
+		if (controller.check_expression(thing_to_check) == "error1")
 		{
-			return false;
+			alert("ERROR::Invalid adjacent inputs");
 		}
+		else if (model.check_expression(thing_to_check) == "error2")
+		{
+			alert("ERROR::Invalid use of not");
+		}
+		else if (controller.check_expression(thing_to_check) == "error3")
+		{
+			alert("ERROR::Uneven letters or carrots");
+		}
+		else if (controller.check_expression(thing_to_check) == "error4")
+		{
+			alert("ERROR::Improper syntax");
+		}
+		else if (controller.check_expression(thing_to_check) == "error5")
+		{
+			alert("ERROR::Assertion must be between parenthesis");
+		}
+		else if (controller.check_expression(thing_to_check) == "error6")
+		{
+			alert("ERROR::Uneven brackets");
+		}
+		else if (controller.check_expression(thing_to_check) == "error7")
+		{
+			alert("ERROR::FAILED");
+		}
+		
+		
 		else
 		{
-            
 			
 		}
 		
