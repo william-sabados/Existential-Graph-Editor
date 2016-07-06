@@ -25,14 +25,14 @@ function validate_input(str)
 		//Checks for any adjacent characters that are the same (cannot have any)
 		if ((check1 != null && check2 != null) && ((str[x] != "(" && str[x+1] != "(") && (str[x] != ")" && str[x+1] != ")")))
 		{
-			if (checker) document.write("<br>ERROR::Invalid adjacent inputs");
-			return false;
+			if (checker) {document.write("<br>ERROR::Invalid adjacent inputs");return false;}
+			if (!checker) {return "error1";}
 		}
 		//Checks for incorrect "!" placements
 		if (str[x].match(/\w|\)/gi) && str[x+1] == "!")
 		{
-			if (checker) document.write("<br>ERROR::Invalid use of not");
-			return false;
+			if (checker) {document.write("<br>ERROR::Invalid use of not");return false;}}
+			if (!checker) {return "error2";}
 		}
 	}
 	
@@ -41,18 +41,24 @@ function validate_input(str)
 	var check1 = str.match(/\w/gi);
 	var check2 = str.match(/\^/gi);
 	if (check1 != null && check2 == null && str.length > 4)
-	{if (checker) document.write("<br>ERROR::Uneven letters or carrots(1)");
-	return false;}
+	{
+		if (checker) {document.write("<br>ERROR::Uneven letters or carrots(1)");return false;}
+		if (!checker) {return "error3";}
+	}
 	
 	//Checks for any bad input characters
 	if (str.match(/[^\w|\(|\)|\^|!]/gi))
-	{if (checker) document.write("<br>ERROR::Improper syntax"); 
-	return false;}
+	{
+		if (checker) {document.write("<br>ERROR::Improper syntax"); return false;}
+		if (!checker) {return "error4";}	
+	}
 	
 	//An egAssertion must be between a pair of "()"
 	else if ((tokenized[0] != "(" && tokenized[0] != "!(") || (tokenized[tokenized.length-1] != ")"))
-	{if (checker) document.write("<br>ERROR::Assertion must be between parenthesis"); 
-	return false;}
+	{
+		if (checker) {document.write("<br>ERROR::Assertion must be between parenthesis");return false;}
+		if (!checker) {return "error5";}
+	}
 
 	//Checks a 'base case' of an empty assertion "()"
 	//Cases checked are: 1="()"; 2="!()"; 3="()^()"; 4="(())"
@@ -63,13 +69,17 @@ function validate_input(str)
 	//Checks for the right amount of 'anded' things	
 	//Secondary checks for ^'s are: ^ && \w are not null; amount of ^'s must be 1 less than amount of letters
 	else if (str.match(/\^/gi) != null && str.match(/\w/gi) != null && (str.match(/\w/gi).length != str.match(/\^/gi).length+1))			
-	{if (checker) document.write("<br>ERROR::Uneven letters or carrots(2)<br>"); 
-	return false;}
+	{
+		if (checker) {document.write("<br>ERROR::Uneven letters or carrots(2)<br>");return false;}
+		if (!checker) {return "error3";}
+	}
 
 	//Checks for even amount of braces
 	else if (str.match(/\(|!\(/gi).length != str.match(/\)/gi).length)		
-	{if (checker) document.write("<br>ERROR::Uneven brackets<br>"); 
-	return false;}
+	{
+		if (checker) {document.write("<br>ERROR::Uneven brackets<br>");return false;}
+		if (!checker) {return "error6";}
+	}
 
 	////////////////////////// END OF CHECKS ///////////////////////////////////
 	//Initial checks all passed
@@ -137,8 +147,8 @@ function validate_input(str)
 				}
 				else
 				{
-					if (checker) document.write("<br>FAILED - - -",check_string);
-					return false;
+					if (checker) {document.write("<br>FAILED - - -",check_string);return false;}
+					if (!checker) {return "error7";}
 				}
 				arrW = [];					//Resets arrW to empty
 			}
@@ -159,19 +169,5 @@ validate_input(str);
 
 
 document.write("<br>----------Validator Executed-------------")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
