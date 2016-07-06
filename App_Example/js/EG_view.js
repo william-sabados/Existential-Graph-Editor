@@ -72,6 +72,13 @@ function EG_View() {
     
 };
 
+getNumParents = function(cell){
+    let numParents = 0;
+    let parentId = cell.get('parent');
+    if(parentId) numParents += 1 + getNumParents(graph.getCell(parentId));
+    return numParents;
+};
+
 //A function that picks an empty playce to find assertion
 findSpace= function(){
         var isOpen = false;
@@ -80,7 +87,6 @@ findSpace= function(){
                 for(i=0; i<selection.model.prop('size/height')-55; i+=5){
                     for(j=0; j<selection.model.prop('size/width')-65; j+=5){
                         var modelIsInArea = graph.findModelsInArea(new g.rect(selection.model.prop('position/x')+j+5, selection.model.prop('position/y')+i+5, 40, 30));
-                        alert(modelIsInArea.length);
                         if(modelIsInArea.length == getNumParents(selection.model)+1){
                             isOpen=true;
                             emptyX = selection.model.prop('position/x')+j+10;
@@ -92,7 +98,10 @@ findSpace= function(){
                     if(isOpen) break;
                     else continue;
                 }
-                if(!isOpen) changeParentSize(selection.model,10,10);
+                if(!isOpen){
+                    moveNeighbors(selection.model,10,10);
+                    changeParentSize(selection.model,10,10);
+                }
             }else{
                 for(i=10; i<440; i++){
                     for(j=10; j<950; j++){
@@ -109,28 +118,60 @@ findSpace= function(){
                     else continue;
                 }
             }
-            if(!isOpen) alert('Can\'t find open space for assertion');
-           // break;
         }
     };
 
-    getNumParents = function(cell){
-        let numParents = 0;
-        let parentId = cell.get('parent');
-        if(parentId) numParents += 1 + getNumParents(graph.getCell(parentId));
-        return numParents;
-    };
+    // Returns true if there is space inside cell to place a new assertion
+    isSpace = function(cell){
+        let spaceAvail = false;
+        for(k=0; k<cell.prop('size/height')-65; k+=5){
+            for(l=0; l<cell.prop('size/width')-55; l+=5){
+                // Cycle through x and y (k and l)
+                let modelsInArea = graph.findModelsInArea(new g.rect(cell.prop('position/x')+l+5, cell.prop('position/y')+k+5, 60, 50));
+                if(modelsInArea.length == getNumParents(cell) + 1){
+                    // If there is "empty space" set space available to true
+                    spaceAvail = true;
+                    break;
+                }
+                else continue;
+            }
+            if(spaceAvail) break;
+            else continue;
+        }
+        // Return whether there is or is not space
+        return spaceAvail;
+    }
 
+    // Changes the size of each parent element, if needed
     changeParentSize = function(cell,width,height){
-        if(cell.get('parent')){
-            //if(cell.get('parent').prop('size/width') > cell.prop('size/width') && cell.get('parent').prop('size/height') > cell.prop('size/height')){
-                changeParentSize(graph.getCell(cell.get('parent')),cell.prop('size/width')+10,cell.prop('size/height')+10);
-            //}
+        if(cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))){
+            changeParentSize(graph.getCell(cell.get('parent')),10,10);
         }
-        cell.prop('size/width',(cell.prop('size/width')) + 10);
-        cell.prop('size/height',(cell.prop('size/height')) + 10);
-        //cell.prop('size/width',(cell.prop('size/width')) + width);
-        //cell.prop('size/height',(cell.prop('size/height')) + height);
+
+        cell.prop('size/width',(cell.prop('size/width')) + width);
+        cell.prop('size/height',(cell.prop('size/height')) + height);
+    };
+
+    // Returns the top parent of a given cell (recursively)
+    getTopParent = function(cell){
+        if(graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
+        else return cell;
+    };
+
+    // Moves all neighboring elements to the right and the bottom of the current cell right or down
+    moveNeighbors = function(cell,width,height){
+        let allCells = graph.getCells();
+        for(i = 0; i < allCells.length; i++){
+            let currCell = allCells[i];
+            //if current cell x < x + width, move right
+            if(cell.prop('position/x') + cell.prop('size/width') <= currCell.prop('position/x') && currCell.prop('position/y') >= getTopParent(cell).prop('position/y')-50){
+                currCell.prop('position/x',currCell.prop('position/x')+width);
+            }
+            //if current cell y < y + height, move down
+            if(cell.prop('position/y') + cell.prop('size/height') <= currCell.prop('position/y') && currCell.prop('position/x') >= getTopParent(cell).prop('position/x')-60){
+                currCell.prop('position/y',currCell.prop('position/y')+height);
+            }
+        }
     };
 
 // Member functions that are added to the View object.
