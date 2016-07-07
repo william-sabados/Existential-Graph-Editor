@@ -23,7 +23,6 @@ EG_Model.prototype = {
             // Now we can add the term.
             this.model.addTerm(new egAssertion(assertionValue, true, egId));
             // Update the text.
-            document.getElementById("drawType").value = model.getString();
 
     },
 	addAssertion: function (assertionValue) {
@@ -38,7 +37,6 @@ EG_Model.prototype = {
             // Now we can add the term.
             this.model.addTerm(new egAssertion(assertionValue, false, egId));
             // Update the text.
-            document.getElementById("drawType").value = model.getString();
 
     },
 
@@ -132,7 +130,7 @@ EG_Model.prototype = {
                 object.id = egId;
             }
         }
-        document.getElementById("drawType").value = model.getString();
+        
     },
     // Returns the model to its original null state.
     EGclear: function()

@@ -13,7 +13,6 @@ function fixSyntax(syntax)
         if(syntax[i] == " ")
         {
             syntax = syntax.slice(0, i) + syntax.slice(i+1);
-            i--;
         }
     for(i = 0; i < syntax.length; i++)
     {
