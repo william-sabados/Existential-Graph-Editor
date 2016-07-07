@@ -169,17 +169,17 @@ function validate_input(str)
 	return "error1";
 }
 
-str = "(A)(A)";
+/*str = "(A)(A)";
 str = "((A)A)";
 str = "()^()^()";
 str = "(A)";
 
-validate_input(str);
+validate_input(str);*/
 
 
 
 
+document.write("<br>----------Validator Executed-------------");
 
-document.write("<br>----------Validator Executed-------------")
 
 

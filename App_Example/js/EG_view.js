@@ -208,6 +208,7 @@ EG_View.prototype = {
     // TODO:  Needs to pick and empty place to add the new assertion.  
     addNegatedAssertion: function (assertionValue,newId) {
         
+
         //finds empty position
         findSpace();
 
@@ -261,40 +262,39 @@ EG_View.prototype = {
     check_expression: function (thing_to_check) {
 		
 		//Error cases 1-7 as returned by the validator function
-		if (controller.check_expression(thing_to_check) == "error1")
+        error = controller.check_expression(thing_to_check);
+		if (error == "error1")
 		{
 			document.write("GGGGG");
 			alert("ERROR::Invalid adjacent inputs");
 		}
-		else if (controller.check_expression(thing_to_check) == "error2")
+		else if (error == "error2")
 		{
 			alert("ERROR::Invalid use of not");
 		}
-		else if (controller.check_expression(thing_to_check) == "error3")
+		else if (error == "error3")
 		{
 			alert("ERROR::Uneven letters or carrots");
 		}
-		else if (controller.check_expression(thing_to_check) == "error4")
+		else if (error == "error4")
 		{
 			alert("ERROR::Improper syntax");
 		}
-		else if (controller.check_expression(thing_to_check) == "error5")
+		else if (error == "error5")
 		{
 			alert("ERROR::Assertion must be between parenthesis");
 		}
-		else if (controller.check_expression(thing_to_check) == "error6")
+		else if (error == "error6")
 		{
 			alert("ERROR::Uneven brackets");
 		}
-		else if (controller.check_expression(thing_to_check) == "error7")
+		else if (error == "error7")
 		{
 			alert("ERROR::FAILED");
 		}
-		
-		
 		else
 		{
-			
+			return error;
 		}
 		
 	},

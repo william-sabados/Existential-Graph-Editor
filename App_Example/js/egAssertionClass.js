@@ -7,7 +7,7 @@ function egAssertion()
 	if (arguments.length == 0)			//Creates empty eg
 	{
 		//document.write("<br>WORKED<br>");
-		this.isNegated = true;
+		this.isNegated = false;
 		this.terms = [];
 		this.id = 0;
 	}
@@ -43,7 +43,6 @@ function egAssertion()
 	this.addTerm = function(term) {
 		this.terms.push(term)	
 	};
-	
 	//insertTerm(term, index)
 	//-------------------------------------------------------------------------
 	this.insertTerm = function(term,index){
@@ -115,7 +114,7 @@ function egAssertion()
 			// Based on what's in the term we decide what to do.
 			if (edObj.terms[i] == "")						// This checks to see if the term is an empty string (i.e. "")	
 				termsText = termsText + " ";
-			else if (edObj.terms[i] instanceof egAssertion)	// This checks to see if the term is an empty string (i.e. "")
+			else if (edObj.terms[i] instanceof egAssertion)	// This checks to see if the term is an assertion. (i.e. "")
 				termsText = termsText + this.toStringDive(edObj.terms[i]);
 			else										// Just a plain old text term, just print it.
 				termsText = termsText + edObj.terms[i];
