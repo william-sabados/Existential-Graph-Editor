@@ -27,6 +27,8 @@ EG_Controller.prototype = {
 		//Error cases 1-7 as returned by the validator function
 		if (model.check_expression(thing_to_check) == "error1")
 		{
+			document.write("RESFDS");
+			//alert ("BBBBB");
 			return "error1";
 		}
 		else if (model.check_expression(thing_to_check) == "error2")
