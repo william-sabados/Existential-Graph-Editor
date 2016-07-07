@@ -208,6 +208,7 @@ EG_View.prototype = {
     // TODO:  Needs to pick and empty place to add the new assertion.  
     addNegatedAssertion: function (assertionValue,newId) {
         
+
         //finds empty position
         findSpace();
 
@@ -262,54 +263,53 @@ EG_View.prototype = {
 		var i = 0;
 		
 		//Error cases 1-7 as returned by the validator function
-		if (controller.check_expression(thing_to_check) == "error1")
+        error = controller.check_expression(thing_to_check);
+		if (error == "error1")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Invalid adjacent inputs");
 			i = 1;
 		}
-		else if (controller.check_expression(thing_to_check) == "error2")
+		else if (error == "error2")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Invalid use of not");
 			i = 1;
 		}
-		else if (controller.check_expression(thing_to_check) == "error3")
+		else if (error == "error3")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Uneven letters or carrots");
 			i = 1;
 		}
-		else if (controller.check_expression(thing_to_check) == "error4")
+		else if (error == "error4")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Improper syntax");
 			i = 1;
 		}
-		else if (controller.check_expression(thing_to_check) == "error5")
+		else if (error == "error5")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Assertion must be between parenthesis");
 			i = 1;
 		}
-		else if (controller.check_expression(thing_to_check) == "error6")
+		else if (error == "error6")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Uneven brackets");
 			i = 1;
 		}
-		else if (controller.check_expression(thing_to_check) == "error7")
+		else if (error == "error7")
 		{
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::FAILED");
 			i = 1;
 		}
-		
 		//if (i = 1) {document.getElementById("drawType").style.color="black";}
-		
 		else
 		{
-			
+			return error;
 		}
 		
 	},

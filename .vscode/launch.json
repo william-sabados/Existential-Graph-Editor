@@ -1,15 +1,10 @@
 {
-	"version": "0.2.0",
-	"configurations": [
-	    {
-                "name": "Debug",
-                "type": "chrome",
-                "request": "launch",
-                "webRoot": "${workspaceRoot}/DemoGUI v2",
-                "url": "http://localhost:3000/HelloWorld.htm", 
-                "userDataDir": "${workspaceRoot}/.vscode/chrome",
-                "sourceMaps": true,
-                "preLaunchTask": "development"
-            }
-	]
+ "version": "0.2.0",
+ "configurations": [
+ {
+ "name": "Debugger",
+ "type": "chrome",
+ "request": "launch",
+ "file": "${workspaceRoot}/App_Example/index.htm"
+ }]
 }

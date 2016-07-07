@@ -25,6 +25,7 @@
     <script src="./js/egAssertionClass.js"></script>
     <script src="./js/parser.js"></script>
     <script src="./js/validator.js"></script>
+    <script src="./js/syntax.js"></script>
 
 </head>
 <body>
@@ -190,7 +191,7 @@
 
                 <script>
                     // Wire-up event handler to the button.
-                    document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
+                    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
                 </script>
             </div>
         </div>
@@ -219,7 +220,7 @@
 
                 <script>
                     // Wire-up event handler to the button.
-                    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);}
+                    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value);}
                 </script>
             </div>
         </div>
@@ -234,7 +235,7 @@
     view.setController(controller);
 
     // Wire-up event handler to the button.
-    document.getElementById("AddNegatedAssertionButton").onclick = function(){view.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
+    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
         document.getElementById("NewNegatedAssertionValue").value="";document.getElementById("NewNegatedAssertionValue").focus();
         $('#myModal').on('shown.bs.modal', function () {
             $('#NewNegatedAssertionValue').focus();
@@ -242,7 +243,7 @@
 
     }
 
-    document.getElementById("AddAssertionButton").onclick = function(){view.addAssertion(document.getElementById("NewAssertionValue").value);
+    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value);
         document.getElementById("NewAssertionValue").value="";document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();
@@ -250,20 +251,22 @@
     }
 
 
-    function clearInput(input){
+    function clearInput(input)
+    {
         input.value="";
     }
     function clearArea()
     {
         view.EGclear();
+        UpdateFill();
     }
     function  OnClickDraw()
     {
 	  
        view.EGclear();
        if(document.getElementById("drawType").value != null)
-       view.check_expression(document.getElementById("drawType").value);
-    } 
+        model.Rebuild(view.check_expression(document.getElementById("drawType").value));
+    }
 	
 	function change_to_black(){ document.getElementById("drawType").style.color="black";}
 	
