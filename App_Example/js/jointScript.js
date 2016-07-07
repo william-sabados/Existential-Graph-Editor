@@ -49,8 +49,6 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
 
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
-    // Unhighlight the selection if there is one
     if(selection) selection.unhighlight();
-    // Set the selection to nothing
     selection = null;
 });
