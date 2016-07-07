@@ -88,7 +88,7 @@
 
 <form>
     <div class="input-group">
-        <input id="drawType" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2">
+        <input id="drawType" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
         <span  class="input-group-addon" id="drawC" onclick="return OnClickDraw();">Submit</span>
         <span  class="input-group-addon" id="clear" onclick="return clearArea();">Clear</span>
         <span  class="input-group-addon" id="save">Save</span>
@@ -262,6 +262,8 @@
         model.check_expression(document.getElementById("drawType").value);
     } 
 
+    function change_to_black(){ document.getElementById("drawType").style.color="black";}
+	
 
 </script>
 
