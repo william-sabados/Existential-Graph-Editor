@@ -18,6 +18,26 @@
     // Change position of EG element.
     graph.on('change:position', function(cell, newPosition, opt) {
 
+        var parentId = cell.get('parent');
+        if (!parentId) return;
+
+        var parent = graph.getCell(parentId);
+        var parentBbox = parent.getBBox();
+        var cellBbox = cell.getBBox();
+
+        if (parentBbox.containsPoint(cellBbox.origin()) &&
+            parentBbox.containsPoint(cellBbox.topRight()) &&
+            parentBbox.containsPoint(cellBbox.corner()) &&
+            parentBbox.containsPoint(cellBbox.bottomLeft())) {
+
+            // All the four corners of the child are inside
+            // the parent area.
+            return;
+        }
+
+        // Revert the child position.
+        cell.set('position', cell.previous('position'));
+/*
         if (opt.skipParentHandler) return;
 
         if (cell.get('embeds') && cell.get('embeds').length) {
@@ -62,6 +82,8 @@
             position: { x: newX, y: newY },
             size: { width: newCornerX - newX, height: newCornerY - newY }
         }, { skipParentHandler: true });
+
+        */
     });
 
 
@@ -164,11 +186,11 @@ findSpace= function(){
         for(i = 0; i < allCells.length; i++){
             let currCell = allCells[i];
             //if current cell x < x + width, move right
-            if(cell.prop('position/x') + cell.prop('size/width') <= currCell.prop('position/x') && currCell.prop('position/y') >= getTopParent(cell).prop('position/y')-50){
+            if(cell.prop('position/x') + cell.prop('size/width') <= currCell.prop('position/x')){// && currCell.prop('position/y') >= getTopParent(cell).prop('position/y')-50){
                 currCell.prop('position/x',currCell.prop('position/x')+width);
             }
             //if current cell y < y + height, move down
-            if(cell.prop('position/y') + cell.prop('size/height') <= currCell.prop('position/y') && currCell.prop('position/x') >= getTopParent(cell).prop('position/x')-60){
+            if(cell.prop('position/y') + cell.prop('size/height') <= currCell.prop('position/y')){// && currCell.prop('position/x') >= getTopParent(cell).prop('position/x')-60){
                 currCell.prop('position/y',currCell.prop('position/y')+height);
             }
         }
@@ -201,6 +223,12 @@ EG_View.prototype = {
 
         //Embedding (if someone knows a better way, be my guest to change this)
         if(selection) selection.model.embed(newRectangle);
+
+        // Tells whether the assertion is negative based on the parent
+        newRectangle.set('isNegated',true)
+        // If it has a parent, and the parent is negative, set this to positive (Only visual, need to talk to Matthew about controller and model interaction)
+        if(newRectangle.get('parent') && graph.getCell(newRectangle.get('parent')).prop('isNegated')) newRectangle.set('isNegated',false);
+        if(!newRectangle.get('isNegated')) newRectangle.prop('attrs/circle/fill','#D3D3D3');
 
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
