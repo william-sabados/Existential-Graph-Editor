@@ -15,7 +15,6 @@ var checker = false ;
 function validate_input(str)
 {
 	
-	/*
 	if (checker) document.write("<br>String = ",str);
 	var tokenized = str.match(/!\(|\w|!\w|\)|\(|\^/gi);		//Tokenized array
 	if (checker) document.write("<br>Tokenized = ",tokenized,"<br>");
@@ -165,17 +164,18 @@ function validate_input(str)
 		}
 	}
 	return true;
-	*/
-	return "error1";
+	
+	//return "error1";
 }
 
+/*
 str = "(A)(A)";
 str = "((A)A)";
 str = "()^()^()";
 str = "(A)";
 
 validate_input(str);
-
+*/
 
 
 
