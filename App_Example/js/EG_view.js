@@ -116,8 +116,8 @@ EG_View.prototype = {
 		newText.set('egId', newId);
 
         //Embedding (if someone knows a better way, be my guest to change this)
-        //if(selection) selection.model.embed(newRectangle);
-        if(selection) alert('Embedding assertions does not currently work!');
+        if(selection) selection.model.embed(newText);
+        //if(selection) alert('Embedding assertions does not currently work!');
         // Add the assertion to the graph. 
         graph.addCells([newText]);
     },
