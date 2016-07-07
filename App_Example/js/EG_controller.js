@@ -22,14 +22,12 @@ EG_Controller.prototype = {
         return newId;
     },
 	
-   check_expression: function (thing_to_check) {
+    check_expression: function (thing_to_check) {
 		
 		//Error cases 1-7 as returned by the validator function
 		error = model.check_expression(thing_to_check);
 		if (error == "error1")
 		{
-			document.write("RESFDS");
-			//alert ("BBBBB");
 			return "error1";
 		}
 		else if (error == "error2")
