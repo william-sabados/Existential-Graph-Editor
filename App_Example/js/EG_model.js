@@ -1,5 +1,5 @@
 function EG_Model() {
-    this.model = null;
+    //this.model = null;
     this.controller = null;
 };
 
@@ -43,6 +43,8 @@ EG_Model.prototype = {
 		//Error cases 1-7 as returned by the validator function
 		if (validate_input(thing_to_check) == "error1")
 		{
+			//document.write("LLLLL");
+			//alert ("AAAAA");
 			return "error1";
 		}
 		else if (validate_input(thing_to_check) == "error2")
