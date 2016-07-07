@@ -4,10 +4,18 @@
 // *** NOTE: The check cases need to be in correct order to function as intended *** //
 
 // * Change "checker" to true to enable ALL error and pass/fail outputs for testing * //
+
+// PROBLEM 	7/7/16 - - - In each return statement for error checking, validatorTester only works correctly if "checker" is set to true because of braces
+// FIX 		7/7/16 - - - Must run validatorTester while checker is set to "true" in this file, and manually go through the restults
+
+
+
 var checker = false ;
 
 function validate_input(str)
 {
+	
+	/*
 	if (checker) document.write("<br>String = ",str);
 	var tokenized = str.match(/!\(|\w|!\w|\)|\(|\^/gi);		//Tokenized array
 	if (checker) document.write("<br>Tokenized = ",tokenized,"<br>");
@@ -31,7 +39,7 @@ function validate_input(str)
 		//Checks for incorrect "!" placements
 		if (str[x].match(/\w|\)/gi) && str[x+1] == "!")
 		{
-			if (checker) {document.write("<br>ERROR::Invalid use of not");return false;}}
+			if (checker) {document.write("<br>ERROR::Invalid use of not");return false;}
 			if (!checker) {return "error2";}
 		}
 	}
@@ -157,6 +165,8 @@ function validate_input(str)
 		}
 	}
 	return true;
+	*/
+	return "error1";
 }
 
 str = "(A)(A)";
@@ -165,6 +175,8 @@ str = "()^()^()";
 str = "(A)";
 
 validate_input(str);
+
+
 
 
 
