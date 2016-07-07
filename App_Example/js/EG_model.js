@@ -22,6 +22,8 @@ EG_Model.prototype = {
             }
             // Now we can add the term.
             this.model.addTerm(new egAssertion(assertionValue, true, egId));
+            // Update the text.
+            document.getElementById("drawType").value = model.getString();
 
     },
 	addAssertion: function (assertionValue) {
@@ -35,6 +37,8 @@ EG_Model.prototype = {
             }
             // Now we can add the term.
             this.model.addTerm(new egAssertion(assertionValue, false, egId));
+            // Update the text.
+            document.getElementById("drawType").value = model.getString();
 
     },
 
@@ -96,16 +100,15 @@ EG_Model.prototype = {
     {
         if(!object)
         {
-            model.addAssertion("Rebuild failed.");
         }
         else
         {
             // Check if terms has more than just the the assertion value, if it does, then something is nested inside of it.
             if(object.terms.length > 1 || object.terms[0] instanceof egAssertion)
             {
-                for(i = 0; i < object.terms.length; i++)
+                for(rbld = 0; rbld < object.terms.length; rbld++)
                 {
-                    this.Rebuild(object.returnTerm(i));
+                    this.Rebuild(object.returnTerm(rbld));
                 }
             }
             // If there is just the one, figure out what it is and tell controller.
@@ -129,7 +132,7 @@ EG_Model.prototype = {
                 object.id = egId;
             }
         }
-
+        document.getElementById("drawType").value = model.getString();
     },
     // Returns the model to its original null state.
     EGclear: function()

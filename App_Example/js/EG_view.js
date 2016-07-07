@@ -306,12 +306,7 @@ EG_View.prototype = {
 			//alert("ERROR::FAILED");
 			i = 1;
 		}
-<<<<<<< HEAD
-=======
-		
 		//if (i = 1) {document.getElementById("drawType").style.color="black";}
-		
->>>>>>> refs/remotes/origin/master
 		else
 		{
 			return error;

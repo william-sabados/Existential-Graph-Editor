@@ -92,7 +92,6 @@
         <input id="drawType" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
         <span  class="input-group-addon" id="drawC" onclick="return OnClickDraw();">Submit</span>
         <span  class="input-group-addon" id="clear" onclick="return clearArea();">Clear</span>
-        <span  class="input-group-addon" id="update" onclick="return UpdateFill();">Update</span>
         <span  class="input-group-addon" id="save">Save</span>
         <!--img class="uahImg" src="../images/uahLogo.png"-->
     </div>
@@ -264,10 +263,6 @@
         view.EGclear();
        if(document.getElementById("drawType").value != null)
         model.Rebuild(view.check_expression(document.getElementById("drawType").value));
-    }
-    function UpdateFill()
-    {
-        document.getElementById("drawType").value = model.getString();
     }
 
     function change_to_black(){ document.getElementById("drawType").style.color="black";}
