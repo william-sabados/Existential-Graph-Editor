@@ -28,6 +28,8 @@ EG_Controller.prototype = {
 		error = model.check_expression(thing_to_check);
 		if (error == "error1")
 		{
+			document.write("RESFDS");
+			//alert ("BBBBB");
 			return "error1";
 		}
 		else if (error == "error2")
