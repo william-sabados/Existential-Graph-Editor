@@ -20,9 +20,11 @@ function fixSyntax(syntax)
             syntax = syntax.slice(0,i) + "(" + syntax.slice(i,i+1) + ")" + syntax.slice(i+1);
             i++;
         }
+        // Destroy all spaces in the string.
         else if(syntax[i] == " ")
         {
             syntax = syntax.slice(0, i) + syntax.slice(i+1);
+            i--;
         }
     }
     return syntax;

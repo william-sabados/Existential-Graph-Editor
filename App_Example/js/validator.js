@@ -31,7 +31,7 @@ function validate_input(str)
 		//Checks for incorrect "!" placements
 		if (str[x].match(/\w|\)/gi) && str[x+1] == "!")
 		{
-			if (checker) {document.write("<br>ERROR::Invalid use of not");return false;}}
+			if (checker) {document.write("<br>ERROR::Invalid use of not");return false;}
 			if (!checker) {return "error2";}
 		}
 	}
@@ -159,15 +159,15 @@ function validate_input(str)
 	return true;
 }
 
-str = "(A)(A)";
+/*str = "(A)(A)";
 str = "((A)A)";
 str = "()^()^()";
 str = "(A)";
 
-validate_input(str);
+validate_input(str);*/
 
 
 
-document.write("<br>----------Validator Executed-------------")
+document.write("<br>----------Validator Executed-------------");
 
 

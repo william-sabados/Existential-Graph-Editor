@@ -62,7 +62,7 @@ function parse_Items(array_Items)
 		else 
 		{
 			// If not an nested object just add the item to the object's terms.
-			newObject.setValue(array_Items[i]); 
+			newObject.addTerm(array_Items[i]); 
 		}
 	}
 	return newObject;

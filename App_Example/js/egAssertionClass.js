@@ -43,11 +43,6 @@ function egAssertion()
 	this.addTerm = function(term) {
 		this.terms.push(term)	
 	};
-	// setValue()
-	//-------------------------------------------------------------------------
-	this.setValue = function(value) {
-		this.terms[0] = value;
-	}
 	//insertTerm(term, index)
 	//-------------------------------------------------------------------------
 	this.insertTerm = function(term,index){
