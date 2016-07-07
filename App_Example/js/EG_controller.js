@@ -22,14 +22,45 @@ EG_Controller.prototype = {
         return newId;
     },
 	
-    //This needs to be reworked.
-	/*check_expression: function (thing_to_check) {
+    check_expression: function (thing_to_check) {
 		
-		if (this.model.check_expression(thing_to_check) != false)
-			return this.model.check_expression(thing_to_check);
-		else return false;
+		//Error cases 1-7 as returned by the validator function
+		error = model.check_expression(thing_to_check);
+		if (error == "error1")
+		{
+			return "error1";
+		}
+		else if (error == "error2")
+		{
+			return "error2";
+		}
+		else if (error == "error3")
+		{
+			return "error3";
+		}
+		else if (error == "error4")
+		{
+			return "error4";
+		}
+		else if (error == "error5")
+		{
+			return "error5";
+		}
+		else if (error == "error6")
+		{
+			return "error6";
+		}
+		else if (error == "error7")
+		{
+			return "error7";
+		}
+		else 
+		{
+			return error;
+		}
+		//else return false;
 		
-	},*/
+	},
 
 	
     // This function handles incrementing the egID so that unique IDs
