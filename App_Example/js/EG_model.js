@@ -1,5 +1,5 @@
 function EG_Model() {
-    //this.model = null;
+    this.model = null;
     this.controller = null;
 };
 
@@ -11,7 +11,7 @@ EG_Model.prototype = {
     },
 
     // Adds a new negated assertion to the model. 
-    addNegatedAssertion: function (assertionValue) {
+    addNegatedAssertion: function (assertionValue, nestid) {
             // Notify controller that a new assertion is being added.
             // Get the existential graph (eg) id in return. 
             var egId = controller.addNegatedAssertion(assertionValue);
@@ -21,11 +21,11 @@ EG_Model.prototype = {
                 this.model = new egAssertion();
             }
             // Now we can add the term.
-            this.model.addTerm(new egAssertion(assertionValue, true, egId));
-            // Update the text.
-
+            tmp = model.findTerm(this.model, nestid);
+            if(tmp != false)
+                tmp.addTerm(new egAssertion(assertionValue, true, egId));
     },
-	addAssertion: function (assertionValue) {
+	addAssertion: function (assertionValue, nestid) {
             // Notify controller that a new assertion is being added.
             // Get the existential graph (eg) id in return. 
             var egId = controller.addAssertion(assertionValue);
@@ -35,9 +35,29 @@ EG_Model.prototype = {
                 this.model = new egAssertion();
             }
             // Now we can add the term.
-            this.model.addTerm(new egAssertion(assertionValue, false, egId));
-            // Update the text.
-
+            tmp = model.findTerm(this.model, nestid);
+            if(tmp != false)
+                tmp.addTerm(new egAssertion(assertionValue, true, egId));
+    },
+    // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
+    findTerm: function (object,id)
+    {
+        // If the ID is 0, we can ignore all of this.
+        if(object.id == id)
+            return object;
+        for(a = 0; a < object.terms.length; a++)
+        {
+            if(object.returnTerm(a).id == id)
+                return object.returnTerm(a);
+            // If what is found is an egAssertion of its own, that one's ID must be checked as well.
+            else if(object.terms[0] instanceof egAssertion)
+            {
+                robject = model.findTerm(object.returnTerm(a), id);
+               if(robject != false)
+                   return robject;
+            }
+        }
+        return false;
     },
 
     getString: function ()
@@ -92,7 +112,6 @@ EG_Model.prototype = {
 		//else return false;
 		
 	},
-
     //Model informs the controller of its current layout.
     Rebuild: function(object)
     {
