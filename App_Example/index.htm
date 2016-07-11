@@ -135,18 +135,9 @@
     </section>
 
     <section>
-        <textarea id=console readonly rows="4" cols="217" wrap="soft">
-
-        </textarea>
+        <textarea id=console readonly rows="4" cols="100" wrap="soft"></textarea>
     </section>
 </div>
-
-<script>
-    window.onerror = function(msg,url,lineNo,columnNo,error){
-        msg = msg.toLowerCase();
-        document.getElementById("console").value += msg + " at " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
-    };
-</script>
 
 <!--br-->
 <div class="list-group">
@@ -284,7 +275,14 @@
 	
 	function change_to_black(){ document.getElementById("drawType").style.color="black";}
 	
+    window.onerror = function(msg,url,lineNo,columnNo,error){
+        //msg = msg.toLowerCase();
+        document.getElementById("console").value += msg + " in " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
+    };
 
+    function throwError(msg){
+        document.getElementById("console").value += msg + "\n";
+    }
 
 </script>
 
