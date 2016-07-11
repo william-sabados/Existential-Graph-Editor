@@ -196,6 +196,25 @@ findSpace= function(){
         }
     };
 
+    removeCell = function(){
+        alert("entered removeCell funtion");
+        alert(selection.model.prop());
+        let childrenCells = selection.model.get('embeds');
+        alert(childrenCells);
+        alert("About to check if statement");
+        alert(childrenCells.length);
+        if(childrenCells.length > 0){
+            alert("In if statement");
+            for(i = 0; i< childrenCells.length; i++){
+                graph.getCell(childrenCells[i]).remove();
+            }
+        }
+        else{
+            alert("In else statement")
+            selection.remove();
+        }
+    }
+
 // Member functions that are added to the View object.
 EG_View.prototype = {
     
@@ -203,7 +222,7 @@ EG_View.prototype = {
     setController: function (controller) {
         this.controller = controller;
     },
-    
+
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
     // TODO:  Needs to pick and empty place to add the new assertion.  
     addNegatedAssertion: function (assertionValue,newId) {

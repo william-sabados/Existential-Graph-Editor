@@ -52,3 +52,8 @@ paper.on('blank:pointerdown',function(evt,x,y){
     if(selection) selection.unhighlight();
     selection = null;
 });
+
+paper.on('cell:pointerdblclick', function(cellView, evt,x,y){
+    removeCell();
+    alert("Exited removeCell function");
+});
