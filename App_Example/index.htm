@@ -131,18 +131,32 @@
             </div>
 
             </panel>
-            </div>
-        </section>
-    </div>
-    <!--br-->
-    <div class="list-group">
-        <a href="#" class="list-group-item active">
-            <h4 class="list-group-item-heading">This is a UAH Project Done by the SMAP Center</h4>
-            <p class="list-group-item-text">...</p>
-        </a>
-    </div>
+        </div>
+    </section>
 
-    <div class="panel-footer">Developed by: Jason Thomas, Telly Polychroniades, & Dr. William Sabados</div>
+    <section>
+        <textarea id=console readonly rows="4" cols="217" wrap="soft">
+
+        </textarea>
+    </section>
+</div>
+
+<script>
+    window.onerror = function(msg,url,lineNo,columnNo,error){
+        msg = msg.toLowerCase();
+        document.getElementById("console").value += msg + " at " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
+    };
+</script>
+
+<!--br-->
+<div class="list-group">
+    <a href="#" class="list-group-item active">
+        <h4 class="list-group-item-heading">This is a UAH Project Done by the SMAP Center</h4>
+        <p class="list-group-item-text">...</p>
+    </a>
+</div>
+
+<div class="panel-footer">Developed by: Jason Thomas, Telly Polychroniades, & Dr. William Sabados</div>
 </div>
 <!-- Modal button one-->
 <div class="modal fade" id="myAlert" role="dialog">

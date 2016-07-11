@@ -17,7 +17,6 @@
 
     // Change position of EG element.
     graph.on('change:position', function(cell, newPosition, opt) {
-
         var parentId = cell.get('parent');
         if (!parentId) return;
 

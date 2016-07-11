@@ -1,6 +1,9 @@
 // This line needs to be called after the myholder div tag is declared.
 var paper = new joint.dia.Paper({ el: $('#myholder'), stroke: 1, width: 1174, height: 475, gridSize: 1, model: graph });
 var selection;
+var prevMouseX = 0;
+var prevMouseY = 0;
+var resizing = false;
 
 // Test rectangles.  I left these here so that something would render when the app was loaded.  
 // These will be delete at some point in the future.
@@ -45,7 +48,21 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
     selection.model.toFront({ deep: true });
     // Highlight the selection
     selection.highlight();
+    prevMouseX = x;
+    prevMouseY = y;
 });
+
+/* Resizing, but need to figure out how to prevent position change (drag to resize and to move, at the moment)
+paper.on('cell:pointermove',function(cellView,evt,x,y){
+    if(cellView == selection){
+        if(cellView.model.prop('size/width') + (x-prevMouseX) > 0 && cellView.model.prop('size/height') + (y-prevMouseY) > 0)
+        cellView.model.resize(cellView.model.prop('size/width') + (x-prevMouseX),cellView.model.prop('size/height') + (y-prevMouseY));
+        prevMouseX = x;
+        prevMouseY = y;
+        resizing = true;
+    }
+});
+*/
 
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
