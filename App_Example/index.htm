@@ -191,7 +191,7 @@
 
                 <script>
                     // Wire-up event handler to the button.
-                    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);}
+                    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());}
                 </script>
             </div>
         </div>
@@ -220,7 +220,7 @@
 
                 <script>
                     // Wire-up event handler to the button.
-                    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value);}
+                    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());}
                 </script>
             </div>
         </div>
@@ -235,7 +235,7 @@
     view.setController(controller);
 
     // Wire-up event handler to the button.
-    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value);
+    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());
         document.getElementById("NewNegatedAssertionValue").value="";document.getElementById("NewNegatedAssertionValue").focus();
         $('#myModal').on('shown.bs.modal', function () {
             $('#NewNegatedAssertionValue').focus();
@@ -243,7 +243,7 @@
 
     }
 
-    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value);
+    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());
         document.getElementById("NewAssertionValue").value="";document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();

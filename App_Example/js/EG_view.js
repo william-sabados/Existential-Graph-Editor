@@ -328,6 +328,7 @@ EG_View.prototype = {
 		//if (i = 1) {document.getElementById("drawType").style.color="black";}
 		else
 		{
+            document.getElementById("drawType").style.color="green";
 			return error;
 		}
 		

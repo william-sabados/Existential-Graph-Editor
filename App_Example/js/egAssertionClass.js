@@ -20,7 +20,7 @@ function egAssertion()
 		this.isNegated = arguments[1];
 		this.terms = [];
 		this.terms.push(arguments[0]);
-		this.id = 0;
+		this.id = arguments[2];
 	}
     
 	//toggles negation
