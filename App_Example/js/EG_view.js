@@ -163,10 +163,20 @@ findSpace= function(){
         return spaceAvail;
     }
 
-    // Changes the size of each parent element, if needed
+    // Increases the size of each parent element, if needed
     changeParentSize = function(cell,width,height){
         if(cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))){
-            changeParentSize(graph.getCell(cell.get('parent')),10,10);
+            changeParentSize(graph.getCell(cell.get('parent')),width,height);
+        }
+
+        cell.prop('size/width',(cell.prop('size/width')) + width);
+        cell.prop('size/height',(cell.prop('size/height')) + height);
+    };
+
+    //Decreases the size of parent element if something was removed
+    decreaseParentSize = function(cell,width,height){
+        if(cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))){
+            changeParentSize(graph.getCell(cell.get('parent')),width,height);
         }
 
         cell.prop('size/width',(cell.prop('size/width')) + width);
@@ -195,24 +205,6 @@ findSpace= function(){
         }
     };
 
-    removeCell = function(){
-        alert("entered removeCell funtion");
-        alert(selection.model.prop());
-        let childrenCells = selection.model.get('embeds');
-        alert(childrenCells);
-        alert("About to check if statement");
-        alert(childrenCells.length);
-        if(childrenCells.length > 0){
-            alert("In if statement");
-            for(i = 0; i< childrenCells.length; i++){
-                graph.getCell(childrenCells[i]).remove();
-            }
-        }
-        else{
-            alert("In else statement")
-            selection.remove();
-        }
-    }
 
 // Member functions that are added to the View object.
 EG_View.prototype = {
@@ -341,6 +333,18 @@ EG_View.prototype = {
         selection = null;
     },
     
+    removeCell: function(){
+	    let childrenCells = selection.model.getEmbeddedCells({deep:true})
+        decreaseParentSize(selection.model,-10,-10);
+	    if(childrenCells.length > 0){
+            for(i = 0; i< childrenCells.length; i++){
+	            childrenCells[i].remove();
+            }
+        }
+        selection.remove();
+        removeSelection();
+    },
+
 };
 
 

@@ -70,7 +70,7 @@ paper.on('blank:pointerdown',function(evt,x,y){
     selection = null;
 });
 
-paper.on('cell:pointerdblclick', function(cellView, evt,x,y){
-    removeCell();
-    alert("Exited removeCell function");
-});
+removeSelection = function(){
+    selection.unhighlight();
+    selection = null;
+};
