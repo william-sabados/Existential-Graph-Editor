@@ -118,6 +118,35 @@ changeParentSize = function (cell, width, height) {
         changeParentSize(graph.getCell(cell.get('parent')), 10, 10);
     }
 
+<<<<<<< HEAD
+    // Increases the size of each parent element, if needed
+    changeParentSize = function(cell,width,height){
+        if(cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))){
+            changeParentSize(graph.getCell(cell.get('parent')),width,height);
+        }
+
+        cell.prop('size/width',(cell.prop('size/width')) + width);
+        cell.prop('size/height',(cell.prop('size/height')) + height);
+    };
+
+    //Decreases the size of parent element if something was removed
+    decreaseParentSize = function(cell,width,height){
+        while(isSpace(cell)){
+            cell.prop('size/width',(cell.prop('size/width')) - width);
+            cell.prop('size/height',(cell.prop('size/height')) - height);
+        }
+
+        if(cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))){
+            decreaseParentSize(graph.getCell(cell.get('parent')),width,height);
+        }
+    };
+
+    // Returns the top parent of a given cell (recursively)
+    getTopParent = function(cell){
+        if(graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
+        else return cell;
+    };
+=======
     cell.prop('size/width', (cell.prop('size/width')) + width);
     cell.prop('size/height', (cell.prop('size/height')) + height);
 };
@@ -127,6 +156,7 @@ getTopParent = function (cell) {
     if (graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
     else return cell;
 };
+>>>>>>> refs/remotes/origin/master
 
 // Moves all neighboring elements to the right and the bottom of the current cell right or down
 moveNeighbors = function (cell, width, height) {
@@ -144,6 +174,7 @@ moveNeighbors = function (cell, width, height) {
     }
 };
 
+
 // Member functions that are added to the View object.
 EG_View.prototype = {
 
@@ -151,6 +182,14 @@ EG_View.prototype = {
     setController: function (controller) {
         this.controller = controller;
     },
+<<<<<<< HEAD
+
+    // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
+    // TODO:  Needs to pick and empty place to add the new assertion.  
+    addNegatedAssertion: function (assertionValue,newId) {
+        
+=======
+>>>>>>> refs/remotes/origin/master
 
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
     addNegatedAssertion: function (assertionValue, newId) {
@@ -269,5 +308,23 @@ EG_View.prototype = {
         controller.EGclear();
         if (selection) selection.unhighlight();
         selection = null;
+<<<<<<< HEAD
+    },
+    
+    removeCell: function(){
+	    let childrenCells = selection.model.getEmbeddedCells({deep:true})
+	    if(childrenCells.length > 0){
+            for(i = 0; i< childrenCells.length; i++){
+	            childrenCells[i].remove();
+            }
+        }
+        let parentCell = selection.model;
+        selection.remove();
+        removeSelection();
+        decreaseParentSize(parentCell,10,10);
+    },
+
+=======
     }
+>>>>>>> refs/remotes/origin/master
 };
