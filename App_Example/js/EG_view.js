@@ -115,38 +115,37 @@ isSpace = function (cell) {
 // Changes the size of each parent element, if needed
 changeParentSize = function (cell, width, height) {
     if (cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))) {
-        changeParentSize(graph.getCell(cell.get('parent')), 10, 10);
+        changeParentSize(graph.getCell(cell.get('parent')), width, height);
     }
 
-<<<<<<< HEAD
     // Increases the size of each parent element, if needed
-    changeParentSize = function(cell,width,height){
-        if(cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))){
-            changeParentSize(graph.getCell(cell.get('parent')),width,height);
+    changeParentSize = function (cell, width, height) {
+        if (cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))) {
+            changeParentSize(graph.getCell(cell.get('parent')), width, height);
         }
 
-        cell.prop('size/width',(cell.prop('size/width')) + width);
-        cell.prop('size/height',(cell.prop('size/height')) + height);
+        cell.prop('size/width', (cell.prop('size/width')) + width);
+        cell.prop('size/height', (cell.prop('size/height')) + height);
     };
 
     //Decreases the size of parent element if something was removed
-    decreaseParentSize = function(cell,width,height){
-        while(isSpace(cell)){
-            cell.prop('size/width',(cell.prop('size/width')) - width);
-            cell.prop('size/height',(cell.prop('size/height')) - height);
+    decreaseParentSize = function (cell, width, height) {
+        while (isSpace(cell)) {
+            cell.prop('size/width', (cell.prop('size/width')) - width);
+            cell.prop('size/height', (cell.prop('size/height')) - height);
         }
 
-        if(cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))){
-            decreaseParentSize(graph.getCell(cell.get('parent')),width,height);
+        if (cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))) {
+            decreaseParentSize(graph.getCell(cell.get('parent')), width, height);
         }
     };
 
     // Returns the top parent of a given cell (recursively)
-    getTopParent = function(cell){
-        if(graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
+    getTopParent = function (cell) {
+        if (graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
         else return cell;
     };
-=======
+
     cell.prop('size/width', (cell.prop('size/width')) + width);
     cell.prop('size/height', (cell.prop('size/height')) + height);
 };
@@ -156,7 +155,6 @@ getTopParent = function (cell) {
     if (graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
     else return cell;
 };
->>>>>>> refs/remotes/origin/master
 
 // Moves all neighboring elements to the right and the bottom of the current cell right or down
 moveNeighbors = function (cell, width, height) {
@@ -174,6 +172,15 @@ moveNeighbors = function (cell, width, height) {
     }
 };
 
+getCellById = function(id){
+    let cell;
+    let graphCells = graph.getCells();
+    for(i = 0; i < graphCells.length; i++){
+        if(graphCells[i].prop('egId') == id) cell = graphCells[i];
+    }
+    if(cell) return cell;
+    return 0;
+}
 
 // Member functions that are added to the View object.
 EG_View.prototype = {
@@ -182,17 +189,12 @@ EG_View.prototype = {
     setController: function (controller) {
         this.controller = controller;
     },
-<<<<<<< HEAD
 
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
     // TODO:  Needs to pick and empty place to add the new assertion.  
-    addNegatedAssertion: function (assertionValue,newId) {
-        
-=======
->>>>>>> refs/remotes/origin/master
-
-    // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
-    addNegatedAssertion: function (assertionValue, newId) {
+    addNegatedAssertion: function (assertionValue, newId,nestId) {
+        //If there's a nest id that's not 0 (the SA), set selection to it temporarily
+        if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
         findSpace();
 
@@ -217,6 +219,8 @@ EG_View.prototype = {
 
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
+
+        if(nestId != 0) selection = null;
     },
 
     addAssertion: function (assertionValue, newId) {
@@ -299,7 +303,6 @@ EG_View.prototype = {
             document.getElementById("drawType").style.color = "green";
             return error;
         }
-
     },
 
     // Clears the jointscript graph and informs the controller to clear as well.
@@ -308,23 +311,18 @@ EG_View.prototype = {
         controller.EGclear();
         if (selection) selection.unhighlight();
         selection = null;
-<<<<<<< HEAD
     },
-    
-    removeCell: function(){
-	    let childrenCells = selection.model.getEmbeddedCells({deep:true})
-	    if(childrenCells.length > 0){
-            for(i = 0; i< childrenCells.length; i++){
-	            childrenCells[i].remove();
+
+    removeCell: function () {
+        let childrenCells = selection.model.getEmbeddedCells({ deep: true })
+        if (childrenCells.length > 0) {
+            for (i = 0; i < childrenCells.length; i++) {
+                childrenCells[i].remove();
             }
         }
         let parentCell = selection.model;
         selection.remove();
         removeSelection();
-        decreaseParentSize(parentCell,10,10);
+        decreaseParentSize(parentCell, 10, 10);
     },
-
-=======
-    }
->>>>>>> refs/remotes/origin/master
 };
