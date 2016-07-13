@@ -175,12 +175,14 @@ findSpace= function(){
 
     //Decreases the size of parent element if something was removed
     decreaseParentSize = function(cell,width,height){
-        if(cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))){
-            changeParentSize(graph.getCell(cell.get('parent')),width,height);
+        while(isSpace(cell)){
+            cell.prop('size/width',(cell.prop('size/width')) - width);
+            cell.prop('size/height',(cell.prop('size/height')) - height);
         }
 
-        cell.prop('size/width',(cell.prop('size/width')) + width);
-        cell.prop('size/height',(cell.prop('size/height')) + height);
+        if(cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))){
+            decreaseParentSize(graph.getCell(cell.get('parent')),width,height);
+        }
     };
 
     // Returns the top parent of a given cell (recursively)
@@ -335,14 +337,15 @@ EG_View.prototype = {
     
     removeCell: function(){
 	    let childrenCells = selection.model.getEmbeddedCells({deep:true})
-        decreaseParentSize(selection.model,-10,-10);
 	    if(childrenCells.length > 0){
             for(i = 0; i< childrenCells.length; i++){
 	            childrenCells[i].remove();
             }
         }
+        let parentCell = selection.model;
         selection.remove();
         removeSelection();
+        decreaseParentSize(parentCell,10,10);
     },
 
 };
