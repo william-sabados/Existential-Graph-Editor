@@ -288,12 +288,8 @@
         document.getElementById("console").value += msg + " in " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
     };
 
-    function throwError(msg){
-        document.getElementById("console").value += msg + "\n";
-    }
-    
-    function error_submit(msg){
-			document.getElementById("submit_error").value += msg + "\n";
+    function error_submit(msg,console){
+		document.getElementById(console).value += msg + "\n";
  	}
 
 </script>
