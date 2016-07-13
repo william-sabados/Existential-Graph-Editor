@@ -204,8 +204,9 @@ EG_View.prototype = {
     },
     
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
-    // TODO:  Needs to pick and empty place to add the new assertion.  
-    addNegatedAssertion: function (assertionValue,newId) {
+    // TODO:  Needs to pick and empty place to add the new assertion. 
+    // TODO: Needs to fake select based on nestId (this could happen in controller)
+    addNegativeContext: function (newId, nestId) {
         
 
         //finds empty position
@@ -215,8 +216,8 @@ EG_View.prototype = {
         var newRectangle = new joint.shapes.basic.Circle({
             position: { x: emptyX, y: emptyY },
             size: { width: 50, height: 40 },
-            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }, text: { text: assertionValue } }
-        });
+            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }}
+            });
         //
         // Add edId as a property to the graph element.
         newRectangle.set('egId', newId);
@@ -234,7 +235,7 @@ EG_View.prototype = {
         graph.addCells([newRectangle]);
     },
 	
-	addAssertion: function (assertionValue,newId) {
+	addAssertion: function (assertionValue,newId, nestId) {
         
 		////var newText = assertionValue;
 		

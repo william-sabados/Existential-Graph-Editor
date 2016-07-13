@@ -1,4 +1,4 @@
-function egAssertion()
+function eagAssertion()
 {
 	this.isNegated = false;
 	this.terms = [];
