@@ -192,9 +192,9 @@ EG_View.prototype = {
 
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
     // TODO:  Needs to pick and empty place to add the new assertion.  
-    addNegatedAssertion: function (assertionValue, newId,nestId) {
+    addNegatedAssertion: function (assertionValue, newId) {
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
-        if(nestId != 0) selection = getCellById(nestId);
+        //if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
         findSpace();
 
@@ -220,7 +220,7 @@ EG_View.prototype = {
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
 
-        if(nestId != 0) selection = null;
+        //if(nestId != 0) selection = null;
     },
 
     addAssertion: function (assertionValue, newId) {

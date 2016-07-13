@@ -9,10 +9,10 @@ function EG_Controller(model, view) {
 EG_Controller.prototype = {
     
     // Adds a new negated assertion to the view.
-    addNegatedAssertion: function (assertionValue, nestId) {
+    addNegatedAssertion: function (assertionValue) {
 
         var newId = this.incrementId();
-        this.view.addNegatedAssertion(assertionValue,newId,nestId);          
+        this.view.addNegatedAssertion(assertionValue,newId);          
         return newId;
     },
 	// Adds a new assertion to the view.

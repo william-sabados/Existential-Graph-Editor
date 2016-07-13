@@ -14,7 +14,7 @@ EG_Model.prototype = {
     addNegatedAssertion: function (assertionValue, nestid) {
             // Notify controller that a new assertion is being added.
             // Get the existential graph (eg) id in return. 
-            var egId = controller.addNegatedAssertion(assertionValue,nestId);
+            var egId = controller.addNegatedAssertion(assertionValue);
             //Check to see if this is the first assertion in the model.
             if (this.model == null) {
             //Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
