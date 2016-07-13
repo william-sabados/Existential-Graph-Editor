@@ -278,42 +278,56 @@ EG_View.prototype = {
         error = controller.check_expression(thing_to_check);
 		if (error == "error1")
 		{
+			throwError("ERROR::Invalid adjacent inputs");
+			error_submit("ERROR::Invalid adjacent inputs");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Invalid adjacent inputs");
 			i = 1;
 		}
 		else if (error == "error2")
 		{
+			throwError("ERROR::Invalid use of not");
+			error_submit("ERROR::Invalid use of not");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Invalid use of not");
 			i = 1;
 		}
 		else if (error == "error3")
 		{
+			throwError("ERROR::Uneven letters or carrots");
+			error_submit("ERROR::Uneven letters or carrots");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Uneven letters or carrots");
 			i = 1;
 		}
 		else if (error == "error4")
 		{
+			throwError("ERROR::Improper syntax");
+			error_submit("ERROR::Improper syntax");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Improper syntax");
 			i = 1;
 		}
 		else if (error == "error5")
 		{
+			throwError("ERROR::Assertion must be between parenthesis");
+			error_submit("ERROR::Assertion must be between parenthesis");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Assertion must be between parenthesis");
 			i = 1;
 		}
 		else if (error == "error6")
 		{
+			throwError("ERROR::Uneven brackets");
+			error_submit("ERROR::Uneven brackets");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::Uneven brackets");
 			i = 1;
 		}
 		else if (error == "error7")
 		{
+			throwError("FAILED - - -");
+			error_submit("FAILED - - -");
 			document.getElementById("drawType").style.color="red";
 			//alert("ERROR::FAILED");
 			i = 1;
