@@ -173,13 +173,12 @@ moveNeighbors = function (cell, width, height) {
 };
 
 getCellById = function(id){
-    let cell;
+    let cell = null;
     let graphCells = graph.getCells();
     for(i = 0; i < graphCells.length; i++){
-        if(graphCells[i].prop('egId') == id) cell = graphCells[i];
+        if(graphCells[i].prop('egId') == id) cell = paper.findViewByModel(graphCells[i]);
     }
-    if(cell) return cell;
-    return 0;
+    return cell;
 }
 
 // Member functions that are added to the View object.
@@ -195,7 +194,7 @@ EG_View.prototype = {
     // TODO: Needs to fake select based on nestId (this could happen in controller)
     addNegativeContext: function (newId, nestId) {
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
-        //if(nestId != 0) selection = getCellById(nestId);
+        if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
         findSpace();
 
@@ -227,9 +226,10 @@ EG_View.prototype = {
 	addAssertion: function (assertionValue,newId, nestId) {
         
 		////var newText = assertionValue;
+        //If there's a nest id that's not 0 (the SA), set selection to it temporarily
+        if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
         findSpace();
-
         // Prepare to add shape to the graph.        
         var newText = new joint.shapes.basic.Text({
             position: { x: emptyX, y: emptyY },

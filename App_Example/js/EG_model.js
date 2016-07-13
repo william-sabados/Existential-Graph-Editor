@@ -46,13 +46,13 @@ EG_Model.prototype = {
                 else
                     tmp.addTerm(new egAssertion(assertionValue, egId));
             }
-            throwError(this.model.toString());
-			error_submit(this.model.toString());
+            error_submit(this.model.toString(), "console");
+			error_submit(this.model.toString(), "submit_error");
     },
 	addAssertion: function (assertionValue, nestid) {
             // Notify controller that a new assertion is being added.
             // Get the existential graph (eg) id in return. 
-            var egId = controller.addAssertion(assertionValue);
+            var egId = controller.addAssertion(assertionValue, nestid);
             //Check to see if this is the first assertion in the model.
             if (this.model == null) {
             // Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
@@ -68,8 +68,8 @@ EG_Model.prototype = {
                 else
                     tmp.addTerm(new egAssertion(assertionValue, egId));
             }
-            throwError(this.model.toString());
-			error_submit(this.model.toString());
+            error_submit(this.model.toString(), "console");
+			error_submit(this.model.toString(), "submit_error");
     },
     // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
     /*findTerm: function (object,id)
