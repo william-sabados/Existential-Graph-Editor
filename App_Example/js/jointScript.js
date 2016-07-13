@@ -69,3 +69,8 @@ paper.on('blank:pointerdown',function(evt,x,y){
     if(selection) selection.unhighlight();
     selection = null;
 });
+
+removeSelection = function(){
+    selection.unhighlight();
+    selection = null;
+};

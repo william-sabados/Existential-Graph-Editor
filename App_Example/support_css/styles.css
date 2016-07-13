@@ -104,3 +104,11 @@ section {
     margin-bottom: 3px;
     margin-top: 0px;
 }*/
+body{
+    padding-right:0px !important;
+    margin-right:0px !important;
+}
+.modal-open{
+    overflow: auto !important;
+    padding-right: 0px !important;
+}

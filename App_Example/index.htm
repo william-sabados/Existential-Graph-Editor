@@ -132,7 +132,7 @@
                 <button type="button" class="btn btn-info">Specialize (Negative Context)</button>
                 <button type="button" class="btn btn-info">Generalize (Positive Context)</button>
                 <button type="button" class="btn btn-info">Copy (Sub-Graph)</button>
-                <button type="button" class="btn btn-info">Remove (Sub-Graph)</button>
+                <button type="button" class="btn btn-info" id="removeSubGraph">Remove (Sub-Graph)</button>
                 <button type="button" class="btn btn-info">2X Negative (Sub-Graph)</button>
                 <button type="button" class="btn btn-info">Remove 2X (From Sub-Graph)</button>
             </div>
@@ -262,6 +262,9 @@
         });
     }
 
+    document.getElementById("removeSubGraph").onclick = function(){
+        view.removeCell()
+    }
 
     function clearInput(input)
     {
@@ -290,12 +293,8 @@
         document.getElementById("console").value += msg + " in " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
     };
 
-    function throwError(msg){
-        document.getElementById("console").value += msg + "\n";
-    }
-    
-    function error_submit(msg){
-			document.getElementById("submit_error").value += msg + "\n";
+    function error_submit(msg,console){
+		document.getElementById(console).value += msg + "\n";
  	}
 
 </script>
