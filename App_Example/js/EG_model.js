@@ -166,7 +166,7 @@ EG_Model.prototype = {
 		
 		else if (error == true)
 		{
-			return parse_Items(thing_to_check);
+			return create_EG_Assertion(thing_to_check);
 		}
 		//else return false;
 		
