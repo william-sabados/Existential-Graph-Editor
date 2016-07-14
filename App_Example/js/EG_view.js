@@ -220,7 +220,7 @@ EG_View.prototype = {
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
 
-        //if(nestId != 0) selection = null;
+        removeSelection();
     },
 	
 	addAssertion: function (assertionValue,newId, nestId) {
@@ -245,6 +245,8 @@ EG_View.prototype = {
         //if(selection) alert('Embedding assertions does not currently work!');
         // Add the assertion to the graph. 
         graph.addCells([newText]);
+
+        removeSelection();
     },
 
     check_expression: function (thing_to_check) {

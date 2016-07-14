@@ -4,7 +4,7 @@
 function fixSyntax(syntax)
 {
     //Check that the entire statement is wrapped. It needs to be.
-    if((syntax[0] != "(" || syntax[0] != "!") && syntax[syntax.length-1] != ")")
+    if(!((syntax[0] == "(" || syntax[0] == "!") && syntax[syntax.length-1] == ")"))
     {
         syntax = "(" + syntax + ")";
     }

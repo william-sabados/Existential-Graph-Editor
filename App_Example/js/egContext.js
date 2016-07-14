@@ -31,7 +31,7 @@ function egContext(prevContext, id)
         {
             if(t instanceof egAssertion)
             {
-                if(t.id = id)
+                if(t.id == id)
                 {
                     return t;
                 }
