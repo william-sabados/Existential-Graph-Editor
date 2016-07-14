@@ -1,5 +1,5 @@
 function EG_Model() {
-    this.model = null;
+    this.model = new egSheet();
     this.controller = null;
 };
 
@@ -9,38 +9,106 @@ EG_Model.prototype = {
     setController: function (controller) {
         this.controller = controller;
     },
+    addNegativeContext: function (nestid) {
+        //Check to see if the model lacks a sheet.
+        if(this.model == null) 
+        {
+            // Add the sheet of assertions if it does not exist.
+            this.model = new egSheet();
+        }
+        tmp = this.model.returnTermByID(nestid);
+            if(!(tmp instanceof egAssertion))
+            {
+                // Notify the controller that a new context is being added.
+                // Get the egId in return.
+                var egId = controller.addNegativeContext(nestid);
+                
+                // Find where we are adding the context.
+                tmp = this.model.returnTermByID(nestid);
+                // If it exists, add it.
+                if(tmp != false)
+                {
+                    if(tmp == -1)
+                        this.model.addTerm(new egContext(false, egId));
+                    else
+                    tmp.addTerm(new egContext(tmp.isNegative, egId));
+                }
+            }
+            return egId;
 
+    },
     // Adds a new negated assertion to the model. 
     addNegatedAssertion: function (assertionValue, nestid) {
-            // Notify controller that a new assertion is being added.
-            // Get the existential graph (eg) id in return. 
-            var egId = controller.addNegatedAssertion(assertionValue);
-            //Check to see if this is the first assertion in the model.
-            if (this.model == null) {
-            //Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
-                this.model = new egAssertion();
+            //Check to see if the model lacks a sheet.
+            if(this.model == null) 
+            {
+                // Add the sheet of assertions if it does not exist.
+                this.model = new egSheet();
             }
-            // Now we can add the term.
-            tmp = model.findTerm(this.model, nestid);
-            if(tmp != false)
-                tmp.addTerm(new egAssertion(assertionValue, true, egId));
+            // Find where we are adding the term.
+            tmp = this.model.returnTermByID(nestid);
+            if(!(tmp instanceof egAssertion))
+            {
+                // Notify the controller that a new context is being added.
+                // Get the egId in return.
+                var egId = controller.addNegativeContext(nestid);
+                // Find where we are adding the context.
+                tmp = this.model.returnTermByID(nestid);
+                // If it exists, add it.
+                if(tmp != false)
+                {
+                    if(tmp == -1)
+                        this.model.addTerm(new egContext(false, egId));
+                    else
+                    tmp.addTerm(new egContext(tmp.isNegative, egId));
+                }
+                // The new assertion will be nested inside of this context.
+                nestid = egId;
+                // Find where we are adding the assertion.
+                tmp = this.model.returnTermByID(nestid);
+                // Notify the controller that a new assertion is being added.
+                // Get the egId in return. 
+                egId = controller.addAssertion(assertionValue, egId);
+                // If it exists, add it. Special case for adding to sheet.
+                if(tmp != false)
+                {
+                    if(tmp == -1)
+                        this.model.addTerm(new egAssertion(assertionValue, egId));
+                    else
+                        tmp.addTerm(new egAssertion(assertionValue, egId));
+                }
+                error_submit(this.model.toString(), "console");
+                error_submit(this.model.toString(), "submit_error");
+            }
     },
 	addAssertion: function (assertionValue, nestid) {
-            // Notify controller that a new assertion is being added.
-            // Get the existential graph (eg) id in return. 
-            var egId = controller.addAssertion(assertionValue);
-            //Check to see if this is the first assertion in the model.
-            if (this.model == null) {
-            // Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
-                this.model = new egAssertion();
+            //Check to see if the model lacks a sheet.
+            if (this.model == null)
+            {
+                // Add an empty egAssertion to start loading terms into. This needs to be updated if everything is encapsulated in a negative.
+           	    this.model = new egSheet();
             }
-            // Now we can add the term.
-            tmp = model.findTerm(this.model, nestid);
-            if(tmp != false)
-                tmp.addTerm(new egAssertion(assertionValue, true, egId));
+            // Find where we are adding the term.
+            tmp = this.model.returnTermByID(nestid);
+             if(!(tmp instanceof egAssertion))
+             {
+                // Notify controller that a new assertion is being added.
+                // Get the existential graph (eg) id in return. 
+                var egId = controller.addAssertion(assertionValue, nestid);
+                // If it exists, add it. Special case for adding to sheet as well.
+                if(tmp != false)
+                {
+                    if(tmp == -1)
+                        this.model.addTerm(new egAssertion(assertionValue, egId));
+                    else
+                        tmp.addTerm(new egAssertion(assertionValue, egId));
+                }
+                error_submit(this.model.toString(), "console");
+                error_submit(this.model.toString(), "submit_error");
+             }
     },
     // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
-    findTerm: function (object,id)
+    /*findTerm: function (object,id)
     {
         // If the ID is 0, we can ignore all of this.
         if(object.id == id)
@@ -58,16 +126,7 @@ EG_Model.prototype = {
             }
         }
         return false;
-    },
-
-    getString: function ()
-    {
-       // return this.modelstring;
-       if(this.model != null)
-         return this.model.toString();
-        else 
-        return "";
-    },
+    },*/
 
 	check_expression: function (thing_to_check) {
 		
