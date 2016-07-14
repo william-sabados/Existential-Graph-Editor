@@ -270,14 +270,15 @@
     {
         input.value="";
     }
+    
     function clearArea()
     {
         view.EGclear();
-        UpdateFill();
+        //UpdateFill();
     }
+
     function  OnClickDraw()
     {
-	  
        view.EGclear();
        if(document.getElementById("drawType").value != null)
        view.check_expression(document.getElementById("drawType").value);
@@ -289,7 +290,6 @@
 	}
 	
     window.onerror = function(msg,url,lineNo,columnNo,error){
-        //msg = msg.toLowerCase();
         document.getElementById("console").value += msg + " in " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
     };
 
