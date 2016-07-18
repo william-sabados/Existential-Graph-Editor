@@ -27,14 +27,14 @@ function parse_Items(array_Items, contextId)
 	for (var i = 0 ; i < array_Items.length ; i++)
 	{
 		// If we find a ( or !( we found a nested object.  Find the closing ) and recursively call this method on it.
-		if (array_Items[i] == "(" || (array_Items[i] == "!(" && array_Items[i+1] == "("))
+		if (array_Items[i] == "(" || array_Items[i] == "!(")
 		{
 			var parenCount = 1;
 			
 			// Looking for the closing ) starting with the next item in the array.
 			for (var j = i+1 ; j < array_Items.length; j++)
 			{
-				if (array_Items[j] == "(" || (array_Items[j] == "!(" && array_Items[j+1] == ")"))
+				if (array_Items[j] == "(" || array_Items[j] == "!(")
 				{
 					// If we find ( or !( increase the parentCount.
 					parenCount++;
