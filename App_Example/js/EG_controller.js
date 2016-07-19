@@ -19,7 +19,7 @@ EG_Controller.prototype = {
     addAssertion: function (assertionValue, nestId) {
 		// TODO controller fake select
         var newId = this.incrementId();
-        this.view.addAssertion(assertionValue,newId, nestId);          
+		if(assertionValue) this.view.addAssertion(assertionValue,newId, nestId);          
         return newId;
     },
 	
