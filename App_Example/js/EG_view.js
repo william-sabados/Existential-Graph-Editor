@@ -112,42 +112,26 @@ isSpace = function (cell) {
     return spaceAvail;
 }
 
-// Changes the size of each parent element, if needed
+// Increases the size of each parent element, if needed
 changeParentSize = function (cell, width, height) {
     if (cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))) {
         changeParentSize(graph.getCell(cell.get('parent')), width, height);
     }
 
-    // Increases the size of each parent element, if needed
-    changeParentSize = function (cell, width, height) {
-        if (cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))) {
-            changeParentSize(graph.getCell(cell.get('parent')), width, height);
-        }
-
-        cell.prop('size/width', (cell.prop('size/width')) + width);
-        cell.prop('size/height', (cell.prop('size/height')) + height);
-    };
-
-    //Decreases the size of parent element if something was removed
-    decreaseParentSize = function (cell, width, height) {
-        while (isSpace(cell)) {
-            cell.prop('size/width', (cell.prop('size/width')) - width);
-            cell.prop('size/height', (cell.prop('size/height')) - height);
-        }
-
-        if (cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))) {
-            decreaseParentSize(graph.getCell(cell.get('parent')), width, height);
-        }
-    };
-
-    // Returns the top parent of a given cell (recursively)
-    getTopParent = function (cell) {
-        if (graph.getCell(cell.get('parent'))) return getTopParent(graph.getCell(cell.get('parent')));
-        else return cell;
-    };
-
     cell.prop('size/width', (cell.prop('size/width')) + width);
     cell.prop('size/height', (cell.prop('size/height')) + height);
+};
+
+//Decreases the size of parent element if something was removed
+decreaseParentSize = function (cell, width, height) {
+    while (isSpace(cell)) {
+        cell.prop('size/width', (cell.prop('size/width')) - width);
+        cell.prop('size/height', (cell.prop('size/height')) - height);
+    }
+
+    if (cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))) {
+        decreaseParentSize(graph.getCell(cell.get('parent')), width, height);
+    }
 };
 
 // Returns the top parent of a given cell (recursively)

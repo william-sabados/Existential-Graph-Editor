@@ -290,9 +290,16 @@
 	}
 	
     window.onerror = function(msg,url,lineNo,columnNo,error){
-        document.getElementById("console").value += msg + " in " + url + ", Line " + lineNo + ", Col " + columnNo + "\n";
+        if(lineNo != 0 && columnNo != 0){
+            document.getElementById("console").value += "\n" + msg + " in " + url + ", Line " + lineNo + ", Col " + columnNo;
+        }else{
+            // Because of security reasons, this function doesn't give any information outside of this file (which is apparently intentional)
+            // It instead gives a bunch of nulls, so if you aren't sure about something that could give an error, use error_submit()
+            document.getElementById("console").value += "\n" + msg + " Try something else.";
+        }
     };
 
+    // Prints an error to a console. Accepts either "console" or "submit_error" for console.
     function error_submit(msg,console){
 		document.getElementById(console).value += "\n" + msg;
         document.getElementById(console).scrollTop = document.getElementById(console).scrollHeight;
