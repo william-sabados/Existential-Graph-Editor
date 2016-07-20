@@ -69,8 +69,8 @@ findSpace = function () {
                 else continue;
             }
             if (!isOpen) {
-                moveNeighbors(selection.model, 10, 10);
-                changeParentSize(selection.model, 10, 10);
+                moveNeighbors(selection.model, 10, 5);
+                changeParentSize(selection.model, 10, 5);
             }
         } else {
             for (i = 10; i < 440; i++) {
@@ -94,8 +94,8 @@ findSpace = function () {
 // Returns true if there is space inside cell to place a new assertion
 isSpace = function (cell) {
     let spaceAvail = false;
-    for (k = 0; k < cell.prop('size/height') - 65; k += 5) {
-        for (l = 0; l < cell.prop('size/width') - 55; l += 5) {
+    for (let k = 0; k < cell.prop('size/height') - 65; k += 5) {
+        for (let l = 0; l < cell.prop('size/width') - 55; l += 5) {
             // Cycle through x and y (k and l)
             let modelsInArea = graph.findModelsInArea(new g.rect(cell.prop('position/x') + l + 5, cell.prop('position/y') + k + 5, 60, 50));
             if (modelsInArea.length == getNumParents(cell) + 1) {
@@ -114,7 +114,7 @@ isSpace = function (cell) {
 
 // Increases the size of each parent element, if needed
 changeParentSize = function (cell, width, height) {
-    if (cell.get('parent') && !isSpace(graph.getCell(cell.get('parent')))) {
+    if (cell.get('parent')){ //&& !isSpace(graph.getCell(cell.get('parent')))) {
         changeParentSize(graph.getCell(cell.get('parent')), width, height);
     }
 
@@ -315,7 +315,7 @@ EG_View.prototype = {
         }
         let parentCell = graph.getCell(selection.model.get('parent'));
         selection.model.remove();
-        getTopParent(parentCell).fitEmbeds({deep: true, padding: 15});
+        if(parentCell) getTopParent(parentCell).fitEmbeds({deep: true, padding: 15});
         removeSelection();
     },
 };
