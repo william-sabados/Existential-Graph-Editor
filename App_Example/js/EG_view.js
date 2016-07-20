@@ -204,6 +204,8 @@ EG_View.prototype = {
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
 
+        if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
+
         removeSelection();
     },
 	
@@ -229,6 +231,8 @@ EG_View.prototype = {
         //if(selection) alert('Embedding assertions does not currently work!');
         // Add the assertion to the graph. 
         graph.addCells([newText]);
+
+        if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
 
         removeSelection();
     },
@@ -305,13 +309,13 @@ EG_View.prototype = {
     removeCell: function () {
         let childrenCells = selection.model.getEmbeddedCells({ deep: true })
         if (childrenCells.length > 0) {
-            for (i = 0; i < childrenCells.length; i++) {
+            for (let i = 0; i < childrenCells.length; i++) {
                 childrenCells[i].remove();
             }
         }
-        let parentCell = selection.model;
-        selection.remove();
+        let parentCell = graph.getCell(selection.model.get('parent'));
+        selection.model.remove();
+        getTopParent(parentCell).fitEmbeds({deep: true, padding: 15});
         removeSelection();
-        decreaseParentSize(parentCell, 10, 10);
     },
 };
