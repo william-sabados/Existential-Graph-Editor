@@ -69,12 +69,12 @@ findSpace = function () {
                 else continue;
             }
             if (!isOpen) {
-                moveNeighbors(selection.model, 10, 5);
-                changeParentSize(selection.model, 10, 5);
+                moveNeighbors(selection.model, 10, 10);
+                changeParentSize(selection.model, 10, 10);
             }
         } else {
-            for (i = 10; i < 440; i++) {
-                for (j = 10; j < 950; j++) {
+            for (i = 10; i < 440; i+=5) {
+                for (j = 10; j < 1150; j+=5) {
                     var modelIsInArea = graph.findModelsInArea(new g.rect(j - 5, i - 5, 60, 50));
                     if (modelIsInArea.length == 0) {
                         isOpen = true;

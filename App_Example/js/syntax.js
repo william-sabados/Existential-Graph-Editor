@@ -4,24 +4,24 @@
 function fixSyntax(syntax)
 {
     //Check that the entire statement is wrapped. It needs to be.
-    if(!((syntax[0] == "(" || syntax[0] == "!") && syntax[syntax.length-1] == ")"))
+    if(!(syntax[0] == "("))
     {
         syntax = "(" + syntax + ")";
     }
     //Check for wrappings around each character. If not there, wrap the character.
-    for(i = 0; i < syntax.length; i++)
+    for(let i = 0; i < syntax.length; i++)
         if(syntax[i] == " ")
         {
             syntax = syntax.slice(0, i) + syntax.slice(i+1);
         }
-    for(i = 0; i < syntax.length; i++)
+    for(let i = 0; i < syntax.length; i++)
     {
         code = syntax.charCodeAt(i)
         // Destroy all spaces in the string.
         
-        if ((code > 47 && code < 58) || // numeric (0-9)
+        if (((code > 47 && code < 58) || // numeric (0-9)
         (code > 64 && code < 91) || // upper alpha (A-Z)
-        (code > 96 && code < 123) && !(syntax[i-1] == "(" && syntax[i+1] == ")"))// lower alpha (a-z)
+        (code > 96 && code < 123)) && !(syntax[i-1] == "(" && syntax[i+1] == ")"))// lower alpha (a-z)
         {
             // If its a character, we wrap it in parentheses.
             syntax = syntax.slice(0,i) + "(" + syntax.slice(i,i+1) + ")" + syntax.slice(i+1);
