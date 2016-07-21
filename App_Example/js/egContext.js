@@ -21,34 +21,54 @@ function egContext(prevContext, id)
     {
         this.terms.splice(index,0,term)
     };
+    // removeTerm(index)
+	//-------------------------------------------------------------------------
+	this.removeTerm = function(index){
+		this.terms.splice(index,1);
+		this.terms.join();
+	};
     //returnTermByID(id) looks recursively through the object for an id, and if found, returns the object associated to it.
-    this.returnTermByID = function(object, id)
+    this.returnTermByID = function(id, contextCheck)
     {
+        if(contextCheck == null)
+            contextCheck = 0;
         // If this is the correct object, return it.
-        if(object.id == id)
-            return object;
-        for(t of this.terms)
+        if(this.id == id)
+        {
+            return this;
+        }
+        for(let t of this.terms)
         {
             if(t instanceof egAssertion)
             {
                 if(t.id == id)
                 {
+                    if(contextCheck == 1)
+                    {
+                        return object;
+                    }
                     return t;
                 }
             }
             else if(t instanceof egContext)
             {
-                return t.returnTermByID(t,id);
+                if(t.id == id && contextCheck == 1)
+                {
+                    return object;
+                }
+                let checkterm = t.returnTermByID(id, contextCheck);
+                if(checkterm != null)
+                    return checkterm;
             }
         }
-        return false;
+        return null;
     };
     // TODO toString followup function
     this.toString = function()
     {
         // Open the term.
-        var termsText = "(";
-        for(t of this.terms)
+        let termsText = "(";
+        for(let t of this.terms)
         {
             if(t instanceof egAssertion)
             {

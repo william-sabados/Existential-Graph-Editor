@@ -27,33 +27,43 @@ function egSheet()
 		this.terms.join();
 	};
     //returnTermByID(id) looks recursively through the object for an id, and if found, returns the object associated to it.
-    this.returnTermByID = function(id)
+    this.returnTermByID = function(id, contextCheck)
     {
         // If the ID is 0, return something so the model knows what to do.
         if(id == 0)
             return -1;
-        for(t of this.terms)
+        for(let t of this.terms)
         {
             if(t instanceof egAssertion)
             {
                 if(t.id == id)
                 {
+                    if(contextCheck == 1)
+                    {
+                        return object;
+                    }
                     return t;
                 }
             }
             else if(t instanceof egContext)
             {
-                return t.returnTermByID(t, id);
+                if(t.id == id && contextCheck == 1)
+                {
+                    return this;
+                }
+                let checkterm = t.returnTermByID(id, contextCheck);
+                if(checkterm != null)
+                    return checkterm;
             }
         }
-        return false;
+        return null;
     };
     // toString
     this.toString = function()
     {
         // Open the term.
-        var termsText = "(";
-        for(t of this.terms)
+        let termsText = "(";
+        for(let t of this.terms)
         {
             if(t instanceof egAssertion)
             {
