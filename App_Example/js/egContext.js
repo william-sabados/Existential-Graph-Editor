@@ -27,6 +27,11 @@ function egContext(prevContext, id)
 		this.terms.splice(index,1);
 		this.terms.join();
 	};
+    //returnTerm(index)
+	//-------------------------------------------------------------------------
+	this.returnTerm = function(index){
+		return this.terms[index];
+	}; 
     //returnTermByID(id) looks recursively through the object for an id, and if found, returns the object associated to it.
     this.returnTermByID = function(id, contextCheck)
     {
@@ -37,26 +42,31 @@ function egContext(prevContext, id)
         {
             return this;
         }
-        for(let t of this.terms)
+        for(let t = 0; t < this.terms.length; t++)
         {
-            if(t instanceof egAssertion)
+            let tt = this.returnTerm(t);
+            if(tt instanceof egAssertion)
             {
-                if(t.id == id)
+                if(tt.id == id)
                 {
                     if(contextCheck == 1)
-                    {
                         return object;
-                    }
-                    return t;
+                    else if(contextCheck == 2)
+                        return t;
+                    return tt;
                 }
             }
-            else if(t instanceof egContext)
+            else if(tt instanceof egContext)
             {
-                if(t.id == id && contextCheck == 1)
+                if(tt.id == id)
                 {
-                    return object;
+                    if(contextCheck == 1)
+                        return object;
+                    else if(contextCheck == 2)
+                        return t;
                 }
-                let checkterm = t.returnTermByID(id, contextCheck);
+                
+                let checkterm = tt.returnTermByID(id, contextCheck);
                 if(checkterm != null)
                     return checkterm;
             }
@@ -76,7 +86,7 @@ function egContext(prevContext, id)
             }
             else if(t instanceof egContext)
             {
-                termsText += t.toString();
+                termsText += "!" + t.toString();
             }
             termsText += "^"
         }
