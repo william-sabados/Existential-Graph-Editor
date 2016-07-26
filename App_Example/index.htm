@@ -297,6 +297,7 @@
             // It instead gives a bunch of nulls, so if you aren't sure about something that could give an error, use error_submit()
             document.getElementById("console").value += "\n" + msg + " Try something else.";
         }
+        document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
     };
 
     // Prints an error to a console. Accepts either "console" or "submit_error" for console.

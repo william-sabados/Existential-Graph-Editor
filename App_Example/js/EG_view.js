@@ -108,22 +108,40 @@ getTopParent = function (cell) {
 
 //Still being tested, but should only move direct neighbors of the cell given
 moveNeighbors = function(cell,width,height){
-    let modelsToRight = graph.findModelsInArea(new g.rect((cell.prop('position/x') + cell.prop('size/width') + 5),cell.prop('position/y'),width,cell.prop('size/height')));
-    let modelsBelow = graph.findModelsInArea(new g.rect(cell.prop('position/x'),(cell.prop('position/y') + cell.prop('size/height') + 5),cell.prop('size/width'),height));
+    let modelsToRight = graph.findModelsInArea(new g.rect((cell.prop('position/x') + cell.prop('size/width') + 5),cell.prop('position/y')+5,width,cell.prop('size/height')-5));
+    let modelsBelow = graph.findModelsInArea(new g.rect(cell.prop('position/x')+5,(cell.prop('position/y') + cell.prop('size/height') + 5),cell.prop('size/width')-5,height));
     let modelsDiag = graph.findModelsInArea(new g.rect((cell.prop('position/x') + cell.prop('size/width') + 5),(cell.prop('position/y') + cell.prop('size/height') + 5),width,height));
 
-    for(let i = 0; i < modelsToRight.length; i++){
-        moveNeighbors(modelsToRight[i],width,height);
-        modelsToRight[i].prop('position/x',modelsToRight[i].prop('position/x') + width);
+    if(modelsToRight.length > 0){
+        let moveRight = getTopParent(modelsToRight[0]);
+        moveNeighbors(moveRight,width,height);
+        let rightChildren = moveRight.get('embeds');
+        for(let i = 0; i < rightChildren.length; i++){
+            graph.getCell(rightChildren[i]).prop('position/x',graph.getCell(rightChildren[i]).prop('position/x') + width);
+        }
+        moveRight.prop('position/x',moveRight.prop('position/x') + width);
     }
-    for(let i = 0; i < modelsBelow.length; i++){
-        moveNeighbors(modelsBelow[i],width,height);
-        modelsBelow[i].prop('position/y',modelsBelow[i].prop('position/y') + height);
+
+    if(modelsBelow.length > 0){
+        let moveDown = getTopParent(modelsBelow[0]);
+        moveNeighbors(moveDown,width,height);
+        let belowChildren = moveDown.get('embeds');
+        for(let i = 0; i < belowChildren.length; i++){
+            graph.getCell(belowChildren[i]).prop('position/x',graph.getCell(belowChildren[i]).prop('position/x') + width);
+        }
+        moveDown.prop('position/x',moveDown.prop('position/x') + width);
     }
-    for(let i = 0; i < modelsDiag.length; i++){
-        moveNeighbors(modelsDiag[i],width,height);
-        modelsDiag[i].prop('position/x',modelsDiag[i].prop('position/x') + width);
-        modelsDiag[i].prop('position/y',modelsDiag[i].prop('position/y') + height);
+
+    if(modelsDiag.length > 0){
+        let moveDiag = getTopParent(modelsDiag[0]);
+        moveNeighbors(moveDiag,width,height);
+        let diagChildren = moveDiag.get('embeds');
+        for(let i = 0; i < diagChildren.length; i++){
+            graph.getCell(diagChildren[i]).prop('position/x',graph.getCell(diagChildren[i]).prop('position/x') + width);
+            graph.getCell(diagChildren[i]).prop('position/y',graph.getCell(diagChildren[i]).prop('position/y') + height);
+        }
+        moveDiag.prop('position/x',moveDiag.prop('position/x') + width);
+        moveDiag.prop('position/y',moveDiag.prop('position/y') + height);
     }
 };
 
