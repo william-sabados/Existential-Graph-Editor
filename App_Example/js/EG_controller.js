@@ -9,16 +9,17 @@ function EG_Controller(model, view) {
 EG_Controller.prototype = {
     
     // Adds a new negated assertion to the view.
-    addNegatedAssertion: function (assertionValue) {
-
+    addNegativeContext: function (nestId) {
+	// TODO controller fake select
         var newId = this.incrementId();
-        this.view.addNegatedAssertion(assertionValue,newId);          
+        this.view.addNegativeContext(newId, nestId);          
         return newId;
     },
 	// Adds a new assertion to the view.
-    addAssertion: function (assertionValue) {
+    addAssertion: function (assertionValue, nestId) {
+		// TODO controller fake select
         var newId = this.incrementId();
-        this.view.addAssertion(assertionValue,newId);          
+		if(assertionValue) this.view.addAssertion(assertionValue,newId, nestId);          
         return newId;
     },
 	
