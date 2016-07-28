@@ -50,7 +50,7 @@ getNumParents = function (cell) {
     return numParents;
 };
 
-findSpace = function(){
+findSpace = function(width,height){
     let isOpen = false;
     let startX,startY,endX,endY,numParents;
     if(selection){
@@ -67,9 +67,9 @@ findSpace = function(){
         numParents = 0;
     }
     do{
-        for (let i = startY; i < endY - 55; i += 5) {
-            for (let j = startX; j < endX - 65; j += 5) {
-                let modelsInArea = graph.findModelsInArea(new g.rect(j + 5, i + 5, 40, 30));
+        for (let i = startY; i < endY - height - 15; i += 5) {
+            for (let j = startX; j < endX - width - 15; j += 5) {
+                let modelsInArea = graph.findModelsInArea(new g.rect(j + 5, i + 5, width, height));
                 if (modelsInArea.length == numParents) {
                     isOpen = true;
                     emptyX = j + 10;
@@ -106,42 +106,49 @@ getTopParent = function (cell) {
     else return cell;
 };
 
-//Still being tested, but should only move direct neighbors of the cell given
+// Moves the neighbors of a given cell 
 moveNeighbors = function(cell,width,height){
-    let modelsToRight = graph.findModelsInArea(new g.rect((cell.prop('position/x') + cell.prop('size/width') + 5),cell.prop('position/y')+5,width,cell.prop('size/height')-5));
-    let modelsBelow = graph.findModelsInArea(new g.rect(cell.prop('position/x')+5,(cell.prop('position/y') + cell.prop('size/height') + 5),cell.prop('size/width')-5,height));
-    let modelsDiag = graph.findModelsInArea(new g.rect((cell.prop('position/x') + cell.prop('size/width') + 5),(cell.prop('position/y') + cell.prop('size/height') + 5),width,height));
-
-    if(modelsToRight.length > 0){
-        let moveRight = getTopParent(modelsToRight[0]);
-        moveNeighbors(moveRight,width,height);
-        let rightChildren = moveRight.get('embeds');
-        for(let i = 0; i < rightChildren.length; i++){
-            graph.getCell(rightChildren[i]).prop('position/x',graph.getCell(rightChildren[i]).prop('position/x') + width);
+    // Get all cells and cycle through
+    let allCells = graph.getCells();
+    for(let i = 0; i < allCells.length; i++){
+        if(!allCells[i].get('parent')){
+            // Get top parent (and children of that parent) of current cell being checked
+            let topParent = getTopParent(graph.getCell(allCells[i]));
+            let children = topParent.get('embeds');
+            // Find models to left and above, in case it needs to move (otherwise the other cells have space to move)
+            let modelsLeft = graph.findModelsInArea(new g.rect(topParent.prop('position/x')-width,topParent.prop('position/y'),width,topParent.prop('size/height')));
+            let modelsAbove = graph.findModelsInArea(new g.rect(topParent.prop('position/x'),topParent.prop('position/y')-height,topParent.prop('size/width'),height));
+            // If the current cell's x is greater than the given cell's x plus width and it's on the same y level or more, move it and it's children to the right
+            if(topParent.prop('position/x') >= cell.prop('position/x') + cell.prop('size/width') && topParent.prop('position/y') >= cell.prop('position/y')){
+                // If it doesn't have anything left of it, don't move right
+                if(modelsLeft.length > 0){
+                    if(topParent.prop('position/x') + topParent.prop('size/width') + width > 1150){
+                        let tempSelect = selection;
+                        selection = null;
+                        findSpace(topParent.prop('size/width'),topParent.prop('size/height'));
+                        topParent.translate(emptyX-topParent.prop('position/x'),emptyY-topParent.prop('position/y'));
+                        selection = tempSelect;
+                    }else{
+                        topParent.translate(width);
+                    }
+                }
+            }
+            // If the current cell's y is greater than the given cell's y plus height and it's on the same x column or more, move it and it's children down
+            if(topParent.prop('position/y') >= cell.prop('position/y') + cell.prop('size/height') && topParent.prop('position/x') >= cell.prop('position/x')){
+                // If it doesn't have anything above it, don't move down
+                if(modelsAbove.length > 0){
+                    if(topParent.prop('position/y') + topParent.prop('size/height') + height > 440){
+                        let tempSelect = selection;
+                        selection = null;
+                        findSpace(topParent.prop('size/width'),topParent.prop('size/height'));
+                        topParent.translate(emptyX-topParent.prop('position/x'),emptyY-topParent.prop('position/y'));
+                        selection = tempSelect;
+                    }else{
+                        topParent.translate(0,height);
+                    }
+                }
+            }
         }
-        moveRight.prop('position/x',moveRight.prop('position/x') + width);
-    }
-
-    if(modelsBelow.length > 0){
-        let moveDown = getTopParent(modelsBelow[0]);
-        moveNeighbors(moveDown,width,height);
-        let belowChildren = moveDown.get('embeds');
-        for(let i = 0; i < belowChildren.length; i++){
-            graph.getCell(belowChildren[i]).prop('position/x',graph.getCell(belowChildren[i]).prop('position/x') + width);
-        }
-        moveDown.prop('position/x',moveDown.prop('position/x') + width);
-    }
-
-    if(modelsDiag.length > 0){
-        let moveDiag = getTopParent(modelsDiag[0]);
-        moveNeighbors(moveDiag,width,height);
-        let diagChildren = moveDiag.get('embeds');
-        for(let i = 0; i < diagChildren.length; i++){
-            graph.getCell(diagChildren[i]).prop('position/x',graph.getCell(diagChildren[i]).prop('position/x') + width);
-            graph.getCell(diagChildren[i]).prop('position/y',graph.getCell(diagChildren[i]).prop('position/y') + height);
-        }
-        moveDiag.prop('position/x',moveDiag.prop('position/x') + width);
-        moveDiag.prop('position/y',moveDiag.prop('position/y') + height);
     }
 };
 
@@ -153,7 +160,29 @@ getCellById = function(id){
         if(graphCells[i].prop('egId') == id) cell = paper.findViewByModel(graphCells[i]);
     }
     return cell;
-}
+};
+
+//Moves a cell to the top left most position possible in increments given
+moveTopLeft = function(cell,width,height){
+    cell = getTopParent(cell);
+    let childrenCells = cell.get('embeds');
+    while(graph.findModelsInArea(new g.rect(cell.prop('position/x'),cell.prop('position/y')-height-5,cell.prop('size/width'),height)).length == 0 && cell.prop('position/y')-height > 5){
+        if(cell.get('embeds')){
+            for(let i = 0; i < childrenCells.length; i++){
+                graph.get(childrenCells[i]).prop('position/y',graph.get(childrenCells[i]).prop('position/y')-height);
+            }
+        }
+        cell.prop('position/y',cell.prop('position/y')-height);
+    }
+    while(graph.findModelsInArea(new g.rect(cell.prop('position/x')-width-5,cell.prop('position/y'),width,cell.prop('size/height'))).length == 0 && cell.prop('position/x')-width > 5){
+        if(cell.get('embeds')){
+            for(let i = 0; i < childrenCells.length; i++){
+                graph.get(childrenCells[i]).prop('position/x',graph.get(childrenCells[i]).prop('position/x')-width);
+            }
+        }
+        cell.prop('position/x',cell.prop('position/x')-width);
+    }
+};
 
 // Member functions that are added to the View object.
 EG_View.prototype = {
@@ -168,8 +197,7 @@ EG_View.prototype = {
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
         if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
-        findSpace();
-
+        findSpace(50,40);
         // Prepare to add shape to the graph.        
         var newRectangle = new joint.shapes.basic.Circle({
             position: { x: emptyX, y: emptyY },
@@ -202,7 +230,7 @@ EG_View.prototype = {
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
         if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
-        findSpace();
+        findSpace(15,22);
         // Prepare to add shape to the graph.        
         var newText = new joint.shapes.basic.Text({
             position: { x: emptyX, y: emptyY },
