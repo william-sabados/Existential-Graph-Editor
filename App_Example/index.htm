@@ -40,7 +40,7 @@
         <ul class="nav navbar-nav">
             <!--li class="active"><a href="#">Home</a></li-->
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">File
+                <a  class="dropdown-toggle" data-toggle="dropdown" href="#" >File
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">New</a></li>
@@ -91,10 +91,16 @@
 
 <form>
     <div class="input-group">
-        <input id="drawType" type="text" class="form-control" placeholder="enter expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
-        <span  class="input-group-addon" id="drawC" onclick="return OnClickDraw();">Submit</span>
-        <span  class="input-group-addon" id="clear" onclick="return clearArea();">Clear</span>
-        <span  class="input-group-addon" id="save">Save</span> 
+        <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
+        <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
+            <button class="btn btn-secondary" type="button">Submit</button>
+        </span>
+        <span  class="input-group-btn" id="clear" onclick="return clearArea();">
+            <button class="btn btn-secondary" type="button">Clear</button>
+        </span>
+        <span  class="input-group-btn" id="save">
+            <button class="btn btn-secondary" type="button">Save</button>
+        </span> 
     </div>
 	<!--<div>
 		<input id="testt" type="text" class="checkbox" placeholder="error" aria-describedby="">
@@ -115,7 +121,7 @@
                 <script src="./js/jointScript.js"></script>
             </div>
 
-            <div id="two"><h4 id="headSide1" >ADD</h4><panel id="sideCanvas" >
+            <div id="two"><h4 id="headSide1">ADD</h4><panel id="sideCanvas" >
                 <div class="btn-group btn-group-justified" id="bt1" role="group" aria-label="...">
                     <div class="btn-group" id="dub" role="group">
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myAlert" > dbl neg </button>
@@ -262,7 +268,8 @@
         });
     }
 
-    document.getElementById("removeSubGraph").onclick = function(){
+    document.getElementById("removeSubGraph").onclick = function()
+    {
         view.removeCell()
     }
 
