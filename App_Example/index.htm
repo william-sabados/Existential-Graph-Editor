@@ -40,7 +40,7 @@
         <ul class="nav navbar-nav">
             <!--li class="active"><a href="#">Home</a></li-->
             <li class="dropdown">
-                <a  class="dropdown-toggle" data-toggle="dropdown" href="#" >File
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >File
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">New</a></li>
@@ -50,7 +50,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Edit
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Undo</a></li>
@@ -79,7 +79,6 @@
                 </ul>
             </li>
         </ul>
-
         <ul id="navhead" class="nav navbar-nav navbar-right">
 
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -318,6 +317,11 @@
 		document.getElementById(console).value += "\n" + msg;
         document.getElementById(console).scrollTop = document.getElementById(console).scrollHeight;
  	}
+
+     //This magically makes the dropdown menus work, something possibly happened with an update to bootstrap to make this required
+     $(document).ready(function(){
+         $(".dropdown-toggle").dropdown();
+     });
 
 </script>
 
