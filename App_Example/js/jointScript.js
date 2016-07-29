@@ -1,5 +1,6 @@
 // This line needs to be called after the myholder div tag is declared.
-var paper = new joint.dia.Paper({ el: $('#myholder'), stroke: 1, width: 1174, height: 475, gridSize: 1, model: graph });
+var graphWidth = (screen.width / 4) * 3;
+var paper = new joint.dia.Paper({ el: $('#myholder'), stroke: 1, width: graphWidth, height: 475, gridSize: 1, model: graph });
 var selection;
 var prevMouseX = 0;
 var prevMouseY = 0;

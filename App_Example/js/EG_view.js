@@ -62,7 +62,7 @@ findSpace = function(width,height){
     }else{
         startX = 0;
         startY = 0;
-        endX = 1150;
+        endX = graphWidth;
         endY = 440;
         numParents = 0;
     }
@@ -122,7 +122,7 @@ moveNeighbors = function(cell,width,height){
             if(topParent.prop('position/x') >= cell.prop('position/x') + cell.prop('size/width') && topParent.prop('position/y') >= cell.prop('position/y')){
                 // If it doesn't have anything left of it, don't move right
                 if(modelsLeft.length > 0){
-                    if(topParent.prop('position/x') + topParent.prop('size/width') + width > 1150){
+                    if(topParent.prop('position/x') + topParent.prop('size/width') + width > graphWidth){
                         let tempSelect = selection;
                         selection = null;
                         findSpace(topParent.prop('size/width'),topParent.prop('size/height'));
