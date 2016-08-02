@@ -14,21 +14,23 @@ section {
     padding: 4px;
 }
 #myholder{
-    width: 76%;
+    width: 75%;
     height: 470px;
     background: lightgrey;
     float: left;
     border-radius: 15px;
     margin-bottom: 11px;
     stroke-linecap: 1px;
+    padding-right: 1px;
 }
 #two{
     margin-bottom: 11px;
-    height: 470px;
-    width: 314px;
+    height: auto;
+    width: 22%;
     background: #337ab7;
     border-radius: 15px;
     float: right;
+    padding-left: 3px;
 }
 .panel-footer{
     color: #337ab7;
@@ -54,20 +56,31 @@ section {
     border-radius: 20px;
 }
 #headSide1{
-    margin-left: 43%;
-    margin-top: 30px;
+    margin-left: 44%;
+    margin-top: 20px;
+    margin-bottom: 10px;
     color: lightgray;
 }
 #headSide2{
     margin-left: 38%;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     color: lightgray;
+}
+#btnRemove{
+    width:90%;
+    height:5%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 14px;
+    margin-right: 3px;
+    border-radius: 20px;
 }
 .btn-group-vertical{
     width:90%;
     height:20%;
-    margin-top: 20px;
-    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     margin-left: 14px;
     margin-right: 3px;
     border-radius: 20px;

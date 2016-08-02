@@ -1,4 +1,5 @@
 graph = new joint.dia.Graph;
+var emptyX,emptyY;
 
 // Change size of EG element.
 graph.on('change:size', function (cell, newPosition, opt) {
@@ -49,89 +50,54 @@ getNumParents = function (cell) {
     return numParents;
 };
 
-//A function that picks an empty playce to find assertion
-findSpace = function () {
-    var isOpen = false;
-    while (!isOpen) {
-        if (selection) {
-            for (i = 0; i < selection.model.prop('size/height') - 55; i += 5) {
-                for (j = 0; j < selection.model.prop('size/width') - 65; j += 5) {
-                    var modelIsInArea = graph.findModelsInArea(new g.rect(selection.model.prop('position/x') + j + 5, selection.model.prop('position/y') + i + 5, 40, 30));
-                    if (modelIsInArea.length == getNumParents(selection.model) + 1) {
-                        isOpen = true;
-                        emptyX = selection.model.prop('position/x') + j + 10;
-                        emptyY = selection.model.prop('position/y') + i + 10;
-                        break;
-                    }
-                    else continue;
-                }
-                if (isOpen) break;
-                else continue;
-            }
-            if (!isOpen) {
-                moveNeighbors(selection.model, 10, 10);
-                changeParentSize(selection.model, 10, 10);
-            }
-        } else {
-            for (i = 10; i < 440; i+=5) {
-                for (j = 10; j < 1150; j+=5) {
-                    var modelIsInArea = graph.findModelsInArea(new g.rect(j - 5, i - 5, 60, 50));
-                    if (modelIsInArea.length == 0) {
-                        isOpen = true;
-                        emptyX = j;
-                        emptyY = i;
-                        break;
-                    }
-                    else continue;
-                }
-                if (isOpen) break;
-                else continue;
-            }
-        }
+findSpace = function(width,height){
+    let isOpen = false;
+    let startX,startY,endX,endY,numParents;
+    if(selection){
+        startX = selection.model.prop('position/x');
+        startY = selection.model.prop('position/y');
+        endX = selection.model.prop('position/x') + selection.model.prop('size/width');
+        endY = selection.model.prop('position/y') + selection.model.prop('size/height');
+        numParents = getNumParents(selection.model) + 1;
+    }else{
+        startX = 0;
+        startY = 0;
+        endX = graphWidth;
+        endY = 440;
+        numParents = 0;
     }
-};
-
-// Returns true if there is space inside cell to place a new assertion
-isSpace = function (cell) {
-    let spaceAvail = false;
-    for (let k = 0; k < cell.prop('size/height') - 65; k += 5) {
-        for (let l = 0; l < cell.prop('size/width') - 55; l += 5) {
-            // Cycle through x and y (k and l)
-            let modelsInArea = graph.findModelsInArea(new g.rect(cell.prop('position/x') + l + 5, cell.prop('position/y') + k + 5, 60, 50));
-            if (modelsInArea.length == getNumParents(cell) + 1) {
-                // If there is "empty space" set space available to true
-                spaceAvail = true;
-                break;
+    do{
+        for (let i = startY; i < endY - height - 15; i += 5) {
+            for (let j = startX; j < endX - width - 15; j += 5) {
+                let modelsInArea = graph.findModelsInArea(new g.rect(j + 5, i + 5, width, height));
+                if (modelsInArea.length == numParents) {
+                    isOpen = true;
+                    emptyX = j + 10;
+                    emptyY = i + 10;
+                    break;
+                }
+                else continue;
             }
+            if (isOpen) break;
             else continue;
         }
-        if (spaceAvail) break;
-        else continue;
-    }
-    // Return whether there is or is not space
-    return spaceAvail;
-}
+        if (!isOpen && selection) {
+            moveNeighbors(getTopParent(selection.model), 15, 15);
+            changeParentSize(selection.model, 15, 15);
+            endX = selection.model.prop('position/x') + selection.model.prop('size/width');
+            endY = selection.model.prop('position/y') + selection.model.prop('size/height');
+        }
+    }while(!isOpen);
+};
 
-// Increases the size of each parent element, if needed
+// Increases the size of each parent element, when needed
 changeParentSize = function (cell, width, height) {
-    if (cell.get('parent')){ //&& !isSpace(graph.getCell(cell.get('parent')))) {
+    if (cell.get('parent')){
         changeParentSize(graph.getCell(cell.get('parent')), width, height);
     }
 
     cell.prop('size/width', (cell.prop('size/width')) + width);
     cell.prop('size/height', (cell.prop('size/height')) + height);
-};
-
-//Decreases the size of parent element if something was removed
-decreaseParentSize = function (cell, width, height) {
-    while (isSpace(cell)) {
-        cell.prop('size/width', (cell.prop('size/width')) - width);
-        cell.prop('size/height', (cell.prop('size/height')) - height);
-    }
-
-    if (cell.get('parent') && isSpace(graph.getCell(cell.get('parent')))) {
-        decreaseParentSize(graph.getCell(cell.get('parent')), width, height);
-    }
 };
 
 // Returns the top parent of a given cell (recursively)
@@ -140,30 +106,83 @@ getTopParent = function (cell) {
     else return cell;
 };
 
-// Moves all neighboring elements to the right and the bottom of the current cell right or down
-moveNeighbors = function (cell, width, height) {
+// Moves the neighbors of a given cell 
+moveNeighbors = function(cell,width,height){
+    // Get all cells and cycle through
     let allCells = graph.getCells();
-    for (i = 0; i < allCells.length; i++) {
-        let currCell = allCells[i];
-        //if current cell x < x + width, move right
-        if (cell.prop('position/x') + cell.prop('size/width') <= currCell.prop('position/x')) {// && currCell.prop('position/y') >= getTopParent(cell).prop('position/y')-50){
-            currCell.prop('position/x', currCell.prop('position/x') + width);
-        }
-        //if current cell y < y + height, move down
-        if (cell.prop('position/y') + cell.prop('size/height') <= currCell.prop('position/y')) {// && currCell.prop('position/x') >= getTopParent(cell).prop('position/x')-60){
-            currCell.prop('position/y', currCell.prop('position/y') + height);
+    for(let i = 0; i < allCells.length; i++){
+        if(!allCells[i].get('parent')){
+            // Get top parent (and children of that parent) of current cell being checked
+            let topParent = getTopParent(graph.getCell(allCells[i]));
+            let children = topParent.get('embeds');
+            // Find models to left and above, in case it needs to move (otherwise the other cells have space to move)
+            let modelsLeft = graph.findModelsInArea(new g.rect(topParent.prop('position/x')-width,topParent.prop('position/y'),width,topParent.prop('size/height')));
+            let modelsAbove = graph.findModelsInArea(new g.rect(topParent.prop('position/x'),topParent.prop('position/y')-height,topParent.prop('size/width'),height));
+            // If the current cell's x is greater than the given cell's x plus width and it's on the same y level or more, move it and it's children to the right
+            if(topParent.prop('position/x') >= cell.prop('position/x') + cell.prop('size/width') && topParent.prop('position/y') >= cell.prop('position/y')){
+                // If it doesn't have anything left of it, don't move right
+                if(modelsLeft.length > 0){
+                    if(topParent.prop('position/x') + topParent.prop('size/width') + width > graphWidth){
+                        let tempSelect = selection;
+                        selection = null;
+                        findSpace(topParent.prop('size/width'),topParent.prop('size/height'));
+                        topParent.translate(emptyX-topParent.prop('position/x'),emptyY-topParent.prop('position/y'));
+                        selection = tempSelect;
+                    }else{
+                        topParent.translate(width);
+                    }
+                }
+            }
+            // If the current cell's y is greater than the given cell's y plus height and it's on the same x column or more, move it and it's children down
+            if(topParent.prop('position/y') >= cell.prop('position/y') + cell.prop('size/height') && topParent.prop('position/x') >= cell.prop('position/x')){
+                // If it doesn't have anything above it, don't move down
+                if(modelsAbove.length > 0){
+                    if(topParent.prop('position/y') + topParent.prop('size/height') + height > 440){
+                        let tempSelect = selection;
+                        selection = null;
+                        findSpace(topParent.prop('size/width'),topParent.prop('size/height'));
+                        topParent.translate(emptyX-topParent.prop('position/x'),emptyY-topParent.prop('position/y'));
+                        selection = tempSelect;
+                    }else{
+                        topParent.translate(0,height);
+                    }
+                }
+            }
         }
     }
 };
 
+//Returns the cell with the given egId
 getCellById = function(id){
     let cell = null;
     let graphCells = graph.getCells();
-    for(i = 0; i < graphCells.length; i++){
+    for(let i = 0; i < graphCells.length; i++){
         if(graphCells[i].prop('egId') == id) cell = paper.findViewByModel(graphCells[i]);
     }
     return cell;
-}
+};
+
+//Moves a cell to the top left most position possible in increments given
+moveTopLeft = function(cell,width,height){
+    cell = getTopParent(cell);
+    let childrenCells = cell.get('embeds');
+    while(graph.findModelsInArea(new g.rect(cell.prop('position/x'),cell.prop('position/y')-height-5,cell.prop('size/width'),height)).length == 0 && cell.prop('position/y')-height > 5){
+        if(cell.get('embeds')){
+            for(let i = 0; i < childrenCells.length; i++){
+                graph.get(childrenCells[i]).prop('position/y',graph.get(childrenCells[i]).prop('position/y')-height);
+            }
+        }
+        cell.prop('position/y',cell.prop('position/y')-height);
+    }
+    while(graph.findModelsInArea(new g.rect(cell.prop('position/x')-width-5,cell.prop('position/y'),width,cell.prop('size/height'))).length == 0 && cell.prop('position/x')-width > 5){
+        if(cell.get('embeds')){
+            for(let i = 0; i < childrenCells.length; i++){
+                graph.get(childrenCells[i]).prop('position/x',graph.get(childrenCells[i]).prop('position/x')-width);
+            }
+        }
+        cell.prop('position/x',cell.prop('position/x')-width);
+    }
+};
 
 // Member functions that are added to the View object.
 EG_View.prototype = {
@@ -174,21 +193,18 @@ EG_View.prototype = {
     },
 
     // Adds a new assertion to the graph when the 'Add Assertion' button pressed.
-    // TODO:  Needs to pick and empty place to add the new assertion. 
-    // TODO: Needs to fake select based on nestId (this could happen in controller)
     addNegativeContext: function (newId, nestId) {
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
         if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
-        findSpace();
-
+        findSpace(50,40);
         // Prepare to add shape to the graph.        
         var newRectangle = new joint.shapes.basic.Circle({
             position: { x: emptyX, y: emptyY },
             size: { width: 50, height: 40 },
             attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }}
-            });
-        //
+        });
+        
         // Add edId as a property to the graph element.
         newRectangle.set('egId', newId);
 
@@ -204,41 +220,41 @@ EG_View.prototype = {
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
 
+        //Resize
         if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
 
         removeSelection();
     },
 	
 	addAssertion: function (assertionValue,newId, nestId) {
-        
-		////var newText = assertionValue;
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
         if(nestId != 0) selection = getCellById(nestId);
         //finds empty position
-        findSpace();
+        findSpace(15,22);
         // Prepare to add shape to the graph.        
         var newText = new joint.shapes.basic.Text({
             position: { x: emptyX, y: emptyY },
             size: { width: 15, height: 22 },
             attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
         });
-        //
+        
         // Add edId as a property to the graph element.
         newText.set('egId', newId);
 
-        //Embedding (if someone knows a better way, be my guest to change this)
+        //Embedding
         if (selection) selection.model.embed(newText);
-        //if(selection) alert('Embedding assertions does not currently work!');
+
         // Add the assertion to the graph. 
         graph.addCells([newText]);
 
+        //Resize
         if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
 
         removeSelection();
     },
 
     check_expression: function (thing_to_check) {
-        var i = 0;
+        let i = 0;
 
         //Error cases 1-7 as returned by the validator function
         error = controller.check_expression(thing_to_check);
@@ -291,7 +307,6 @@ EG_View.prototype = {
             //alert("ERROR::FAILED");
             i = 1;
         }
-        //if (i = 1) {document.getElementById("drawType").style.color="black";}
         else {
             document.getElementById("drawType").style.color = "green";
             return error;
