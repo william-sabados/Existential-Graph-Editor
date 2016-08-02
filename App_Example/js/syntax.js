@@ -3,8 +3,18 @@
 
 function fixSyntax(syntax)
 {
+    let charcount = 0;
+    //Get the count of characters.
+    for(let i = 0; i < syntax.length; i++)
+    {
+        code = syntax.charCodeAt(i);
+        if (((code > 47 && code < 58) || // numeric (0-9)
+        (code > 64 && code < 91) || // upper alpha (A-Z)
+        (code > 96 && code < 123)))
+        charcount++;
+    }
     //Check that the entire statement is wrapped. It needs to be.
-    if(!(syntax[0] == "("))
+    if(!(syntax[0] == "(") && charcount != 1)
     {
         syntax = "(" + syntax + ")";
     }
@@ -16,7 +26,7 @@ function fixSyntax(syntax)
         }
     for(let i = 0; i < syntax.length; i++)
     {
-        code = syntax.charCodeAt(i)
+        code = syntax.charCodeAt(i);
         // Destroy all spaces in the string.
         
         if (((code > 47 && code < 58) || // numeric (0-9)
