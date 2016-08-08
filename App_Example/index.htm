@@ -147,7 +147,7 @@
                         <button type="button" class="btn btn-info">Generalize (Positive Context)</button>
                         <button type="button" class="btn btn-info">Copy (Sub-Graph)</button>
                         <button type="button" class="btn btn-info">Remove (Sub-Graph)</button>
-                        <button type="button" class="btn btn-info">2X Negative (Sub-Graph)</button>
+                        <button type="button" class="btn btn-info" id="doubleNegative">2X Negative (Sub-Graph)</button>
                         <button type="button" class="btn btn-info">Remove 2X (From Sub-Graph)</button>
                     </div>
                 </panel>
@@ -282,12 +282,12 @@
         let x2 = model.addNegativeContext(getSelectionEgId());
         model.addNegativeContext(x2);
     }
-    document.getElementById("id_of_textbox")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode == 13) {
-        document.getElementById("id_of_button").click();
-    }});
+    document.getElementById("id_of_textbox").addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            document.getElementById("id_of_button").click();
+        }
+    });
 
     function clearInput(input)
     {
@@ -356,8 +356,14 @@
 
             //creates a fake html element and simulates a click that downloads the image
             let a = document.createElement('a');
-            a.download="graph.png";
-            a.href=canvas.toDataURL('image/png');
+            //Jquery array of all lines of submit_error textarea, split by newline character
+            let consoleLines = $('#submit_error').val().split('\n');
+            //Last character of jquery array
+            let lastLine = consoleLines[consoleLines.length-1];
+            //Name based on last line of jquery array, which should be the expression
+            //(change later if removing from submit_error)
+            a.download = lastLine + ".png";
+            a.href = canvas.toDataURL('image/png');
             a.click();
          }
      }
