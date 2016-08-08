@@ -5,6 +5,8 @@
 
     <!--Supporting JS code. -->
     <script src="./support_js/jquery.min.js"></script>
+    <!--<script src="./support_js/bootstrap/bootstrap.min.js"></script>
+    allows dropdown menus to work, but the debugger yells at you because the file is not found-->
     <script src="./support_js/bootstrap/bootstrap.js"></script>
     <script src="./support_js/lodash.min.js"></script>
     <script src="./support_js/backbone-min.js"></script>
@@ -31,7 +33,6 @@
 
 </head>
 <body>
-
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -98,8 +99,8 @@
             <button class="btn btn-secondary" type="button">Clear</button>
         </span>
         <span  class="input-group-btn" id="save">
-            <button class="btn btn-secondary" type="button">Save</button>
-        </span> 
+            <button class="btn btn-secondary" onclick= "return save_image();" type="button" >Save</button>
+        </span>
     </div>
 	<!--<div>
 		<input id="testt" type="text" class="checkbox" placeholder="error" aria-describedby="">
@@ -150,7 +151,6 @@
                         <button type="button" class="btn btn-info">Remove 2X (From Sub-Graph)</button>
                     </div>
                 </panel>
->>>>>>> origin/master
             </div>
         </section>
 
@@ -333,6 +333,33 @@
      $(document).ready(function(){
          $(".dropdown-toggle").dropdown();
      });
+
+     function save_image(){
+         //creating a hypothetical canvas to hold the image we want to save
+         let canvas = document.createElement('canvas');
+         canvas.width = (screen.width / 4) * 3;
+         canvas.height = 475;
+         let ctx = canvas.getContext('2d');
+         let img = new Image;
+         let svg = paper.svg; //holds the svg
+
+         //converts the svg to xml
+         let serializer = new XMLSerializer();
+         let str = serializer.serializeToString(svg);
+
+         img.setAttribute("src","data:image/svg+xml;base64,"+btoa(str));
+
+         img.onload = function(){
+            //draws the svg on the hypothetical canvas
+            ctx.drawImage(img, 0, 0);
+
+            //creates a fake html element and simulates a click that downloads the image
+            let a = document.createElement('a');
+            a.download="graph.png";
+            a.href=canvas.toDataURL('image/png');
+            a.click();
+         }
+     }
 
 </script>
 
