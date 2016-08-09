@@ -203,9 +203,9 @@ EG_View.prototype = {
         var newRectangle = new joint.shapes.basic.Circle({
             position: { x: emptyX, y: emptyY },
             size: { width: 50, height: 40 },
-            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }}
+            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 , 'vector-effect': 'non-scaling-stroke' }}
         });
-        
+
         // Add edId as a property to the graph element.
         newRectangle.set('egId', newId);
 
@@ -236,7 +236,7 @@ EG_View.prototype = {
         var newText = new joint.shapes.basic.Text({
             position: { x: emptyX, y: emptyY },
             size: { width: 15, height: 22 },
-            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
+            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue, 'font-family': 'Arial' } }
         });
         
         // Add edId as a property to the graph element.
