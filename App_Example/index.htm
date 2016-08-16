@@ -5,6 +5,8 @@
 
     <!--Supporting JS code. -->
     <script src="./support_js/jquery.min.js"></script>
+    <!--<script src="./support_js/bootstrap/bootstrap.min.js"></script>
+    allows dropdown menus to work, but the debugger yells at you because the file is not found-->
     <script src="./support_js/bootstrap/bootstrap.js"></script>
     <script src="./support_js/lodash.min.js"></script>
     <script src="./support_js/backbone-min.js"></script>
@@ -31,7 +33,6 @@
 
 </head>
 <body>
-
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -98,8 +99,8 @@
             <button class="btn btn-secondary" type="button">Clear</button>
         </span>
         <span  class="input-group-btn" id="save">
-            <button class="btn btn-secondary" type="button">Save</button>
-        </span> 
+            <button class="btn btn-secondary" onclick= "return save_image();" type="button" >Save</button>
+        </span>
     </div>
 	<!--<div>
 		<input id="testt" type="text" class="checkbox" placeholder="error" aria-describedby="">
@@ -146,11 +147,10 @@
                         <button type="button" class="btn btn-info">Generalize (Positive Context)</button>
                         <button type="button" class="btn btn-info">Copy (Sub-Graph)</button>
                         <button type="button" class="btn btn-info">Remove (Sub-Graph)</button>
-                        <button type="button" class="btn btn-info">2X Negative (Sub-Graph)</button>
+                        <button type="button" class="btn btn-info" id="doubleNegative">2X Negative (Sub-Graph)</button>
                         <button type="button" class="btn btn-info">Remove 2X (From Sub-Graph)</button>
                     </div>
                 </panel>
->>>>>>> origin/master
             </div>
         </section>
 
@@ -283,6 +283,16 @@
         let x2 = model.addNegativeContext(getSelectionEgId());
         model.addNegativeContext(x2);
     }
+<<<<<<< HEAD
+=======
+    document.getElementById("id_of_textbox").addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            document.getElementById("id_of_button").click();
+        }
+    });
+
+>>>>>>> origin/master
     function clearInput(input)
     {
         input.value="";
@@ -290,6 +300,7 @@
     
     function clearArea()
     {
+        document.getElementById("drawType").value = "";
         view.EGclear();
         //UpdateFill();
     }
@@ -327,6 +338,39 @@
      $(document).ready(function(){
          $(".dropdown-toggle").dropdown();
      });
+
+     function save_image(){
+         //creating a hypothetical canvas to hold the image we want to save
+         let canvas = document.createElement('canvas');
+         canvas.width = (screen.width / 4) * 3;
+         canvas.height = 475;
+         let ctx = canvas.getContext('2d');
+         let img = new Image;
+         let svg = paper.svg; //holds the svg
+
+         //converts the svg to xml
+         let serializer = new XMLSerializer();
+         let str = serializer.serializeToString(svg);
+
+         img.setAttribute("src","data:image/svg+xml;base64,"+btoa(str));
+
+         img.onload = function(){
+            //draws the svg on the hypothetical canvas
+            ctx.drawImage(img, 0, 0);
+
+            //creates a fake html element and simulates a click that downloads the image
+            let a = document.createElement('a');
+            //Jquery array of all lines of submit_error textarea, split by newline character
+            let consoleLines = $('#submit_error').val().split('\n');
+            //Last character of jquery array
+            let lastLine = consoleLines[consoleLines.length-1];
+            //Name based on last line of jquery array, which should be the expression
+            //(change later if removing from submit_error)
+            a.download = lastLine + ".png";
+            a.href = canvas.toDataURL('image/png');
+            a.click();
+         }
+     }
 
 </script>
 

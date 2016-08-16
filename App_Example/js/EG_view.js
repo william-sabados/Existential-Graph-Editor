@@ -163,6 +163,7 @@ getCellById = function(id){
 };
 
 //Moves a cell to the top left most position possible in increments given
+//Currently not used
 moveTopLeft = function(cell,width,height){
     cell = getTopParent(cell);
     let childrenCells = cell.get('embeds');
@@ -202,9 +203,9 @@ EG_View.prototype = {
         var newRectangle = new joint.shapes.basic.Circle({
             position: { x: emptyX, y: emptyY },
             size: { width: 50, height: 40 },
-            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 }}
+            attrs: { circle: { fill: '#F1C40F', rx: 20, ry: 20 , 'vector-effect': 'non-scaling-stroke' }}
         });
-        
+
         // Add edId as a property to the graph element.
         newRectangle.set('egId', newId);
 
@@ -235,7 +236,7 @@ EG_View.prototype = {
         var newText = new joint.shapes.basic.Text({
             position: { x: emptyX, y: emptyY },
             size: { width: 15, height: 22 },
-            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue } }
+            attrs: { text: { fill: '#000000', rx: 20, ry: 20, text: assertionValue, 'font-family': 'Arial' } }
         });
         
         // Add edId as a property to the graph element.
@@ -322,15 +323,17 @@ EG_View.prototype = {
     },
 
     removeCell: function () {
-        let childrenCells = selection.model.getEmbeddedCells({ deep: true })
-        if (childrenCells.length > 0) {
-            for (let i = 0; i < childrenCells.length; i++) {
-                childrenCells[i].remove();
+        if(selection){
+            let childrenCells = selection.model.getEmbeddedCells({ deep: true })
+            if (childrenCells.length > 0) {
+                for (let i = 0; i < childrenCells.length; i++) {
+                    childrenCells[i].remove();
+                }
             }
+            let parentCell = graph.getCell(selection.model.get('parent'));
+            selection.model.remove();
+            if(parentCell) getTopParent(parentCell).fitEmbeds({deep: true, padding: 15});
+            removeSelection();
         }
-        let parentCell = graph.getCell(selection.model.get('parent'));
-        selection.model.remove();
-        if(parentCell) getTopParent(parentCell).fitEmbeds({deep: true, padding: 15});
-        removeSelection();
     },
 };
