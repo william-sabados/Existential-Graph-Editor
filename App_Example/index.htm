@@ -92,7 +92,7 @@
     <div class="input-group">
         <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
         <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
-            <button class="btn btn-secondary" type="button">Submit</button>
+            <button class="btn btn-secondary" type="submit" id = "Submit">Submit</button>
         </span>
         <span  class="input-group-btn" id="clear" onclick="return clearArea();">
             <button class="btn btn-secondary" type="button">Clear</button>
@@ -276,19 +276,13 @@
 
     document.getElementById("removeSubGraph").onclick = function()
     {
-        view.removeCell()
+        view.removeCell();
+        model.remove(getSelectionEgId());
     }
     document.getElementById("doubleNegative").onclick = function(){
         let x2 = model.addNegativeContext(getSelectionEgId());
         model.addNegativeContext(x2);
     }
-    document.getElementById("id_of_textbox")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode == 13) {
-        document.getElementById("id_of_button").click();
-    }});
-
     function clearInput(input)
     {
         input.value="";
