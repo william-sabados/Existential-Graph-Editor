@@ -342,7 +342,7 @@
      function save_image(){
          //creating a hypothetical canvas to hold the image we want to save
          let canvas = document.createElement('canvas');
-         canvas.width = (screen.width / 4) * 3;
+         canvas.width = (screen.width / 100) * 72.4;
          canvas.height = 475;
          let ctx = canvas.getContext('2d');
          let img = new Image;
@@ -366,7 +366,7 @@
             let lastLine = consoleLines[consoleLines.length-1];
             //Name based on last line of jquery array, which should be the expression
             //(change later if removing from submit_error)
-            a.download = lastLine + ".png";
+            a.download = "(EG) " + lastLine + ".png";
             a.href = canvas.toDataURL('image/png');
             a.click();
          }
