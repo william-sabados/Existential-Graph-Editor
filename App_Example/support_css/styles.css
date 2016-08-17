@@ -99,24 +99,17 @@ section {
 
 }
 .input-group{
-    width: 73.5%;
+    width: 72.8%;
     margin-right: 0px;
     margin-left: 24px;
 }
 .uahImg{
     float: right;
-    height: 60px;
-    width: 195px;
-    margin-right: 80px;
-    margin-left: 100px;
-    margin-bottom: 0px;
-    margin-top: 0px;
+    height: auto;
+    width: 154px;
+    margin-right: 7.3%;
+    margin-left: 7.3%;
 }
-/*in-right: 80px;
-    margin-left: 100px;
-    margin-bottom: 3px;
-    margin-top: 0px;
-}*/
 body{
     padding-right:0px !important;
     margin-right:0px !important;

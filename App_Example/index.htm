@@ -30,88 +30,43 @@
     <script src="./js/parser.js"></script>
     <script src="./js/validator.js"></script>
     <script src="./js/syntax.js"></script>
-
 </head>
+
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Existential Graph Editor</a>
         </div>
-        <ul class="nav navbar-nav">
-            <!--li class="active"><a href="#">Home</a></li-->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >File
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">New</a></li>
-                    <li><a href="#">Open</a></li>
-                    <li><a href="#">Save</a></li>
-                    <li><a href="#">Save As</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Edit
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Undo</a></li>
-                    <li><a href="#">Redo</a></li>
-                    <li><a href="#">Cut</a></li>
-                    <li><a href="#">Copy</a></li>
-                    <li><a href="#">Paste</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Window
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Default Layout</a></li>
-                    <li><a href="#">Orientation</a></li>
-                    <li><a href="#">Multi Grid</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">How To</a></li>
-                    <li><a href="#">Forum</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul id="navhead" class="nav navbar-nav navbar-right">
-
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
     </div>
 </nav>
-<img class="uahImg" src="./images/uahLogo.png">
 
-<form>
-    <div class="input-group">
-        <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
-        <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
-            <button class="btn btn-secondary" type="submit" id = "Submit">Submit</button>
-        </span>
-        <span  class="input-group-btn" id="clear" onclick="return clearArea();">
-            <button class="btn btn-secondary" type="button">Clear</button>
-        </span>
-        <span  class="input-group-btn" id="save">
-            <button class="btn btn-secondary" onclick= "return save_image();" type="button" >Save</button>
-        </span>
-    </div>
-	<!--<div>
-		<input id="testt" type="text" class="checkbox" placeholder="error" aria-describedby="">
-	</div>-->
-	<div>
-	<section style="padding-left: 24px;">
-        <textarea id=submit_error readonly rows="1" cols="65" style="width: 75%"></textarea>
-    </section>
-	</div>
-	
-</form>
+<div>
+    <img class="uahImg" src="./images/uahLogo.png">
+    <form>
+        <div class="input-group">
+            <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
+            <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
+                <button class="btn btn-secondary" type="submit" id = "Submit">Submit</button>
+            </span>
+            <span  class="input-group-btn" id="clear" onclick="return clearArea();">
+                <button class="btn btn-secondary" type="button">Clear</button>
+            </span>
+            <span  class="input-group-btn" id="save">
+                <button class="btn btn-secondary" onclick= "return save_image();" type="button" >Save</button>
+            </span>
+        </div>
+        <!--<div>
+            <input id="testt" type="text" class="checkbox" placeholder="error" aria-describedby="">
+        </div>-->
+        <div>
+        <section style="padding-left: 24px;">
+            <textarea id=submit_error readonly rows="1" cols="65" style="width: 74%"></textarea>
+        </section>
+        </div>
+        
+    </form>
+</div>
 <br>
 <p></p>
 <div class="panel panel-primary">
@@ -168,31 +123,7 @@
 
 <div class="panel-footer"></div>
 </div>
-<!-- Modal button one-->
-<div class="modal fade" id="myAlert" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Double Negative</h4>
-            </div>
-            <div class="modal-body">
-                Select where You Want to Add This By clicking on The Graph Location
-            </div>
-            <div class="modal-footer">
-                <img id="uah2" src="./images/uahLogo.png">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-
-
-            </div>
-        </div>
-
-    </div>
-</div>  
 <!-- Modal button two-->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -279,12 +210,12 @@
         view.removeCell();
         model.remove(getSelectionEgId());
     }
+
     document.getElementById("doubleNegative").onclick = function(){
         let x2 = model.addNegativeContext(getSelectionEgId());
         model.addNegativeContext(x2);
     }
-<<<<<<< HEAD
-=======
+
     document.getElementById("id_of_textbox").addEventListener("keyup", function(event) {
         event.preventDefault();
         if (event.keyCode == 13) {
@@ -292,7 +223,6 @@
         }
     });
 
->>>>>>> origin/master
     function clearInput(input)
     {
         input.value="";

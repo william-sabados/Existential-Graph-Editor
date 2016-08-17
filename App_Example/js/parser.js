@@ -143,7 +143,7 @@ document.write("<br><br>-------------------------------------------------<br>");
 //document.write(create_EG_Assertion(str).toString());
 
 document.write("<br>-------------------------------------------------<br>SCRIPT WORKED");
-*/
-document.write("<br>-------------Parser Executed-------------");
 
+document.write("<br>-------------Parser Executed-------------");
+*/
 

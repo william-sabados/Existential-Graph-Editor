@@ -173,7 +173,7 @@ function validate_input(str)
 
 
 
-document.write("<br>----------Validator Executed-------------");
+//document.write("<br>----------Validator Executed-------------");
 
 
 
