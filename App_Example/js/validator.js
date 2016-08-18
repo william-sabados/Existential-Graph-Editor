@@ -137,7 +137,7 @@ function validate_input(str)
 				//Regex to check a single letter component, i.e. "(E)"
 				if ((check_string.length < 5 || (check_string.length == 5 && check_string[0] == "!")) && check_string != "()")
 				{
-					if (check_string.match(/(\w)|(\(\w\))|(!\w)|(!\(\w\))/gi).length == 1)
+					if (check_string.match(/(\w)|(\(\w\))|(!\w)|(!\(\w\))|(!\(\))/gi).length == 1)
 					{
 						if (checker) document.write("<br>PASSED(1) - - -",check_string);		
 					}
