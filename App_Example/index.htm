@@ -43,11 +43,11 @@
 
 <div>
     <img class="uahImg" src="./images/uahLogo.png">
-    <form>
+    <form id="inputForm">
         <div class="input-group">
             <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
             <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
-                <button class="btn btn-secondary" type="submit" id = "Submit">Submit</button>
+                <button class="btn btn-secondary" type="button" id = "Submit">Submit</button>
             </span>
             <span  class="input-group-btn" id="clear" onclick="return clearArea();">
                 <button class="btn btn-secondary" type="button">Clear</button>
@@ -215,11 +215,15 @@
         let x2 = model.addNegativeContext(getSelectionEgId());
         model.addNegativeContext(x2);
     }
-
-    document.getElementById("id_of_textbox").addEventListener("keyup", function(event) {
-        event.preventDefault();
-        if (event.keyCode == 13) {
-            document.getElementById("id_of_button").click();
+    
+    //In the input form (all of it, like subimt and clear and save and just all of it)
+    $("#inputForm").keypress(function(event){
+        //If enter is pressed
+        if(event.which == 13){
+            //Don't refresh the page
+            event.preventDefault();
+            //Submit the form instead
+            document.getElementById("Submit").click();
         }
     });
 
@@ -232,7 +236,6 @@
     {
         document.getElementById("drawType").value = "";
         view.EGclear();
-        //UpdateFill();
     }
 
     function  OnClickDraw()

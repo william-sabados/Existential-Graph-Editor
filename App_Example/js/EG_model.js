@@ -80,7 +80,6 @@ EG_Model.prototype = {
                             tmp.addTerm(new egAssertion(assertionValue, egId));
                     }
                     error_submit(this.model.toString(), "console");
-                    error_submit(this.model.toString(), "submit_error");
                 }
             }
     },
@@ -117,7 +116,6 @@ EG_Model.prototype = {
                             tmp.addTerm(new egAssertion(assertionValue, egId));
                     }
                     error_submit(this.model.toString(), "console");
-                    error_submit(this.model.toString(), "submit_error");
                 }
             }
     },
