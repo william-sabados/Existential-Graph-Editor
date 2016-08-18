@@ -90,7 +90,8 @@ function egContext(prevContext, id)
             }
             termsText += "^"
         }
-        termsText = termsText.substring(0, termsText.length-1);
+        if(termsText[termsText.length-1] == "^")
+            termsText = termsText.substring(0, termsText.length-1);
         // Close the term.
         termsText += ")";
         return termsText;
