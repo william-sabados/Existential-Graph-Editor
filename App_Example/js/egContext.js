@@ -50,7 +50,7 @@ function egContext(prevContext, id)
                 if(tt.id == id)
                 {
                     if(contextCheck == 1)
-                        return object;
+                        return this;
                     else if(contextCheck == 2)
                         return t;
                     return tt;
@@ -61,7 +61,7 @@ function egContext(prevContext, id)
                 if(tt.id == id)
                 {
                     if(contextCheck == 1)
-                        return object;
+                        return this;
                     else if(contextCheck == 2)
                         return t;
                 }

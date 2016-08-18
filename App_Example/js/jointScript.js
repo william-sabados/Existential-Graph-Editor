@@ -8,7 +8,7 @@ var resizing = false;
 
 // Test rectangles.  I left these here so that something would render when the app was loaded.  
 // These will be delete at some point in the future.
-var r1 = new joint.shapes.basic.Rect({
+/*var r1 = new joint.shapes.basic.Rect({
     position: { x: 20, y: 20 },
     size: { width: 150, height: 150 },
     attrs: { rect: { fill: '#337ab7', rx: 20, ry: 20 }, text: { text: '' } }
@@ -31,7 +31,7 @@ var r4 = new joint.shapes.basic.Rect({
 
 r1.embed(r2);
 r1.embed(r3);
-graph.addCells([r1, r2, r3, r4]);
+graph.addCells([r1, r2, r3, r4]);*/
 
 // Returns the egId of whatever is selected
 getSelectionEgId = function(){
