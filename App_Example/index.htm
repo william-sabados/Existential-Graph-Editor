@@ -191,16 +191,20 @@
     view.setController(controller);
 
     // Wire-up event handler to the button.
-    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());
-        document.getElementById("NewNegatedAssertionValue").value="";document.getElementById("NewNegatedAssertionValue").focus();
+    document.getElementById("AddNegatedAssertionButton").onclick = function(){
+        model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());
+        document.getElementById("NewNegatedAssertionValue").value="";
+        document.getElementById("NewNegatedAssertionValue").focus();
         $('#myModal').on('shown.bs.modal', function () {
             $('#NewNegatedAssertionValue').focus();
         });
 
     }
 
-    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());
-        document.getElementById("NewAssertionValue").value="";document.getElementById("NewAssertionValue").focus();
+    document.getElementById("AddAssertionButton").onclick = function(){
+        model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());
+        document.getElementById("NewAssertionValue").value="";
+        document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();
         });
@@ -305,6 +309,9 @@
             a.click();
          }
      }
+    
+    let notP = model.addNegatedAssertion("P",0);
+    let notQ = model.addNegatedAssertion("Q",1);
 
 </script>
 
