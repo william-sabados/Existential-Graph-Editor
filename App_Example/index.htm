@@ -111,6 +111,7 @@
 
         <section>
             <textarea id=console readonly rows="4" cols="100" wrap="soft" style="width: 75%;"> - Console -</textarea>
+            <button type="button" class="btn btn-secondary" onclick="return document.getElementById(&#34;console&#34;).value = &#34; - Console -&#34;">Clear Console</button>
         </section>
     </div>
 <!--br-->
@@ -207,8 +208,8 @@
 
     document.getElementById("removeSubGraph").onclick = function()
     {
-        view.removeCell();
         model.remove(getSelectionEgId());
+        view.removeCell();
     }
 
     document.getElementById("doubleNegative").onclick = function(){
@@ -238,7 +239,7 @@
         view.EGclear();
     }
 
-    function  OnClickDraw()
+    function OnClickDraw()
     {
        view.EGclear();
        if(document.getElementById("drawType").value != null)

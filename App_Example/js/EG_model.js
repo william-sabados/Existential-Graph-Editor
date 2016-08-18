@@ -90,6 +90,7 @@ EG_Model.prototype = {
         tmp = this.model.returnTermByID(id, 1);
         index = this.model.returnTermByID(id,2);
         tmp.removeTerm(index);
+        error_submit(this.model.toString(), "console");
     },
 	addAssertion: function (assertionValue, nestid) {
             //Check to see if the model lacks a sheet.
