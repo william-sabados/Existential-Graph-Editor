@@ -4,6 +4,7 @@
 function fixSyntax(syntax)
 {
     let charcount = 0;
+    let wrap = false;
     //Get the count of characters.
     for(let i = 0; i < syntax.length; i++)
     {
@@ -13,8 +14,31 @@ function fixSyntax(syntax)
         (code > 96 && code < 123)))
         charcount++;
     }
-    //Check that the entire statement is wrapped. It needs to be.
-    if(!(syntax[0] == "(") && charcount != 1)
+    // Check for some parentheses that confuse the system.
+    if(syntax[0] == "(")
+    {
+        parencount = 1;
+        for(i = 0; i < syntax.length; i++)
+        {
+            if(syntax[i] == "(")
+            {
+                parencount++;
+            }
+            else if(syntax[i] == ")")
+            {
+                parencount--;
+            }
+            if(parencount == 0 && i < syntax.length-1)
+            {
+                wrap = true;
+                break;
+            }
+        }
+    }
+    else
+        wrap = true;
+    //Check that the entire statement is wrapped. It needs to be. Avoid double wrapping.
+    if(wrap = true && charcount != 1)
     {
         syntax = "(" + syntax + ")";
     }
