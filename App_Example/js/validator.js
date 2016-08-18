@@ -75,7 +75,7 @@ function validate_input(str)
 	
 	//Checks for the right amount of 'anded' things	
 	//Secondary checks for ^'s are: ^ && \w are not null; amount of ^'s must be 1 less than amount of letters
-	else if (str.match(/\^/gi) != null && str.match(/\w/gi) != null && (str.match(/\w/gi).length != str.match(/\^/gi).length+1))			
+	else if (str.match(/\^/gi) != null && str.match(/(\w)|(\(\))|(!\(\))/gi) != null && (str.match(/(\w)|(\(\))|(!\(\))/gi).length != str.match(/\^/gi).length+1))			
 	{
 		if (checker) {document.write("<br>ERROR::Uneven letters or carrots(2)<br>");return false;}
 		if (!checker) {return "error3";}
@@ -134,6 +134,9 @@ function validate_input(str)
 				}
 				
 				//// *** REGEX CHECKING PART *** ////
+				//if (check_string == "()")
+				//	if (checker) document.write("<br>PASSED(0) - - -",check_string);
+				
 				//Regex to check a single letter component, i.e. "(E)"
 				if ((check_string.length < 5 || (check_string.length == 5 && check_string[0] == "!")) && check_string != "()")
 				{
