@@ -188,7 +188,8 @@ EG_Model.prototype = {
 		
 	},
     //Model informs the controller of its current layout.
-    Rebuild: function(object)
+    // This is being redone in EGSheet and EGContext so they can control being copied by themselves.
+    /*Rebuild: function(object)
     {
         if(!object)
         {
@@ -225,7 +226,7 @@ EG_Model.prototype = {
             }
         }
         
-    },
+    },*/
     // Returns the model to its original null state.
     EGclear: function()
     {

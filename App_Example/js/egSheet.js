@@ -71,7 +71,9 @@ function egSheet()
     this.toString = function()
     {
         // Open the term.
-        let termsText = "(";
+        let termsText = "";
+        if(this.terms.length > 1)
+            termsText = "(";
         for(let t of this.terms)
         {
             if(t instanceof egAssertion)
@@ -85,9 +87,11 @@ function egSheet()
             termsText += "^"
         }
         // Lop off the last karot.
-        termsText = termsText.substring(0, termsText.length-1);
+        if(termsText[termsText.length-1] == "^")
+            termsText = termsText.substring(0, termsText.length-1);
         // Close the term.
-        termsText += ")";
+        if(this.terms.length > 1)
+            termsText += ")";
         return termsText;
     };
 }
