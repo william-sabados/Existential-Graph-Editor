@@ -100,7 +100,7 @@
                     <div class="btn-group-vertical" role="group" aria-label="...">
                         <button type="button" class="btn btn-info">Specialize (Negative Context)</button>
                         <button type="button" class="btn btn-info">Generalize (Positive Context)</button>
-                        <button type="button" class="btn btn-info">Copy (Sub-Graph)</button>
+                        <button type="button" class="btn btn-info" id="copy">Copy (Sub-Graph)</button>
                         <button type="button" class="btn btn-info">Remove (Sub-Graph)</button>
                         <button type="button" class="btn btn-info" id="doubleNegative">2X Negative (Sub-Graph)</button>
                         <button type="button" class="btn btn-info">Remove 2X (From Sub-Graph)</button>
@@ -208,6 +208,10 @@
         $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();
         });
+    }
+
+    document.getElementById("copy").onclick = function(){
+        copying = true;
     }
 
     document.getElementById("removeSubGraph").onclick = function()

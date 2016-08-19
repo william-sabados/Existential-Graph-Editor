@@ -50,7 +50,7 @@ getNumParents = function (cell) {
     return numParents;
 };
 
-findSpace = function(width,height){
+findSpace = function(height,width){
     let isOpen = false;
     let startX,startY,endX,endY,numParents;
     if(selection){
