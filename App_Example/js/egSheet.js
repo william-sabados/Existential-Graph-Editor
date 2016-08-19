@@ -67,6 +67,22 @@ function egSheet()
         }
         return null;
     };
+    this.copy = function(target)
+    {
+      // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
+        con = model.addNegativeContext(target);
+        for(let t of this.terms)
+        {
+            if(t instanceof egAssertion)
+            {
+                model.addAssertion(t.value, con);
+            }
+            else if(t instanceof egContext)
+            {
+                t.copy(con);
+            }
+        }
+    };
     // toString
     this.toString = function()
     {

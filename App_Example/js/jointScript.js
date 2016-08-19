@@ -13,25 +13,35 @@ getSelectionEgId = function(){
     else return 0;
 };
 
+copy = function(source, target){
+    let egId1 = source.prop('egId');
+    let egId2 = target.prop('egId');
+    let obj = model.model.returnTermByID(egId1, 0);
+    obj.copy(egId2);
+}
+
 // On cell click
 paper.on('cell:pointerdown',function(cellView,evt,x,y){
-
+    if(copying){
+        copy(selection.model,cellView.model);
+        copying = false;
+    }
+    /*
     if(copying && selection != cellView){
         let cellCopy = selection.model.clone({ deep: true });
         let valid = false;
-        if(cellCopy[0].get('parent')){
-            if (graph.getCell(cellCopy[0].get('parent')).prop('isNegated') && cellView.model.prop('isNegated')){
-                valid = true;
-            }
+        if (cellView.model.prop('isNegated')){
+            valid = true;
         }
 
         if(valid){
             cellCopy.forEach(function(item,index,array){
                 cellCopy[index].prop('egId',controller.incrementId());
             });
+            if(cellCopy[0].get('parent')) graph.getCell(cellCopy[0].get('parent')).unembed(cellCopy[0]);
             graph.addCell(cellCopy);
-            cellView.model.embed(cellCopy[0]);
             cellCopy[0].translate(x-cellCopy[0].prop('position/x'),y-cellCopy[0].prop('position/y'));
+            cellView.model.embed(cellCopy[0]);
             //cellView.model.fitEmbeds();
             getTopParent(cellView.model).fitEmbeds({deep: true, padding: 15});
             //cellCopy[0].toFront({ deep: true });
@@ -39,10 +49,14 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
             alert('Not a valid place to copy to.');
         }
         copying = false;
-    }
+    }*/
 
     // If there's already something selected, unhighlight it
-    if(selection) selection.unhighlight();
+    allCells = graph.getCells();
+    allCells.forEach(function(item,index,array){
+        paper.findViewByModel(allCells[index]).unhighlight();
+    });
+    //if(selection) selection.unhighlight();
     // Select the cell the user is clicking on
     selection = cellView;
     //Bring cell to front

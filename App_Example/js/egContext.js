@@ -89,7 +89,7 @@ function egContext(prevContext, id)
                 t.copy(con);
             }
         }
-    }
+    };
     // toString capable of calling other object's toString.
     this.toString = function()
     {
