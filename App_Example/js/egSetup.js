@@ -35,6 +35,8 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
     });
     // Select the cell the user is clicking on
     selection = cellView;
+    //Enable/disable buttons according to selection 
+    disableButtons();
     //Bring cell to front
     selection.model.toFront({ deep: true });
     // Highlight the selection
@@ -63,6 +65,7 @@ paper.on('cell:pointermove',function(cellView,evt,x,y){
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
     if(selection) selection.unhighlight();
+    disableButtons();
     selection = null;
     resizing = false;
 });

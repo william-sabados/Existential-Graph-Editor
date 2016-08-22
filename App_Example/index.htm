@@ -79,7 +79,7 @@
             <div id="two">
                 <panel id="sideCanvas" style="zoom: 110%">
                     <h4 id="headSide3">CONSTRUCT</h4>
-                    <div class="btn-group-vertical" id="bt1" role="group" aria-label="..." style="margin-top: 10px;">
+                    <div class="btn-group-horizontal" id="bt1" role="group" aria-label="..." style="margin-top: 10px;">
                         <div class="btn-group btn-group-justified btn-sm" style="padding: 0px;">
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-m btn-info" data-toggle="modal" data-target="#myModal" id="neg">Negative</button>
@@ -108,12 +108,12 @@
                     <hr style="margin-bottom: 0px;">
                     <h4 id="headSide3">MODIFY</h4>
                     <div class="btn-group-vertical" role="group" aria-label="...">
-                        <button type="button" class="btn btn-info btn-sm">Specialize (Negative Context)</button>
-                        <button type="button" class="btn btn-info btn-sm">Generalize (Positive Context)</button>
-                        <button type="button" class="btn btn-info btn-sm" id="copy">Copy (Sub-Graph)</button>
-                        <button type="button" class="btn btn-info btn-sm">Remove (Sub-Graph)</button>
-                        <button type="button" class="btn btn-info btn-sm" id="doubleNegative">2X Negative (Sub-Graph)</button>
-                        <button type="button" class="btn btn-info btn-sm">Remove 2X (From Sub-Graph)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="specialize">Specialize (Negative Context)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="generalize">Generalize (Positive Context)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="copy">Copy (Sub-Graph)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="subgraphRemove">Remove (Sub-Graph)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="doubleNegative">2X Negative (Sub-Graph)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="remove2Xneg">Remove 2X (From Sub-Graph)</button>
                     </div>
                 </panel>
             </div>
@@ -341,6 +341,45 @@
             a.click();
          }
      }
+     function disableButtons(){
+        $('#specialize').prop('disabled', true);
+        $('#generalize').prop('disabled', true);
+        $('#copy').prop('disabled', true);
+        $('#subgraphRemove').prop('disabled', true); //remove in modify section
+        $('#doubleNegative').prop('disabled', true);
+        $('#remove2Xneg').prop('disabled', true);
+        if(selection){
+            //Can always add double negation to a selection
+            $('#doubleNegative').prop('disabled', false);
+
+            //you can always copy a button, but there may NOT be a valid place to put it
+            $('#copy').prop('disabled', false);
+
+            //Checking if you can remove a double negation
+            let temp = graph.getCell(selection.model.get('parent'));
+            if(temp){
+                if(temp.get('embeds').length == 1){
+                    if(graph.getCell(temp.get('parent'))){
+                        if(graph.getCell(temp.get('parent')).get('embeds').length == 1)
+                            $('#remove2Xneg').prop('disabled', false);
+                    }
+                }
+            }
+            //Erasure (aka remove Sub Graph): any subGraph with an even depth can be removed
+            if(!selection.model.prop('isNegated')){
+                $('#subgraphRemove').prop('disabled', false);
+            }
+        }
+        //If there is no selection, all modify buttons are disabled
+        else{
+            $('#specialize').prop('disabled', true);
+            $('#generalize').prop('disabled', true);
+            $('#copy').prop('disabled', true);
+            $('#subgraphRemove').prop('disabled', true); //remove in modify section
+            $('#doubleNegative').prop('disabled', true);
+            $('#remove2Xneg').prop('disabled', true);
+        }
+    }
     
     let notP = model.addNegatedAssertion("P",0);
     let notQ = model.addNegatedAssertion("Q",1);
