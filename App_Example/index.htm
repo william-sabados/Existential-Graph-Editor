@@ -235,11 +235,16 @@
     }
 
     document.getElementById("resizeSelection").onclick = function(){
-        let resizebutton = $("#resizeSelection").prop('aria-pressed');
-        if(!resizebutton){
-            resizing = true;
-        }else{
+        if(resizing){
+            if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
             resizing = false;
+        }else{
+            let resizebutton = $("#resizeSelection").prop('aria-pressed');
+            if(!resizebutton){
+                resizing = true;
+            }else{
+                resizing = false;
+            }
         }
     }
 

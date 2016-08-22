@@ -50,9 +50,10 @@ paper.on('cell:pointerup',function(cellView,evt,x,y){
 /* Resizing */
 paper.on('cell:pointermove',function(cellView,evt,x,y){
     if(cellView == selection && resizing && !cellView.model.prop('attrs/text/text')){
-        if(cellView.model.prop('size/width') + (x-prevMouseX) > 0 && cellView.model.prop('size/height') + (y-prevMouseY) > 0)
-        cellView.model.resize(cellView.model.prop('size/width') + (x-prevMouseX),cellView.model.prop('size/height') + (y-prevMouseY));
-        cellView.model.translate(-x+prevMouseX,-y+prevMouseY);
+        if(cellView.model.prop('size/width') + (x-prevMouseX) > 0 && cellView.model.prop('size/height') + (y-prevMouseY) > 0){
+            cellView.model.resize(cellView.model.prop('size/width') + (x-prevMouseX),cellView.model.prop('size/height') + (y-prevMouseY));
+        }
+        cellView.model.translate(prevMouseX-x,prevMouseY-y);
         prevMouseX = x;
         prevMouseY = y;
     }
