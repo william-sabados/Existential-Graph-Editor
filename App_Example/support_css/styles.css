@@ -67,6 +67,11 @@ section {
     margin-bottom: 10px;
     color: lightgray;
 }
+#headSide3{
+    text-align: center;
+    margin-top: 20px;
+    color: lightgray;
+}
 #btnRemove{
     width:90%;
     height:5%;
