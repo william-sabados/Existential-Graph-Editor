@@ -80,7 +80,7 @@ EG_Model.prototype = {
                             tmp.addTerm(new egAssertion(assertionValue, egId));
                     }
                     error_submit(this.model.toString(), "console");
-                    document.getElementById("drawType").value = this.model.toString();
+                    document.getElementById("expression").value = this.model.toString();
                 }
             }
             return egId;
@@ -93,7 +93,7 @@ EG_Model.prototype = {
         index = this.model.returnTermByID(id,2);
         tmp.removeTerm(index);
         error_submit(this.model.toString(), "console");
-        document.getElementById("drawType").value = this.model.toString();
+        document.getElementById("expression").value = this.model.toString();
     },
 	addAssertion: function (assertionValue, nestid) {
             //Check to see if the model lacks a sheet.
@@ -120,7 +120,7 @@ EG_Model.prototype = {
                             tmp.addTerm(new egAssertion(assertionValue, egId));
                     }
                     error_submit(this.model.toString(), "console");
-                    document.getElementById("drawType").value = this.model.toString();
+                    document.getElementById("expression").value = this.model.toString();
                 }
             }
     },

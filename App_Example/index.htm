@@ -45,7 +45,7 @@
     <img class="uahImg" src="./images/uahLogo.png">
     <form id="inputForm">
         <div class="input-group">
-            <input id="drawType" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
+            <input id="expression" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
             <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
                 <button class="btn btn-secondary" type="button" id = "Submit">Submit</button>
             </span>
@@ -261,6 +261,20 @@
         selection = paper.findViewByModel(getCellModelFromEgId(tempSelect));
         document.getElementById("removeSubGraph").click();
     }
+
+    document.getElementById("remove2Xneg").onclick = function(){
+        let tempSelect = selection.model;
+        let thirdParent = getCellModel(getCellModel(getCellModel(selection.model.get('parent')).get('parent')).get('parent'));
+        removeSelection();
+        if(thirdParent) copy(tempSelect,thirdParent);
+        else copy(tempSelect,0);
+        selection = paper.findViewByModel(getCellModel(getCellModel(tempSelect.get('parent')).get('parent')));
+        document.getElementById("removeSubGraph").click();
+    }
+
+    document.getElementById("subgraphRemove").onclick = function(){
+        document.getElementById("removeSubGraph").click();
+    }
     
     //In the input form (all of it, like submit and clear and save and just all of it)
     $("#inputForm").keypress(function(event){
@@ -280,19 +294,19 @@
     
     function clearArea()
     {
-        document.getElementById("drawType").value = "";
+        document.getElementById("expression").value = "";
         view.EGclear();
     }
 
     function OnClickDraw()
     {
        view.EGclear();
-       if(document.getElementById("drawType").value != null)
-       view.check_expression(document.getElementById("drawType").value);
+       if(document.getElementById("expression").value != null)
+       view.check_expression(document.getElementById("expression").value);
     }
 	
 	function change_to_black(){
-		document.getElementById("drawType").style.color="black";
+		document.getElementById("expression").style.color="black";
 		document.getElementById("submit_error").value = "";
 	}
 	
@@ -339,13 +353,8 @@
 
             //creates a fake html element and simulates a click that downloads the image
             let a = document.createElement('a');
-            //Jquery array of all lines of submit_error textarea, split by newline character
-            let consoleLines = $('#submit_error').val().split('\n');
-            //Last character of jquery array
-            let lastLine = consoleLines[consoleLines.length-1];
-            //Name based on last line of jquery array, which should be the expression
             //(change later if removing from submit_error)
-            a.download = "(EG) " + lastLine + ".png";
+            a.download = "(EG) " + document.getElementById("expression").value + ".png";
             a.href = canvas.toDataURL('image/png');
             a.click();
          }

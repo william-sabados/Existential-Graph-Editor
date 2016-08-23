@@ -16,7 +16,9 @@ getSelectionEgId = function(){
 
 copy = function(source, target){
     let egId1 = source.prop('egId');
-    let egId2 = target.prop('egId');
+    let egId2;
+    if(target == 0) egId2 = 0;
+    else egId2 = target.prop('egId');
     let obj = model.model.returnTermByID(egId1, 0);
     obj.copy(egId2);
 }

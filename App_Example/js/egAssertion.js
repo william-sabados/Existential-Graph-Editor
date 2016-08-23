@@ -3,4 +3,8 @@ function egAssertion(assertion, id)
 {
     this.value = assertion;
     this.id = id;
+    this.copy = function(target)
+    {
+        model.addAssertion(this.value, target);
+    };
 }

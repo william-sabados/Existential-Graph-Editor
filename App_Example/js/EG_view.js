@@ -262,54 +262,54 @@ EG_View.prototype = {
         if (error == "error1") {
             error_submit("ERROR::Invalid adjacent inputs", "console");
             error_submit("ERROR::Invalid adjacent inputs", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::Invalid adjacent inputs");
             i = 1;
         }
         else if (error == "error2") {
             error_submit("ERROR::Invalid use of not", "console");
             error_submit("ERROR::Invalid use of not", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::Invalid use of not");
             i = 1;
         }
         else if (error == "error3") {
             error_submit("ERROR::Uneven letters or carrots", "console");
             error_submit("ERROR::Uneven letters or carrots", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::Uneven letters or carrots");
             i = 1;
         }
         else if (error == "error4") {
             error_submit("ERROR::Improper syntax", "console");
             error_submit("ERROR::Improper syntax", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::Improper syntax");
             i = 1;
         }
         else if (error == "error5") {
             error_submit("ERROR::Assertion must be between parenthesis", "console");
             error_submit("ERROR::Assertion must be between parenthesis", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::Assertion must be between parenthesis");
             i = 1;
         }
         else if (error == "error6") {
             error_submit("ERROR::Uneven brackets", "console");
             error_submit("ERROR::Uneven brackets", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::Uneven brackets");
             i = 1;
         }
         else if (error == "error7") {
             error_submit("FAILED - - -", "console");
             error_submit("FAILED - - -", "submit_error");
-            document.getElementById("drawType").style.color = "red";
+            document.getElementById("expression").style.color = "red";
             //alert("ERROR::FAILED");
             i = 1;
         }
         else {
-            document.getElementById("drawType").style.color = "green";
+            document.getElementById("expression").style.color = "green";
             return error;
         }
     },
