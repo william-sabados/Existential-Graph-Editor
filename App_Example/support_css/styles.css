@@ -99,8 +99,8 @@ section {
 }
 #uah2{
     float: left;
-    height: 40px;
-    width: 90px;
+    height: auto;
+    width: 15%;
 
 }
 .input-group{
@@ -111,7 +111,7 @@ section {
 .uahImg{
     float: right;
     height: auto;
-    width: 154px;
+    width: 10%;
     margin-right: 7.3%;
     margin-left: 7.3%;
 }

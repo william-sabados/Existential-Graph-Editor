@@ -108,7 +108,7 @@
                     <hr style="margin-bottom: 0px;">
                     <h4 id="headSide3">MODIFY</h4>
                     <div class="btn-group-vertical" role="group" aria-label="...">
-                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="specialize">Specialize (Negative Context)</button>
+                        <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="specialize" data-toggle="modal" data-target="#specializeModal">Specialize (Negative Context)</button>
                         <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="generalize">Generalize (Positive Context)</button>
                         <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="copy">Copy (Sub-Graph)</button>
                         <button type="button" class="btn btn-info btn-sm" disabled="disabled" id="subgraphRemove">Remove (Sub-Graph)</button>
@@ -151,7 +151,7 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewNegatedAssertionValue" type="text" name="addChar" onfocus="clearInput(this)"autofocus/><br>
+                <input id="NewNegatedAssertionValue" type="text" name="addChar" onfocus="clearInput(this)" autofocus/><br>
 
             </div>
             <div class="modal-footer">
@@ -180,7 +180,7 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewAssertionValue" type="text" name="addChar" onfocus="clearInput(this)"autofocus/><br>
+                <input id="NewAssertionValue" type="text" name="addChar" onfocus="clearInput(this)" autofocus/><br>
 
             </div>
             <div class="modal-footer">
@@ -191,6 +191,38 @@
                 <script>
                     // Wire-up event handler to the button.
                     document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());}
+                </script>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="specializeModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Specialize</h4>
+            </div>
+            <div class="modal-body">
+                Enter Expression:
+                <input id="SpecializeExpression" type="text" name="addChar" onfocus="clearInput(this)" autofocus style="width: 100%;"/><br>
+
+            </div>
+            <div class="modal-footer">
+                <img id="uah2" src="./images/uahLogo.png">
+                <button id="SpecializeButton" type="button" class="btn btn-default" data-dismiss="modal">Specialize</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                <script>
+                    document.getElementById("SpecializeButton").onclick = function(){
+                        //MATT THIS THING NEEDS TO BE CHANGED TO YOUR SPECIALIZE THINGY
+                        //model.specializeFunctionThing(document.getElementById("SpecializeExpression").value, getSelectionEgId());
+                        error_submit('Matt, add the specialize thing in here (index.htm, ln 220-ish)','console');
+                    }
                 </script>
             </div>
         </div>
