@@ -378,7 +378,7 @@
             if(temp){
                 if(temp.get('embeds').length == 1){
                     if(graph.getCell(temp.get('parent'))){
-                        if(graph.getCell(temp.get('parent')).get('embeds').length == 1)
+                        if(graph.getCell(temp.get   ('parent')).get('embeds').length == 1)
                             $('#remove2Xneg').prop('disabled', false);
                     }
                 }
@@ -386,7 +386,10 @@
             //Erasure (aka remove Sub Graph): any subGraph with an even depth can be removed
             if(!selection.model.prop('isNegated')){
                 $('#subgraphRemove').prop('disabled', false);
+                $('#generalize').prop('disabled', false);
             }
+            else
+                $('#specialize').prop('disabled', false);
         }
     }
     
