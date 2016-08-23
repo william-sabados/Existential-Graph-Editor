@@ -83,6 +83,7 @@ EG_Model.prototype = {
                     document.getElementById("drawType").value = this.model.toString();
                 }
             }
+            return egId;
     },
     // If valid, removes the selected piece of the model.
     // General rule is cannot remove in a negative context.

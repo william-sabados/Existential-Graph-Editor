@@ -65,8 +65,8 @@ paper.on('cell:pointermove',function(cellView,evt,x,y){
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
     if(selection) selection.unhighlight();
-    disableButtons();
     selection = null;
+    disableButtons();
     resizing = false;
 });
 
@@ -75,5 +75,19 @@ removeSelection = function(){
         selection.unhighlight();
         selection = null;
     }
+    disableButtons();
     resizing = false;
+};
+
+getCellModel = function(id){
+    return graph.getCell(id);
+};
+
+getCellModelFromEgId = function(id){
+    let allCells = graph.getCells();
+    let cell;
+    allCells.forEach(function(value){
+        if(graph.getCell(value).prop('egId') == id) cell = value;
+    });
+    return cell;
 };

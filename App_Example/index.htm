@@ -232,6 +232,7 @@
     {
         model.remove(getSelectionEgId());
         view.removeCell();
+        disableButtons();
     }
 
     document.getElementById("resizeSelection").onclick = function(){
@@ -249,11 +250,19 @@
     }
 
     document.getElementById("doubleNegative").onclick = function(){
-        let x2 = model.addNegativeContext(getSelectionEgId());
-        model.addNegativeContext(x2);
+        let tempSelect = getSelectionEgId();
+        let selectionParent = getCellModel(selection.model.get('parent'));
+        removeSelection();
+        let outside;
+        if(selectionParent) outside = model.addNegativeContext(selectionParent.prop('egId'));
+        else outside = model.addNegativeContext(0);
+        let inside = model.addNegativeContext(outside);
+        copy(getCellModelFromEgId(tempSelect),getCellModelFromEgId(inside));
+        selection = paper.findViewByModel(getCellModelFromEgId(tempSelect));
+        document.getElementById("removeSubGraph").click();
     }
     
-    //In the input form (all of it, like subimt and clear and save and just all of it)
+    //In the input form (all of it, like submit and clear and save and just all of it)
     $("#inputForm").keypress(function(event){
         //If enter is pressed
         if(event.which == 13){
@@ -369,15 +378,6 @@
             if(!selection.model.prop('isNegated')){
                 $('#subgraphRemove').prop('disabled', false);
             }
-        }
-        //If there is no selection, all modify buttons are disabled
-        else{
-            $('#specialize').prop('disabled', true);
-            $('#generalize').prop('disabled', true);
-            $('#copy').prop('disabled', true);
-            $('#subgraphRemove').prop('disabled', true); //remove in modify section
-            $('#doubleNegative').prop('disabled', true);
-            $('#remove2Xneg').prop('disabled', true);
         }
     }
     
