@@ -46,22 +46,13 @@
     <form id="inputForm">
         <div class="input-group">
             <input title="!(x) = not x (x false), ^ = and, !(!(x)) = not not x (x true), x = any character (x true)" id="expression" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
-            <span  class="input-group-btn" style="color: #337ab7;">
+            <div class="input-group-btn" style="color: #337ab7;">
                 <button class="btn btn-secondary" onclick="return OnClickDraw();" type="button" id="Submit">Submit</button>
-            </span>
-            <span  class="input-group-btn" style="color: #337ab7;">
                 <button class="btn btn-secondary" onclick="return clearArea();" type="button">Clear</button>
-            </span>
-            <span  class="input-group-btn" style="color: #337ab7;">
                 <button class="btn btn-secondary" onclick= "return save_image();" type="button" >Save</button>
-            </span>
-            <span  class="input-group-btn" style="color: #337ab7;">
                 <button class="btn btn-secondary" data-toggle="modal" data-target="#helpModal" type="button" >Help</button>
-            </span>
+            </div>
         </div>
-        <!--<div>
-            <input id="testt" type="text" class="checkbox" placeholder="error" aria-describedby="">
-        </div>-->
         <div>
         <section style="padding-left: 24px;">
             <textarea id=submit_error readonly rows="1" cols="65" style="width: 74%"></textarea>
