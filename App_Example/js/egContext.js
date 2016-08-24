@@ -105,7 +105,7 @@ function egContext(prevContext, id)
             {
                 termsText += "!" + t.toString();
             }
-            termsText += "^"
+            termsText += "^";
         }
         if(termsText[termsText.length-1] == "^")
             termsText = termsText.substring(0, termsText.length-1);

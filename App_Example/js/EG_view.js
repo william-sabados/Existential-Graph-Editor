@@ -317,7 +317,7 @@ EG_View.prototype = {
     // Clears the jointscript graph and informs the controller to clear as well.
     EGclear: function () {
         graph.clear();
-        controller.EGclear();
+        this.controller.EGclear();
         if (selection) selection.unhighlight();
         selection = null;
     },

@@ -66,7 +66,7 @@ EG_Controller.prototype = {
 	
     // This function handles incrementing the egID so that unique IDs
     // are created for each new assertion.
-    incrementId() {
+    incrementId: function() {
         this.egId++;
         return this.egId;
     }, 

@@ -100,7 +100,7 @@ function egSheet()
             {
                 termsText += "!" + t.toString();
             }
-            termsText += "^"
+            termsText += "^";
         }
         // Lop off the last karot.
         if(termsText[termsText.length-1] == "^")
