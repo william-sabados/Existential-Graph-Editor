@@ -45,15 +45,18 @@
     <img class="uahImg" src="./images/uahLogo.png">
     <form id="inputForm">
         <div class="input-group">
-            <input id="expression" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
-            <span  class="input-group-btn" id="drawC" onclick="return OnClickDraw();">
-                <button class="btn btn-secondary" type="button" id = "Submit">Submit</button>
+            <input title="!(x) = not x (x false), ^ = and, !(!(x)) = not not x (x true), x = any character (x true)" id="expression" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
+            <span  class="input-group-btn" style="color: #337ab7;">
+                <button class="btn btn-secondary" onclick="return OnClickDraw();" type="button" id="Submit">Submit</button>
             </span>
-            <span  class="input-group-btn" id="clear" onclick="return clearArea();">
-                <button class="btn btn-secondary" type="button">Clear</button>
+            <span  class="input-group-btn" style="color: #337ab7;">
+                <button class="btn btn-secondary" onclick="return clearArea();" type="button">Clear</button>
             </span>
-            <span  class="input-group-btn" id="save">
+            <span  class="input-group-btn" style="color: #337ab7;">
                 <button class="btn btn-secondary" onclick= "return save_image();" type="button" >Save</button>
+            </span>
+            <span  class="input-group-btn" style="color: #337ab7;">
+                <button class="btn btn-secondary" data-toggle="modal" data-target="#helpModal" type="button" >Help</button>
             </span>
         </div>
         <!--<div>
@@ -124,7 +127,7 @@
                 <textarea id=console readonly rows="4" cols="100" wrap="soft" style="width: 75%;"> - Console -</textarea>
             </div>
             <div>
-                <button type="button" class="btn btn-secondary" onclick="return document.getElementById(&#34;console&#34;).value = &#34; - Console -&#34;"">Clear Console</button>
+                <button type="button" style="color: #337ab7;" class="btn btn-secondary" onclick="return document.getElementById(&#34;console&#34;).value = &#34; - Console -&#34;"">Clear Console</button>
             </div>
         </section>
     </div>
@@ -221,12 +224,63 @@
                     document.getElementById("SpecializeButton").onclick = function(){
                         //MATT THIS THING NEEDS TO BE CHANGED TO YOUR SPECIALIZE THINGY
                         //model.specializeFunctionThing(document.getElementById("SpecializeExpression").value, getSelectionEgId());
-                        error_submit('Matt, add the specialize thing in here (index.htm, ln 220-ish)','console');
+                        error_submit('Matt, add the specialize thing in here (index.htm, line 220-ish)','console');
                     }
                 </script>
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="helpModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Help</h4>
+            </div>
+            <div class="modal-body">
+                *A quick reference can be found by hovering over the "Enter Expression" box.
+                <br><br>
+                <DL>
+                    <DT>Existential Graph
+                    <DD>An existential graph is a type of diagrammatic or visual notation for logical expressions, proposed by Charles Sanders Peirce.
+                </DL><br>
+                <DL>
+                    <DT>Graph Creation
+                    <DD>You may enter an expression for a graph; alternatively, you may construct a graph from scratch using the CONSTRUCT box to add elements to the graph or to other elements.
+                    <DT>Graph Manipulation
+                    <DD>Once you are ready to manipulate the graph, you can use the MODIFY box to follow rules for existential graph manipulation.
+                </DL><br>
+                <DL>
+                    <DT>Sheet of Assertion
+                    <DD>A blank page, or the "sheet of assertion" (or just "sheet"), denotes truth.
+                    <DT> Subgraphs; Assertions and Contexts
+                    <DD>A letter, or an "assertion," or multiple letters denote truth. They may be enclosed in a simple closed curve, called a cut, to denote false. Cuts as well as assertions may be a part of a subgraph, denoting negations in cuts.
+                    <DT>Nesting
+                    <DD>Cuts can nest into other cuts, but cannot intersect. Each nested cut negates the previous denotement, that is if the previous cut denotes false, the nested cut will denote truth.
+                </DL><br>
+                <DL>
+                    <DT>Specialize (Negative Context)
+                    <DD>To specialize a subgraph is to insert a subgraph into a false context; any subgraph may be added to a false context.
+                    <DT>Generalize (Positive Context)
+                    <DD>To generalize a subgraph is to erase a subgraph from a true context; any subgraph may be removed from a true context.
+                    <DT>Copy (Sub-Graph)
+                    <DD>To copy a subgraph, it must be from a layer closer to the sheet of assertion and copied farther into a context or nested context; a subgraph may only be copied into a subgraph of a deeper layer, and not of itself. Also referred to as iteration.
+                    <DT>Remove (Sub-Graph)
+                    <DD>To remove a subgraph, it must exist in a layer closer to the sheet of assertion, such that it may have been copied to where is currently is; a subgraph may only be removed if another subgraph of itself at a higher layer exists. Also referred to as deiteration.
+                    <DT>2x Negative (Sub-Graph)
+                    <DD>To double negate is to add a double cut around a subgraph. A double cut may be added to any subgraph, as it does not change the context.
+                    <DT>Remove 2X (From Sub-Graph)
+                    <DD>To remove a double negation is to remove a double cut around a subgraph. A double cut may be removed from any subgraph as long as it has a double cut, as it does not change the context.
+                </DL>
+            </div>
+            <div class="modal-footer">
+                <img id="uah2" src="./images/uahLogo.png">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -395,6 +449,7 @@
             a.click();
          }
      }
+
      function disableButtons(){
         $('#specialize').prop('disabled', true);
         $('#generalize').prop('disabled', true);
@@ -434,8 +489,8 @@
         }
     }
     
-    let notP = model.addNegatedAssertion("P",0);
-    let notQ = model.addNegatedAssertion("Q",1);
+    model.addNegatedAssertion("P",0);
+    model.addNegatedAssertion("Q",1);
 
 </script>
 
