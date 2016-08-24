@@ -87,7 +87,7 @@
                                 <button type="button" class="btn btn-m btn-info" id="removeSubGraph">Remove</button>
                             </div>
                             <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-m btn-info" id="resizeSelection" aria-pressed="false">Resize</button>
+                                <button title="Click: Manual resize  |  Double-Click: Auto resize" type="button" class="btn btn-m btn-info" id="resizeSelection" aria-pressed="false">Resize</button>
                             </div>
                         </div>
                         <div class="btn-group btn-group-justified btn-sm" style="padding: 0px;">
@@ -202,9 +202,7 @@
                 <h4 class="modal-title">Specialize</h4>
             </div>
             <div class="modal-body">
-                Enter Expression:
-                <input id="SpecializeExpression" type="text" name="addChar" onfocus="clearInput(this)" autofocus style="width: 100%;"/><br>
-
+                <input placeholder="Enter Expression" id="SpecializeExpression" type="text" name="addChar" onfocus="clearInput(this)" autofocus style="width: 100%;"/><br>
             </div>
             <div class="modal-footer">
                 <img id="uah2" src="./images/uahLogo.png">
@@ -248,7 +246,7 @@
                     <DT>Sheet of Assertion
                     <DD>A blank page, or the "sheet of assertion" (or just "sheet"), denotes truth.
                     <DT> Subgraphs; Assertions and Contexts
-                    <DD>A letter, or an "assertion," or multiple letters denote truth. They may be enclosed in a simple closed curve, called a cut, to denote false. Cuts as well as assertions may be a part of a subgraph, denoting negations in cuts.
+                    <DD>A letter, or an "assertion," or multiple letters denote truth. They may be enclosed in a simple closed curve, called a cut, to denote false. Cuts, as well as assertions, may be parts of a subgraph, denoting negations inside of cuts.
                     <DT>Nesting
                     <DD>Cuts can nest into other cuts, but cannot intersect. Each nested cut negates the previous denotement, that is if the previous cut denotes false, the nested cut will denote truth.
                 </DL><br>
@@ -258,9 +256,9 @@
                     <DT>Generalize (Positive Context)
                     <DD>To generalize a subgraph is to erase a subgraph from a true context; any subgraph may be removed from a true context.
                     <DT>Copy (Sub-Graph)
-                    <DD>To copy a subgraph, it must be from a layer closer to the sheet of assertion and copied farther into a context or nested context; a subgraph may only be copied into a subgraph of a deeper layer, and not of itself. Also referred to as iteration.
+                    <DD>To copy a subgraph, it must be from a layer closer to the sheet of assertion and copied deeper into a context or nested context; a subgraph may only be copied into a subgraph of a deeper layer, and not of itself. Also referred to as iteration.
                     <DT>Remove (Sub-Graph)
-                    <DD>To remove a subgraph, it must exist in a layer closer to the sheet of assertion, such that it may have been copied to where is currently is; a subgraph may only be removed if another subgraph of itself at a higher layer exists. Also referred to as deiteration.
+                    <DD>To remove a subgraph, it must exist in a layer closer to the sheet of assertion, such that it may have been copied to where it currently is; a subgraph may only be removed if another subgraph of itself exists at a higher layer. Also referred to as deiteration.
                     <DT>2x Negative (Sub-Graph)
                     <DD>To double negate is to add a double cut around a subgraph. A double cut may be added to any subgraph, as it does not change the context.
                     <DT>Remove 2X (From Sub-Graph)
