@@ -281,6 +281,10 @@
         }
     }
 
+    document.getElementById("generalize").onclick = function(){
+        document.getElementById("removeSubGraph").click();
+    }
+
     document.getElementById("doubleNegative").onclick = function(){
         let tempSelect = getSelectionEgId();
         let selectionParent = getCellModel(selection.model.get('parent'));
@@ -416,12 +420,17 @@
                 }
             }
             //Erasure (aka remove Sub Graph): any subGraph with an even depth can be removed
-            if(!selection.model.prop('isNegated')){
-                $('#subgraphRemove').prop('disabled', false);
-                $('#generalize').prop('disabled', false);
+            if(selection.model.get('parent')){
+                if(!getCellModel(selection.model.get('parent')).prop('isNegated')){
+                    //$('#subgraphRemove').prop('disabled', false);
+                    $('#generalize').prop('disabled', false);
+                    if(!selection.model.prop('attrs/text/text')) $('#specialize').prop('disabled', false);
+                }  
             }
-            else
-                $('#specialize').prop('disabled', false);
+            else{
+                $('#generalize').prop('disabled', false);
+                if(!selection.model.prop('attrs/text/text')) $('#specialize').prop('disabled', false);
+            }
         }
     }
     
