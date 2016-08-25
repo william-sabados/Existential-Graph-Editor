@@ -278,9 +278,48 @@
     controller = new EG_Controller(model, view);
     view.setController(controller);
 
+    var undoVersions = [];
+    var redoVersions = [];
+
+    function undoRedoDisable(){
+        $('#undo').prop('disabled',true);
+        $('#redo').prop('disabled',true);
+        if(undoVersions.length > 1) $('#undo').prop('disabled',false);
+        if(redoVersions.length > 0) $('#redo').prop('disabled',false);
+    }
+
+    function addUndo(model){
+        redoVersions = [];
+        undoVersions.push(model);
+        undoRedoDisable();
+    }
+
+    function undo(){
+        redoVersions.unshift(undoVersions.pop());
+        document.getElementById('expression').value = undoVersions[undoVersions.length-1];
+        drawGraph();
+        undoRedoDisable();
+    }
+
+    function redo(){
+        document.getElementById('expression').value = redoVersions[0];
+        undoVersions.push(redoVersions.shift());
+        drawGraph();
+        undoRedoDisable();
+    }
+
+    document.getElementById('undo').onclick = function(){
+        undo();
+    }
+
+    document.getElementById('redo').onclick = function(){
+        redo();
+    }
+
     // Wire-up event handler to the button.
     document.getElementById("AddNegatedAssertionButton").onclick = function(){
         model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());
+        addUndo(document.getElementById("expression").value);
         document.getElementById("NewNegatedAssertionValue").value="";
         document.getElementById("NewNegatedAssertionValue").focus();
         $('#myModal').on('shown.bs.modal', function () {
@@ -291,6 +330,7 @@
 
     document.getElementById("AddAssertionButton").onclick = function(){
         model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());
+        addUndo(document.getElementById("expression").value);
         document.getElementById("NewAssertionValue").value="";
         document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
@@ -307,6 +347,7 @@
         model.remove(getSelectionEgId());
         view.removeCell();
         disableButtons();
+        addUndo(document.getElementById("expression").value);
     }
 
     document.getElementById("resizeSelection").onclick = function(){
@@ -374,13 +415,19 @@
     {
         document.getElementById("expression").value = "";
         view.EGclear();
+        addUndo(document.getElementById("expression").value);
+    }
+
+    function drawGraph(){
+       view.EGclear();
+       if(document.getElementById("expression").value != null)
+       view.check_expression(document.getElementById("expression").value);
     }
 
     function OnClickDraw()
     {
-       view.EGclear();
-       if(document.getElementById("expression").value != null)
-       view.check_expression(document.getElementById("expression").value);
+        drawGraph();
+        addUndo(document.getElementById("expression").value);
     }
 	
 	function change_to_black(){
@@ -479,6 +526,7 @@
     
     model.addNegatedAssertion("P",0);
     model.addNegatedAssertion("Q",1);
+    addUndo(document.getElementById("expression").value);
 
 </script>
 
