@@ -221,8 +221,13 @@ EG_View.prototype = {
         // Add the assertion to the graph.    
         graph.addCells([newRectangle]);
 
-        //Resize
-        if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
+        //Resize, move inside edges
+        if(selection){
+            let parent = getTopParent(selection.model);
+            parent.fitEmbeds({deep: true, padding: 15});
+            if(parent.prop('position/y') < 0) parent.translate(0,-parent.prop('position/y')+5);
+            if(parent.prop('position/X') < 0) parent.translate(-parent.prop('position/x')+5,0);
+        }
 
         removeSelection();
     },
@@ -248,8 +253,13 @@ EG_View.prototype = {
         // Add the assertion to the graph. 
         graph.addCells([newText]);
 
-        //Resize
-        if(selection) getTopParent(selection.model).fitEmbeds({deep: true, padding: 15});
+        //Resize, move inside edges
+        if(selection){
+            let parent = getTopParent(selection.model);
+            parent.fitEmbeds({deep: true, padding: 15});
+            if(parent.prop('position/y') < 0) parent.translate(0,-parent.prop('position/y')+5);
+            if(parent.prop('position/X') < 0) parent.translate(-parent.prop('position/x')+5,0);
+        }
 
         removeSelection();
     },
