@@ -62,8 +62,62 @@ function fixSyntax(syntax)
             i++;
         }
     }
+    while(syntax.indexOf("|") != -1 || syntax.indexOf(">") != -1)
+    {
+        impl = syntax.indexOf(">");
+        disj = syntax.indexOf("|");
+        if(impl != -1 && impl < disj || disj == -1)
+            dex = impl;
+        else
+            dex = disj;
+        let beforedex = 0;
+        let afterdex = 0;
+        let paren = 0;
+        //Find what is before the unparsable beast.
+        for(let b = dex-1; b > 0; b--)
+        {
+            if(syntax[b] == ")")
+            {
+                paren++;
+            }
+            else if(syntax[b] == "(")
+            {
+                paren--;
+            }
+            if(paren == 0)
+            {
+                if(syntax[b-1] == "!")
+                    beforedex = b-1;
+                else
+                    beforedex = b;
+                break;
+            }
+        }
+        //Find what is after the unparsable beast.
+        for(let f = dex+1; f < syntax.length; f++)
+        {
+            if(syntax[f] == "(")
+            {
+                paren++;
+            }
+            else if(syntax[f] == ")")
+            {
+                paren--;
+            }
+            if(paren == 0)
+            {
+                afterdex = f;
+                break;
+            }
+        }
+        // Extract the two necessary parts.
+        let first = syntax.substring(beforedex, dex);
+        let second = syntax.substring(dex+1, afterdex+1);
+
+        syntax = syntax.substring(0, beforedex) + "!(!(" + first + ")^!(" + second +"))" + syntax.substring(afterdex+1);
+    }
     // Now that everything SHOULD be uniform. Perform the conversion of implications and disjunctions to conjunctions and negations.
-    while(syntax.indexOf(">") != -1)
+    /*while(syntax.indexOf(">") != -1)
     {
         impl = syntax.indexOf(">");
         let beforedex = 0;
@@ -112,54 +166,6 @@ function fixSyntax(syntax)
 
         syntax = syntax.substring(0, beforedex) + "!(" + first + "^!(" + second +"))" + syntax.substring(afterdex+1);
     }
-    while(syntax.indexOf("|") != -1)
-    {
-        disj = syntax.indexOf("|");
-        let beforedex = 0;
-        let afterdex = 0;
-        let paren = 0;
-        //Find what is before the unparsable beast.
-        for(let b = disj-1; b > 0; b--)
-        {
-            if(syntax[b] == ")")
-            {
-                paren++;
-            }
-            else if(syntax[b] == "(")
-            {
-                paren--;
-            }
-            if(paren == 0)
-            {
-                if(syntax[b-1] == "!")
-                    beforedex = b-1;
-                else
-                    beforedex = b;
-                break;
-            }
-        }
-        //Find what is after the unparsable beast.
-        for(let f = disj+1; f < syntax.length; f++)
-        {
-            if(syntax[f] == "(")
-            {
-                paren++;
-            }
-            else if(syntax[f] == ")")
-            {
-                paren--;
-            }
-            if(paren == 0)
-            {
-                afterdex = f;
-                break;
-            }
-        }
-        // Extract the two necessary parts.
-        let first = syntax.substring(beforedex, disj);
-        let second = syntax.substring(disj+1, afterdex+1);
-
-        syntax = syntax.substring(0, beforedex) + "!(!(" + first + ")^!(" + second +"))" + syntax.substring(afterdex+1);
-    }
+    */
     return syntax;
 }
