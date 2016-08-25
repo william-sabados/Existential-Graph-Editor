@@ -152,11 +152,6 @@
                 <img id="uah2" src="./images/uahLogo.png">
                 <button id="AddNegatedAssertionButton" type="button" class="btn btn-default" data-dismiss="modal" >Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                <script>
-                    // Wire-up event handler to the button.
-                    document.getElementById("AddNegatedAssertionButton").onclick = function(){model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());}
-                </script>
             </div>
         </div>
 
@@ -181,11 +176,6 @@
                 <img id="uah2" src="./images/uahLogo.png">
                 <button id="AddAssertionButton" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                <script>
-                    // Wire-up event handler to the button.
-                    document.getElementById("AddAssertionButton").onclick = function(){model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());}
-                </script>
             </div>
         </div>
 
@@ -208,13 +198,6 @@
                 <img id="uah2" src="./images/uahLogo.png">
                 <button id="SpecializeButton" type="button" class="btn btn-default" data-dismiss="modal">Specialize</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                <script>
-                    document.getElementById("SpecializeButton").onclick = function(){
-                        //OKAY MAYBE IT WORKS
-                        model.check_expression(document.getElementById("SpecializeExpression").value, getSelectionEgId());
-                    }
-                </script>
             </div>
         </div>
 
@@ -325,7 +308,6 @@
         $('#myModal').on('shown.bs.modal', function () {
             $('#NewNegatedAssertionValue').focus();
         });
-
     }
 
     document.getElementById("AddAssertionButton").onclick = function(){
@@ -335,6 +317,16 @@
         document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
             $('#NewAssertionValue').focus();
+        });
+    }
+
+    document.getElementById("SpecializeButton").onclick = function(){
+        model.check_expression(document.getElementById("SpecializeExpression").value, getSelectionEgId());
+        addUndo(document.getElementById("expression").value);
+        document.getElementById("SpecializeExpression").value="";
+        document.getElementById("SpecializeExpression").focus();
+        $('#SpecializeModal').on('shown.bs.modal', function () {
+            $('#SpecializeExpression').focus();
         });
     }
 
