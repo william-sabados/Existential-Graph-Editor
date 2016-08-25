@@ -145,9 +145,11 @@ EG_Model.prototype = {
         return false;
     },*/
 
-	check_expression: function (thing_to_check) {
+	check_expression: function (thing_to_check, context) {
 		
 		//Error cases 1-7 as returned by the validator function
+        if(!context)
+            context = 0;
         thing_to_check = fixSyntax(thing_to_check);
         error = validate_input(thing_to_check);
 		if (error == "error1")
@@ -183,11 +185,12 @@ EG_Model.prototype = {
 		
 		else if (error == true)
 		{
-			return create_EG_Assertion(thing_to_check);
+			return create_EG_Assertion(thing_to_check, context);
 		}
 		//else return false;
 		
 	},
+
     //Model informs the controller of its current layout.
     // This is being redone in EGSheet and EGContext so they can control being copied by themselves.
     /*Rebuild: function(object)

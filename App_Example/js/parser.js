@@ -1,7 +1,7 @@
 
-function create_EG_Assertion(input)
+function create_EG_Assertion(input, context)
 {
-	return parse_Items(input.match(/!\(|\w|\)|\(/gi));  //!(
+	return parse_Items(input.match(/!\(|\w|\)|\(/gi), context);  //!(
 }
 
 function parse_Items(array_Items, contextId)
