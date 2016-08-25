@@ -67,9 +67,15 @@ function fixSyntax(syntax)
         impl = syntax.indexOf(">");
         disj = syntax.indexOf("|");
         if(impl != -1 && impl < disj || disj == -1)
+        {
             dex = impl;
+            disj = -1;
+        }
         else
+        {
             dex = disj;
+            impl = -1
+        }
         let beforedex = 0;
         let afterdex = 0;
         let paren = 0;
@@ -114,7 +120,10 @@ function fixSyntax(syntax)
         let first = syntax.substring(beforedex, dex);
         let second = syntax.substring(dex+1, afterdex+1);
 
-        syntax = syntax.substring(0, beforedex) + "!(!(" + first + ")^!(" + second +"))" + syntax.substring(afterdex+1);
+        if(disj != -1)
+            syntax = syntax.substring(0, beforedex) + "!(!(" + first + ")^!(" + second +"))" + syntax.substring(afterdex+1);
+        else
+            syntax = syntax.substring(0, beforedex) + "!(" + first + "^!(" + second +"))" + syntax.substring(afterdex+1);
     }
     // Now that everything SHOULD be uniform. Perform the conversion of implications and disjunctions to conjunctions and negations.
     /*while(syntax.indexOf(">") != -1)
