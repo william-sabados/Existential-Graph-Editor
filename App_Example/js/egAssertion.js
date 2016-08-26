@@ -5,6 +5,8 @@ function egAssertion(assertion, id)
     this.id = id;
     this.copy = function(target)
     {
+        if(target == this.id)
+            return;
         model.addAssertion(this.value, target);
     };
 }

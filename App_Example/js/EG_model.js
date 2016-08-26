@@ -124,6 +124,40 @@ EG_Model.prototype = {
             error_submit(this.model.toString(), "console");
             document.getElementById("expression").value = this.model.toString();
     },
+    isRemovable: function (target)
+    {
+        let obj = this.model.returnTermByID(target, 0);
+        let par = this.model.returnTermByID(target, 1);
+        if(obj instanceof egAssertion)
+        {
+            obj = obj.value;
+        }
+        else
+            obj = obj.toString();
+        do
+        {
+            par = this.model.returnTermByID(par.id, 1);
+            if(par == -1)
+            {
+                return false;
+            }
+            for(t of par.terms)
+            {
+                if(t instanceof egAssertion)
+                {
+                    if(t.value == obj)
+                        return true;
+                }
+                else if(t instanceof egContext)
+                {
+                    if(t.toString() == obj)
+                        return true;
+                }
+            }
+        }
+        while(!(par instanceof egSheet))
+        return false;
+    },
     // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
     /*findTerm: function (object,id)
     {

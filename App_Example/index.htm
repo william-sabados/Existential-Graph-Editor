@@ -505,10 +505,14 @@
                     }
                 }
             }
-            //Erasure (aka remove Sub Graph): any subGraph with an even depth can be removed
+            // Special snowflake remove subgraph.
+            if(model.isRemovable(getSelectionEgId()))
+            {
+                $('#subgraphRemove').prop('disabled', false);
+            }
+            //Erasure): any subGraph with an even depth can be removed
             if(selection.model.get('parent')){
                 if(!getCellModel(selection.model.get('parent')).prop('isNegated')){
-                    //$('#subgraphRemove').prop('disabled', false);
                     $('#generalize').prop('disabled', false);
                     if(!selection.model.prop('attrs/text/text')) $('#specialize').prop('disabled', false);
                 }  
