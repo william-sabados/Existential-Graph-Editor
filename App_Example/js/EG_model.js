@@ -34,6 +34,7 @@ EG_Model.prototype = {
                     tmp.addTerm(new egContext(tmp.isNegative, egId));
                 }
             }
+            document.getElementById("expression").value = this.model.toString();
             return egId;
 
     },

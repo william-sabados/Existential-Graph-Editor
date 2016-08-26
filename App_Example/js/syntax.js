@@ -6,13 +6,17 @@ function fixSyntax(syntax)
     let charcount = 0;
     let wrap = false;
     //Get the count of characters.
-    for(let i = 0; i < syntax.length; i++)
+    /*for(let i = 0; i < syntax.length; i++)
     {
         code = syntax.charCodeAt(i);
         if (((code > 47 && code < 58) || // numeric (0-9)
         (code > 64 && code < 91) || // upper alpha (A-Z)
         (code > 96 && code < 123)))
         charcount++;
+    }*/
+    if(syntax.indexOf("^") == -1)
+    {
+        charcount = 1;
     }
     // Check for some parentheses that confuse the system.
     if(syntax[0] == "(")
