@@ -334,12 +334,6 @@ EG_View.prototype = {
 
     removeCell: function () {
         if(selection){
-            let childrenCells = selection.model.getEmbeddedCells({ deep: true })
-            if (childrenCells.length > 0) {
-                for (let i = 0; i < childrenCells.length; i++) {
-                    childrenCells[i].remove();
-                }
-            }
             let parentCell = graph.getCell(selection.model.get('parent'));
             selection.model.remove();
             if(parentCell) getTopParent(parentCell).fitEmbeds({deep: true, padding: 15});

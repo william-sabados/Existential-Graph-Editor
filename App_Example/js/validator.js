@@ -47,7 +47,7 @@ function validate_input(str)
 	//Initial check for even ^'s
 	var check1 = str.match(/\w/gi);
 	var check2 = str.match(/\^/gi);
-	if (check1 != null && check2 == null && tokenized.length > 5)
+	if (check1 != null && check2 == null && tokenized.length % 2 == 0)
 	{
 		if (checker) {document.write("<br>ERROR::Uneven letters or carrots(1)");return false;}
 		if (!checker) {return "error3";}
