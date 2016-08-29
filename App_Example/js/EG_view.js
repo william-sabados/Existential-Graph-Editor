@@ -225,8 +225,8 @@ EG_View.prototype = {
         if(selection){
             let parent = getTopParent(selection.model);
             parent.fitEmbeds({deep: true, padding: 15});
-            if(parent.prop('position/y') < 0) parent.translate(0,-parent.prop('position/y')+5);
-            if(parent.prop('position/X') < 0) parent.translate(-parent.prop('position/x')+5,0);
+            if(parent.prop('position/y') <= 0) parent.translate(0,-parent.prop('position/y')+10);
+            if(parent.prop('position/x') <= 0) parent.translate(-parent.prop('position/x')+10,0);
         }
 
         removeSelection();
