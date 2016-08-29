@@ -79,10 +79,10 @@ EG_Model.prototype = {
                         else
                             tmp.addTerm(new egAssertion(assertionValue, egId));
                     }
-                    error_submit(this.model.toString(), "console");
-                    document.getElementById("expression").value = this.model.toString();
                 }
             }
+            error_submit(this.model.toString(), "console");
+            document.getElementById("expression").value = this.model.toString();
             return egId;
     },
     // If valid, removes the selected piece of the model.
@@ -119,10 +119,10 @@ EG_Model.prototype = {
                         else
                             tmp.addTerm(new egAssertion(assertionValue, egId));
                     }
-                    error_submit(this.model.toString(), "console");
-                    document.getElementById("expression").value = this.model.toString();
                 }
             }
+            error_submit(this.model.toString(), "console");
+            document.getElementById("expression").value = this.model.toString();
     },
     // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
     /*findTerm: function (object,id)
