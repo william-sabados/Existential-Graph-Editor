@@ -271,7 +271,8 @@
         if(redoVersions.length > 0) $('#redo').prop('disabled',false);
     }
 
-    function addUndo(model){
+    function addUndo(){
+        let model = document.getElementById("expression").value;
         redoVersions = [];
         undoVersions.push(model);
         undoRedoDisable();
@@ -302,7 +303,7 @@
     // Wire-up event handler to the button.
     document.getElementById("AddNegatedAssertionButton").onclick = function(){
         model.addNegatedAssertion(document.getElementById("NewNegatedAssertionValue").value, getSelectionEgId());
-        addUndo(document.getElementById("expression").value);
+        addUndo();
         document.getElementById("NewNegatedAssertionValue").value="";
         document.getElementById("NewNegatedAssertionValue").focus();
         $('#myModal').on('shown.bs.modal', function () {
@@ -312,7 +313,7 @@
 
     document.getElementById("AddAssertionButton").onclick = function(){
         model.addAssertion(document.getElementById("NewAssertionValue").value, getSelectionEgId());
-        addUndo(document.getElementById("expression").value);
+        addUndo();
         document.getElementById("NewAssertionValue").value="";
         document.getElementById("NewAssertionValue").focus();
         $('#myModal2').on('shown.bs.modal', function () {
@@ -322,7 +323,7 @@
 
     document.getElementById("SpecializeButton").onclick = function(){
         model.check_expression(document.getElementById("SpecializeExpression").value, getSelectionEgId());
-        addUndo(document.getElementById("expression").value);
+        addUndo();
         document.getElementById("SpecializeExpression").value="";
         document.getElementById("SpecializeExpression").focus();
         $('#SpecializeModal').on('shown.bs.modal', function () {
@@ -339,7 +340,7 @@
         model.remove(getSelectionEgId());
         view.removeCell();
         disableButtons();
-        addUndo(document.getElementById("expression").value);
+        addUndo();
     }
 
     document.getElementById("resizeSelection").onclick = function(){
@@ -386,6 +387,8 @@
     document.getElementById("subgraphRemove").onclick = function(){
         document.getElementById("removeSubGraph").click();
     }
+
+    document.getElementById("console").title = "Spencer wuz 'ere, 2016";
     
     //In the input form (all of it, like submit and clear and save and just all of it)
     $("#inputForm").keypress(function(event){
@@ -407,7 +410,7 @@
     {
         document.getElementById("expression").value = "";
         view.EGclear();
-        addUndo(document.getElementById("expression").value);
+        addUndo();
     }
 
     function drawGraph(){
@@ -419,7 +422,7 @@
     function OnClickDraw()
     {
         drawGraph();
-        addUndo(document.getElementById("expression").value);
+        addUndo();
     }
 	
 	function change_to_black(){
@@ -450,6 +453,7 @@
      });
 
      function save_image(){
+         removeSelection();
          //creating a hypothetical canvas to hold the image we want to save
          let canvas = document.createElement('canvas');
          canvas.width = (screen.width / 100) * 72.4;
@@ -518,7 +522,7 @@
     
     model.addNegatedAssertion("P",0);
     model.addNegatedAssertion("Q",1);
-    addUndo(document.getElementById("expression").value);
+    addUndo();
 
 </script>
 

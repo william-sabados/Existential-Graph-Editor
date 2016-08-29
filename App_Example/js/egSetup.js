@@ -21,6 +21,16 @@ copy = function(source, target){
     else egId2 = target.prop('egId');
     let obj = model.model.returnTermByID(egId1, 0);
     obj.copy(egId2);
+};
+
+highlightCell = function(cell){
+    cell.highlight();
+    if(cell.model.prop('attrs/circle')) cell.model.prop('attrs/circle/stroke','#FFFFFF');
+};
+
+unhighlightCell = function(cell){
+    cell.unhighlight();
+    if(cell.model.prop('attrs/circle')) cell.model.prop('attrs/circle/stroke','#000000');
 }
 
 // On cell click
@@ -33,7 +43,7 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
     // Unhighlight everything
     allCells = graph.getCells();
     allCells.forEach(function(item,index,array){
-        paper.findViewByModel(allCells[index]).unhighlight();
+        unhighlightCell(paper.findViewByModel(allCells[index]));
     });
     // Select the cell the user is clicking on
     selection = cellView;
@@ -42,7 +52,7 @@ paper.on('cell:pointerdown',function(cellView,evt,x,y){
     //Bring cell to front
     selection.model.toFront({ deep: true });
     // Highlight the selection
-    selection.highlight();
+    highlightCell(selection);
     prevMouseX = x;
     prevMouseY = y;
 });
@@ -66,17 +76,12 @@ paper.on('cell:pointermove',function(cellView,evt,x,y){
 
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
-    if(selection) selection.unhighlight();
-    selection = null;
-    disableButtons();
-    resizing = false;
+    removeSelection();
 });
 
 removeSelection = function(){
-    if(selection){
-        selection.unhighlight();
-        selection = null;
-    }
+    if(selection) unhighlightCell(selection);
+    selection = null;
     disableButtons();
     resizing = false;
 };
