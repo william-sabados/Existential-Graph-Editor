@@ -84,7 +84,7 @@ function fixSyntax(syntax)
         let afterdex = 0;
         let paren = 0;
         //Find what is before the unparsable beast.
-        for(let b = dex-1; b > 0; b--)
+        for(let b = dex-1; b >= 0; b--)
         {
             if(syntax[b] == ")")
             {
