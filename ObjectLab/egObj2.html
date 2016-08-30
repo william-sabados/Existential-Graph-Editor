@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+
+/*function egAssertion(isNegated)
+{
+	
+	this.isNegated = isNegated;	// Expected values [true|false] If true, the terms of the assertion are negated.  
+
+	this.terms = new Array();	// Array that holds the terms (or symbols) of the assertion.   
+	//this.terms.push(term);		// It is assumed that all of the terms in the array are joined by conjunction.
+								// Expected values in the array are individual terms (e.g. P,Q,R) or nested egAssertion objects.
+	
+	
+	this.negate = function() {
+		if (this.isNegated == true)
+			this.isNegated = false;
+		else 
+			this.isNegated = true;
+	};*/
+//////////////////////////////////////////////////////////
+
+function egAssertion()
+{
+	if (arguments.length == 1){
+		this.isNegated = arguments[0];
+		this.terms = new Array();
+		//document.write("HI");
+		//document.write("<br>");
+	}
+	else {
+		this.isNegated = arguments[1];
+		this.terms = new Array();
+		this.terms.push(arguments[0]);
+		//document.write("BYE");	
+		//document.write("<br>");
+	}
+
+	this.negate = function() {
+		if (this.isNegated == true)
+			this.isNegated = false;
+		else 
+			this.isNegated = true;
+	};	
+
+	
+	
+	// setNegate(value)
+	//-------------------------------------------------------------------------
+	this.setNegate = function(value){
+		this.isNegated = value;
+	};
+
+
+	
+	// addTerm()
+	//-------------------------------------------------------------------------
+	this.addTerm = function(term) {
+		this.terms.push(term)	
+	};
+	
+	
+	//insertTerm(term, index)
+	//-------------------------------------------------------------------------
+	this.insertTerm = function(term,index){
+		//this.terms[index].addTerm(term)
+		//document.write(this.terms.join())
+		console.log(this.terms.join())
+		this.terms.splice(index,0,term)
+		//document.write(this.terms.join())
+		console.log(this.terms.join())
+	};
+	
+	
+	//returnTerm(index)
+	//-------------------------------------------------------------------------
+	this.returnTerm = function(index){
+		return this.terms[index];
+	}; 
+	
+	
+	// removeTerm(index)
+	//-------------------------------------------------------------------------
+	this.removeTerm = function(index){
+		this.terms.splice(index,1);
+		this.terms.join();
+	};
+
+	
+	
+	// toString()
+	//-------------------------------------------------------------------------
+	// This method iterates through the terms of the assertion and creates
+	// string friendly output.
+	this.toString = function() {
+		var termsText = "";
+		
+		// Check to see if this assertion is negated.
+		if (this.isNegated == true)
+			termsText = "!( ";
+		else termsText = "( ";
+		
+		for (var i=0; i < this.terms.length; i++) {
+			// If not first term add conjunction symbol.
+			if (i != 0)
+				termsText = termsText + " ^ ";
+			
+			// Based on what's in the term we decide what to do.
+			if (this.terms[i] == "")								// This checks to see if the term is an empty string (i.e. "")	
+				termsText = termsText + " ";
+			else if (this.terms[i] instanceof egAssertion)		// It contains another egAssertion object. Recursive dive.
+				termsText = termsText + this.toStringDive(this.terms[i]);
+			else												// Just a plain old text term, just print it.
+				termsText = termsText + this.terms[i];
+		}
+		
+		termsText = termsText + " )";
+		return termsText;
+	};
+	
+	// toStringDive()
+	//-------------------------------------------------------------------------
+	// This is a recursive method the dives through the terms objects and creates
+	// string friendly output.
+	this.toStringDive = function(edObj) {
+		var termsText = "";
+		
+		// Check to see if this assertion is negated.
+		if (edObj.isNegated == true)
+			termsText = "!( ";
+		else termsText = "( ";
+		
+		for (var i=0; i < edObj.terms.length; i++) {
+			// If not first term add conjunction symbol.
+			if (i != 0)
+				termsText = termsText + " ^ ";
+		
+			// Based on what's in the term we decide what to do.
+			if (edObj.terms[i] == "")						// This checks to see if the term is an empty string (i.e. "")	
+				termsText = termsText + " ";
+			else if (edObj.terms[i] instanceof egAssertion)	// This checks to see if the term is an empty string (i.e. "")
+				termsText = termsText + this.toStringDive(edObj.terms[i]);
+			else										// Just a plain old text term, just print it.
+				termsText = termsText + edObj.terms[i];
+		}
+		
+		termsText = termsText + " )";
+		return termsText;
+	}
+	
+}
+
+
+////////////////// Functions tested for first 3 cases ////////////////////////
+
+document.write("------- class worked ------- <br>");
+document.write("<br> <br>");
+
+
+var eg1 = new egAssertion("P",true);
+
+//document.write(eg1.isNegated);
+document.write("<br>");
+document.write("Terms in eg1 are: " + eg1.toString());
+document.write("<br>");
+//document.write(eg1);
+
+
+//////// //////// //////// ////////
+
+// Build an EG that is !( ! ^ !P)
+var eg4 = new egAssertion(true);
+eg4.addTerm(new egAssertion(true));
+eg4.addTerm(new egAssertion("P", true));
+document.write("Terms in eg4 are: " + eg4.toString());
+document.write("<br> <br>");
+
+// Build an EG that is !( ! ^ !P)
+var eg5 = new egAssertion(true);
+var eg5b = new egAssertion(true);
+eg5b.addTerm(new egAssertion("P", true));
+eg5b.addTerm(new egAssertion("P", true));
+eg5.addTerm(eg5b);
+eg5.addTerm(new egAssertion("P", true));
+document.write("Terms in eg5 are: " + eg5.toString());
+
+document.write("<br> <br>");
+// Build an EG that is P ^ !Q.
+var eg3 = new egAssertion("P", false);
+eg3.addTerm(new egAssertion("Q", true));
+document.write("Terms in eg3 are: " + eg3.toString());
+document.write("<br>");
+
+eg3.insertTerm("R",1);
+eg3.insertTerm("S",2);
+document.write("Terms in eg3 after insert method are: " + eg3.toString());
+document.write("<br>");
+document.write("Return method: ");
+document.write(eg3.returnTerm(3));
+document.write("<br>");
+eg3.removeTerm(1);
+eg3.removeTerm(2);
+eg3.setNegate(true);
+document.write("Terms in eg3 after remove and setNegate methods are: " + eg3.toString());
+
+
+document.write("<br> <br>");
+// Build an EG that is just P ^ Q.
+var eg1 = new egAssertion("P", false);
+eg1.addTerm("Q");
+document.write("Terms in eg1 are: " + eg1.toString());
+
+eg1.insertTerm("R",1);
+document.write("<br>");
+document.write("Terms in eg1 after insert method are: " + eg1.toString());
+document.write("<br>");
+document.write("Return method: ");
+document.write(eg1.returnTerm(1));
+document.write("<br>");
+eg1.removeTerm(1);
+eg1.setNegate(false);
+document.write("Terms in eg1 after remove and setNegate methods are: " + eg1.toString());
+
+document.write("<br> <br> <br>");
+
+</script>
+</body>
+</html>
