@@ -37,6 +37,7 @@ unhighlightCell = function(cell){
 paper.on('cell:pointerdown',function(cellView,evt,x,y){
     if(copying){
         copy(selection.model,cellView.model);
+        addUndo();
         copying = false;
     }
     
@@ -76,6 +77,7 @@ paper.on('cell:pointermove',function(cellView,evt,x,y){
 
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
+    if(copying) copying = false;
     removeSelection();
 });
 
