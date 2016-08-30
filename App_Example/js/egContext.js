@@ -74,16 +74,45 @@ function egContext(prevContext, id)
         return null;
     };
     // Functionally copy from the context level.
-    this.copy = function(target)
+    this.copy = function(target, num)
     {
-        if(target == this.id)
+        if(num == 1)
+        {
+            if(!model.isRemovable(target, this.toString()))
+            {
+                return;
+            }
+        }
+        if(this.copyCheck(target) == false)
+        {
             return;
-      // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
+        }
+         // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
         con = model.addNegativeContext(target);
         for(let t of this.terms)
         {
-            t.copy(con);
+            t.copy(con, 0);
         }
+    };
+    this.copyCheck = function(target)
+    // Ensures what is being copied occurs NOWHERE in the target location.
+    {
+        let rVal = true;
+        if(target == this.id)
+            return false;
+        for(t of this.terms)
+        {
+            if(t instanceof egAssertion)
+            {
+                if(target == t.id)
+                    return false;
+            }
+            else
+            {
+                rVal = t.copyCheck(target);
+            }
+        }
+        return rVal;
     };
     // toString capable of calling other object's toString.
     this.toString = function()

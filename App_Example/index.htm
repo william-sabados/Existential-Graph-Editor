@@ -335,11 +335,15 @@
         copying = true;
     }
 
-    document.getElementById("removeSubGraph").onclick = function()
-    {
+    function removeTemp(){
         model.remove(getSelectionEgId());
         view.removeCell();
         disableButtons();
+    }
+
+    document.getElementById("removeSubGraph").onclick = function()
+    {
+        removeTemp();
         addUndo();
     }
 

@@ -20,7 +20,7 @@ copy = function(source, target){
     if(target == 0) egId2 = 0;
     else egId2 = target.prop('egId');
     let obj = model.model.returnTermByID(egId1, 0);
-    obj.copy(egId2);
+    obj.copy(egId2, 1);
 };
 
 highlightCell = function(cell){

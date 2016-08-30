@@ -125,16 +125,26 @@ EG_Model.prototype = {
             error_submit(this.model.toString(), "console");
             document.getElementById("expression").value = this.model.toString();
     },
-    isRemovable: function (target)
+    isRemovable: function (target, str)
     {
-        let obj = this.model.returnTermByID(target, 0);
-        let par = this.model.returnTermByID(target, 1);
-        if(obj instanceof egAssertion)
+        let par;
+        let obj;
+        if(!str)
         {
-            obj = obj.value;
+            obj = this.model.returnTermByID(target, 0);
+            par = this.model.returnTermByID(target, 1);
+            if(obj instanceof egAssertion)
+            {
+                obj = obj.value;
+            }
+            else
+                obj = obj.toString();
         }
         else
-            obj = obj.toString();
+        {
+            par = this.model.returnTermByID(target, 0);
+            obj = str;
+        }
         do
         {
             par = this.model.returnTermByID(par.id, 1);
