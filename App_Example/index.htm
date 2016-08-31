@@ -417,10 +417,11 @@
         addUndo();
     }
 
-    function drawGraph(){
-       view.EGclear();
-       if(document.getElementById("expression").value != null)
-       view.check_expression(document.getElementById("expression").value);
+    function drawGraph()
+    {
+        view.EGclear();
+        if(document.getElementById("expression").value != "")
+            view.check_expression(document.getElementById("expression").value);
     }
 
     function OnClickDraw()
@@ -429,7 +430,8 @@
         addUndo();
     }
 	
-	function change_to_black(){
+	function change_to_black()
+    {
 		document.getElementById("expression").style.color="black";
 		document.getElementById("submit_error").value = "";
 	}
