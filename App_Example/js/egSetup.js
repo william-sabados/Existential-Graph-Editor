@@ -36,7 +36,12 @@ unhighlightCell = function(cell){
 // On cell click
 paper.on('cell:pointerdown',function(cellView,evt,x,y){
     if(copying){
-        if(copy(selection.model,cellView.model)) addUndo();
+        if(!cellView.model.prop('attrs/text/text')){
+            if(copy(selection.model,cellView.model)) addUndo();
+        }else{
+            error_submit('ERROR::Invalid copy target','submit_error');
+            error_submit('ERROR::Invalid copy target','console');
+        }
         copying = false;
     }
     
