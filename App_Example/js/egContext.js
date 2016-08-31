@@ -93,6 +93,7 @@ function egContext(prevContext, id)
         {
             t.copy(con, 0);
         }
+        return true;
     };
     this.copyCheck = function(target)
     // Ensures what is being copied occurs NOWHERE in the target location.

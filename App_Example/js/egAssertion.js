@@ -15,5 +15,6 @@ function egAssertion(assertion, id)
         if(target == this.id)
             return;
         model.addAssertion(this.value, target);
+        return true;
     };
 }

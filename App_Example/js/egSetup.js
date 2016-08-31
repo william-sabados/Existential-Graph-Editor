@@ -20,7 +20,7 @@ copy = function(source, target){
     if(target == 0) egId2 = 0;
     else egId2 = target.prop('egId');
     let obj = model.model.returnTermByID(egId1, 0);
-    obj.copy(egId2, 1);
+    return obj.copy(egId2, 1);
 };
 
 highlightCell = function(cell){
@@ -36,8 +36,7 @@ unhighlightCell = function(cell){
 // On cell click
 paper.on('cell:pointerdown',function(cellView,evt,x,y){
     if(copying){
-        copy(selection.model,cellView.model);
-        addUndo();
+        if(copy(selection.model,cellView.model)) addUndo();
         copying = false;
     }
     
