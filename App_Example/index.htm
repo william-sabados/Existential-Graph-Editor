@@ -372,34 +372,59 @@
     document.getElementById("doubleNegative").onclick = function(){
         let x1;
         if(selection){
-            x1 = model.addNegativeContext(selection.model.prop('egId'));
-            model.addNegativeContext(x1);
+            if(!selection.model.prop('attrs/text/text')){
+                x1 = model.addNegativeContext(selection.model.prop('egId'));
+                model.addNegativeContext(x1);
+            }else{
+                let tempSelect = getSelectionEgId();
+                let selectionParent = getCellModel(selection.model.get('parent'));
+                removeSelection();
+                let outside;
+                if(selectionParent) outside = model.addNegativeContext(selectionParent.prop('egId'));
+                else outside = model.addNegativeContext(0);
+                let inside = model.addNegativeContext(outside);
+                copy(getCellModelFromEgId(tempSelect),getCellModelFromEgId(inside));
+                selection = paper.findViewByModel(getCellModelFromEgId(tempSelect));
+                document.getElementById("removeSubGraph").click();
+            }
         }else{
             x1 = model.addNegativeContext(0);
             model.addNegativeContext(x1);
         }
-        /*
-        let tempSelect = getSelectionEgId();
-        let selectionParent = getCellModel(selection.model.get('parent'));
-        removeSelection();
-        let outside;
-        if(selectionParent) outside = model.addNegativeContext(selectionParent.prop('egId'));
-        else outside = model.addNegativeContext(0);
-        let inside = model.addNegativeContext(outside);
-        copy(getCellModelFromEgId(tempSelect),getCellModelFromEgId(inside));
-        selection = paper.findViewByModel(getCellModelFromEgId(tempSelect));
-        document.getElementById("removeSubGraph").click();
-        */
+        addUndo();
     }
 
     document.getElementById("remove2Xneg").onclick = function(){
         let tempSelect = selection.model;
-        let thirdParent = getCellModel(getCellModel(getCellModel(selection.model.get('parent')).get('parent')).get('parent'));
-        removeSelection();
-        if(thirdParent) copy(tempSelect,thirdParent, 0);
-        else copy(tempSelect,0, 0);
-        selection = paper.findViewByModel(getCellModel(getCellModel(tempSelect.get('parent')).get('parent')));
+        let firstParent = getCellModel(selection.model.get('parent'));
+        let secondParent, thirdParent;
+        if(firstParent.get('parent')) secondParent = getCellModel(firstParent.get('parent'));
+        if(secondParent && secondParent.get('parent')) thirdParent = getCellModel(secondParent.get('parent'));
+        let children = selection.model.get('embeds');
+        if(selection.model.prop('attrs/text/text')){
+            removeSelection();
+            if(thirdParent){
+                copy(tempSelect,thirdParent, 0);
+            }else{
+                copy(tempSelect,0, 0);
+            }
+            selection = paper.findViewByModel(secondParent);
+        }else{
+            removeSelection();
+            if(children){
+                children.forEach(function(item){
+                    let childCell = getCellModel(item);
+                    if(secondParent){
+                        copy(childCell,secondParent,0);
+                    }else{
+                        copy(childCell,0,0);
+                    }
+                });
+            }
+            selection = paper.findViewByModel(firstParent);
+        }
         document.getElementById("removeSubGraph").click();
+        removeSelection();
     }
 
     document.getElementById("subgraphRemove").onclick = function(){
@@ -510,19 +535,29 @@
         $('#remove2Xneg').prop('disabled', true);
         if(selection){
             //Can always add double negation to a selection
-            if(selection.model.prop('attrs/text/text')) $('#doubleNegative').prop('disabled', true);
+            $('#doubleNegative').prop('disabled', false);
 
             //you can always copy a button, but there may NOT be a valid place to put it
             $('#copy').prop('disabled', false);
 
             //Checking if you can remove a double negation
-            let temp = graph.getCell(selection.model.get('parent'));
-            if(temp){
-                if(temp.get('embeds').length == 1){
-                    if(graph.getCell(temp.get('parent'))){
-                        if(graph.getCell(temp.get   ('parent')).get('embeds').length == 1)
-                            $('#remove2Xneg').prop('disabled', false);
+            if(selection.model.prop('attrs/text/text')){
+                let temp = graph.getCell(selection.model.get('parent'));
+                let tempParent;
+                if(temp && temp.get('parent')) tempParent = graph.getCell(temp.get('parent'));
+                if(temp){
+                    if(temp.get('embeds').length == 1){
+                        if(tempParent){
+                            if(tempParent.get('embeds').length == 1)
+                                $('#remove2Xneg').prop('disabled', false);
+                        }
                     }
+                }
+            }else{
+                let selectionParent = graph.getCell(selection.model.get('parent'));
+                if(selectionParent){
+                    if(selectionParent.get('embeds').length == 1)
+                        $('#remove2Xneg').prop('disabled', false);
                 }
             }
             // Special snowflake remove subgraph.
