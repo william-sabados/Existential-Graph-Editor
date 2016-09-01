@@ -396,8 +396,8 @@
         let tempSelect = selection.model;
         let thirdParent = getCellModel(getCellModel(getCellModel(selection.model.get('parent')).get('parent')).get('parent'));
         removeSelection();
-        if(thirdParent) copy(tempSelect,thirdParent);
-        else copy(tempSelect,0);
+        if(thirdParent) copy(tempSelect,thirdParent, 0);
+        else copy(tempSelect,0, 0);
         selection = paper.findViewByModel(getCellModel(getCellModel(tempSelect.get('parent')).get('parent')));
         document.getElementById("removeSubGraph").click();
     }
@@ -510,7 +510,7 @@
         $('#remove2Xneg').prop('disabled', true);
         if(selection){
             //Can always add double negation to a selection
-            //$('#doubleNegative').prop('disabled', false);
+            if(selection.model.prop('attrs/text/text')) $('#doubleNegative').prop('disabled', true);
 
             //you can always copy a button, but there may NOT be a valid place to put it
             $('#copy').prop('disabled', false);

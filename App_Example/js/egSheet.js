@@ -75,12 +75,19 @@ function egSheet()
             {
                 return;
             }
-        }
-        if(this.copyCheck(target) == false)
+            if(this.copyCheck(target) == false)
         {
             return;
         }
-        this.copyCheck = function(target)
+        }
+        // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
+        let con = model.addNegativeContext(target);
+        for(let t of this.terms)
+        {
+            t.copy(con);
+        }
+    };
+    this.copyCheck = function(target)
         // Ensures what is being copied occurs NOWHERE in the target location.
         {
             let rVal = true;
@@ -100,13 +107,6 @@ function egSheet()
             }
             return rVal;
         };
-        // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
-        con = model.addNegativeContext(target);
-        for(let t of this.terms)
-        {
-            t.copy(con);
-        }
-    };
     // toString
     this.toString = function()
     {

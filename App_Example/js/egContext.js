@@ -82,13 +82,13 @@ function egContext(prevContext, id)
             {
                 return;
             }
-        }
-        if(this.copyCheck(target) == false)
-        {
-            return;
+            if(this.copyCheck(target) == false)
+            {
+                return;
+            }
         }
          // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
-        con = model.addNegativeContext(target);
+        let con = model.addNegativeContext(target);
         for(let t of this.terms)
         {
             t.copy(con, 0);

@@ -14,13 +14,17 @@ getSelectionEgId = function(){
     else return 0;
 };
 
-copy = function(source, target){
+copy = function(source, target, num){
+    if(num == null)
+    {
+        num = 1;
+    }
     let egId1 = source.prop('egId');
     let egId2;
     if(target == 0) egId2 = 0;
     else egId2 = target.prop('egId');
     let obj = model.model.returnTermByID(egId1, 0);
-    return obj.copy(egId2, 1);
+    return obj.copy(egId2, num);
 };
 
 highlightCell = function(cell){
