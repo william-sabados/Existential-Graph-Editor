@@ -24,7 +24,7 @@ section {
 }
 .panel-footer{
     color: #337ab7;
-
+    padding: 0.5% !important;
 }
 #uah{
     float: right;
