@@ -14,7 +14,7 @@ function fixSyntax(syntax)
         (code > 96 && code < 123)))
         charcount++;
     }*/
-    if(syntax.indexOf("^") == -1)
+    if(syntax.indexOf("^") == -1 && syntax.indexOf(">") == -1 && syntax.indexOf("|") == -1)
     {
         charcount = 1;
     }
@@ -26,6 +26,7 @@ function fixSyntax(syntax)
         {
             if(syntax[i] == "(")
             {
+                
                 parencount++;
             }
             else if(syntax[i] == ")")
@@ -106,8 +107,10 @@ function fixSyntax(syntax)
         //Find what is after the unparsable beast.
         for(let f = dex+1; f < syntax.length; f++)
         {
-            if(syntax[f] == "(")
+            if(syntax[f] == "("  || syntax[f] == "!")
             {
+                if(syntax[f] == "!")
+                    f++;
                 paren++;
             }
             else if(syntax[f] == ")")
