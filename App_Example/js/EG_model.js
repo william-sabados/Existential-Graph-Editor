@@ -147,7 +147,6 @@ EG_Model.prototype = {
         }
         do
         {
-            par = this.model.returnTermByID(par.id, 1);
             if(par == -1)
             {
                 return false;
@@ -165,8 +164,9 @@ EG_Model.prototype = {
                         return true;
                 }
             }
+            par = this.model.returnTermByID(par.id, 1);
         }
-        while(!(par instanceof egSheet))
+        while(!(par == null))
         return false;
     },
     // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
