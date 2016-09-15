@@ -85,7 +85,11 @@ paper.on('cell:pointermove',function(cellView,evt,x,y){
 
 // On click in a blank area
 paper.on('blank:pointerdown',function(evt,x,y){
-    if(copying) copying = false;
+    if(copying){
+        copy(selection.model,0);
+        addUndo();
+        copying = false;
+    }
     removeSelection();
 });
 

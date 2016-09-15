@@ -149,7 +149,7 @@ EG_Model.prototype = {
         {
             if(par == -1)
             {
-                return false;
+                par = model.model;
             }
             for(t of par.terms)
             {
@@ -164,7 +164,7 @@ EG_Model.prototype = {
                         return true;
                 }
             }
-            par = this.model.returnTermByID(par.id, 1);
+            let par2 = this.model.returnTermByID(par.id, 1);
         }
         while(!(par == null))
         return false;

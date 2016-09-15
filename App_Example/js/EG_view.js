@@ -197,6 +197,7 @@ EG_View.prototype = {
     addNegativeContext: function (newId, nestId) {
         //If there's a nest id that's not 0 (the SA), set selection to it temporarily
         if(nestId != 0) selection = getCellById(nestId);
+        else removeSelection();
         //finds empty position
         findSpace(50,40);
         // Prepare to add shape to the graph.        
