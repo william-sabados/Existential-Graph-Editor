@@ -148,7 +148,7 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewNegatedAssertionValue" type="text" name="addChar" onfocus="clearInput(this)" autofocus/><br>
+                <input id="NewNegatedAssertionValue" type="text" name="addChar" maxlength="1" onfocus="clearInput(this)" autofocus/><br>
 
             </div>
             <div class="modal-footer">
@@ -172,7 +172,7 @@
             </div>
             <div class="modal-body">
                 Enter Character:
-                <input id="NewAssertionValue" type="text" name="addChar" onfocus="clearInput(this)" autofocus/><br>
+                <input id="NewAssertionValue" type="text" name="addChar" maxlength="1" onfocus="clearInput(this)" autofocus/><br>
 
             </div>
             <div class="modal-footer">
@@ -491,11 +491,6 @@
 		document.getElementById(console).value += "\n" + msg;
         document.getElementById(console).scrollTop = document.getElementById(console).scrollHeight;
  	}
-
-     //This magically makes the dropdown menus work, something possibly happened with an update to bootstrap to make this required
-     $(document).ready(function(){
-         $(".dropdown-toggle").dropdown();
-     });
 
      function save_image(){
          removeSelection();
