@@ -215,8 +215,18 @@
                 <h4 class="modal-title">Help</h4>
             </div>
             <div class="modal-body">
-                *A quick reference can be found by hovering over the "Enter Expression" box.
-                <br><br>
+                <DL>
+                    <DT>Expression Input</DT>
+                    <DD>The "Enter Expression" box ("!(P^!(Q))" by default) will accept the following inputs*:</DD><br>
+                    <DD>- !(x) = not x (x false)<br>
+                        - ^ = and<br>
+                        - !(!(x)) = not not x (x true)<br>
+                        - x = any character (x true)<br>
+                        - > = implication<br>
+                        - | = or<br><br>
+
+                        *A quick reference can be found by hovering over the "Enter Expression" box.</DD>
+                </DL><br>
                 <DL>
                     <DT>Existential Graph</DT>
                     <DD> - An existential graph is a type of diagrammatic or visual notation for logical expressions, proposed by Charles Sanders Peirce.</DD>
