@@ -120,7 +120,7 @@
                 <button type="button" style="color: #337ab7;" class="btn btn-secondary" onclick="return document.getElementById(&#34;console&#34;).value = &#34; - Console -&#34;"">Clear Console</button>
             </div>
         </section>
-        <script>           
+        <script>
             let development = false;
             if(!development){
                 document.getElementById("consoleArea").style.display = "none";
@@ -494,6 +494,8 @@
             // It instead gives a bunch of nulls, so if you aren't sure about something that could give an error, use error_submit()
             document.getElementById("console").value += "\n" + msg + " Try something else.";
         }
+        alert(msg + " Contact the developers and tell them there was a problem with the program.");
+        document.getElementById("consoleArea").style.display = "inline";
         document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight;
     };
 
