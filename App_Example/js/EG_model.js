@@ -164,7 +164,7 @@ EG_Model.prototype = {
                         return true;
                 }
             }
-            let par = this.model.returnTermByID(par.id, 1);
+            par = this.model.returnTermByID(par.id, 1);
         }
         while(!(par == null))
         return false;
