@@ -129,10 +129,12 @@ EG_Model.prototype = {
     {
         let par;
         let obj;
+        let objid;
         if(!str)
         {
             obj = this.model.returnTermByID(target, 0);
             par = this.model.returnTermByID(target, 1);
+
             if(obj instanceof egAssertion)
             {
                 obj = obj.value;
@@ -155,18 +157,18 @@ EG_Model.prototype = {
             {
                 if(t instanceof egAssertion)
                 {
-                    if(t.value == obj)
+                    if(t.value == obj && t.id != target)
                         return true;
                 }
                 else if(t instanceof egContext)
                 {
-                    if(t.toString() == obj)
+                    if(t.toString() == obj && t.id != target)
                         return true;
                 }
             }
             par = this.model.returnTermByID(par.id, 1);
         }
-        while(!(par == null))
+        while(par != -1);
         return false;
     },
     // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
