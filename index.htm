@@ -45,7 +45,7 @@
     <a href="http://www.uah.edu/" data-toggle="tooltip" title="To UAH Website"><img class="uahImg" src="./images/uahLogo.png"></a>
     <form id="inputForm">
         <div class="input-group" style="margin-top: 20px; padding-top: 4px;">
-            <input title="!(x) = not x (x false)&#013^ = and&#013!(!(x)) = not not x (x true)&#013x = any character (x true)&#013> = implication&#013| = or" id="expression" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
+            <input title="!(x) = not x (x false)&#013& = and&#013!(!(x)) = not not x (x true)&#013x = any character (x true)&#013> = implication&#013| = or" id="expression" type="text" class="form-control" placeholder="Enter Expression" aria-describedby="basic-addon2" onclick="return change_to_black();">
             <div class="input-group-btn" style="color: #337ab7;">
                 <button class="btn btn-secondary" onclick="return OnClickDraw();" type="button" id="Submit">Submit</button>
                 <button class="btn btn-secondary" onclick="return clearArea();" type="button">Clear</button>
@@ -222,7 +222,7 @@
                     <DT>Expression Input</DT>
                     <DD>The "Enter Expression" box ("!(P^!(Q))" by default) will accept the following inputs*:</DD><br>
                     <DD>- !(x) = not x (x false)<br>
-                        - ^ = and<br>
+                        - & = and<br>
                         - !(!(x)) = not not x (x true)<br>
                         - x = any character (x true)<br>
                         - > = implication<br>
