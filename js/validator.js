@@ -170,13 +170,3 @@ function validate_input(str)
 	
 	//return "error1";
 }
-
-
-
-
-
-
-//document.write("<br>----------Validator Executed-------------");
-
-
-

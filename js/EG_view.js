@@ -6,10 +6,7 @@ graph.on('change:size', function (cell, newPosition, opt) {
     if (opt.skipParentHandler) return;
 
     if (cell.get('embeds') && cell.get('embeds').length) {
-        // If we're manipulating a parent element, let's store
-        // it's original size to a special property so that
-        // we can shrink the parent element back while manipulating
-        // its children.
+        
         cell.set('originalSize', cell.get('size'));
     }
 });

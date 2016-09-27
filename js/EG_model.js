@@ -171,27 +171,7 @@ EG_Model.prototype = {
         while(par != -1);
         return false;
     },
-    // Returns a reference to the term with the given ID currently located in the model. If it fails, returns false.
-    /*findTerm: function (object,id)
-    {
-        // If the ID is 0, we can ignore all of this.
-        if(object.id == id)
-            return object;
-        for(a = 0; a < object.terms.length; a++)
-        {
-            if(object.returnTerm(a).id == id)
-                return object.returnTerm(a);
-            // If what is found is an egAssertion of its own, that one's ID must be checked as well.
-            else if(object.terms[0] instanceof egAssertion)
-            {
-                robject = model.findTerm(object.returnTerm(a), id);
-               if(robject != false)
-                   return robject;
-            }
-        }
-        return false;
-    },*/
-
+    
 	check_expression: function (thing_to_check, context) {
 		
 		//Error cases 1-7 as returned by the validator function
