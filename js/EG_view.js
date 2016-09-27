@@ -285,8 +285,8 @@ EG_View.prototype = {
             i = 1;
         }
         else if (error == "error3") {
-            error_submit("ERROR::Uneven letters or carrots", "console");
-            error_submit("ERROR::Uneven letters or carrots", "submit_error");
+            error_submit("ERROR::Uneven letters or ampersands", "console");
+            error_submit("ERROR::Uneven letters or ampersands", "submit_error");
             document.getElementById("expression").style.color = "red";
             //alert("ERROR::Uneven letters or carrots");
             i = 1;
@@ -299,8 +299,8 @@ EG_View.prototype = {
             i = 1;
         }
         else if (error == "error5") {
-            error_submit("ERROR::Assertion must be between parenthesis", "console");
-            error_submit("ERROR::Assertion must be between parenthesis", "submit_error");
+            error_submit("ERROR::Assertion must be between parentheses", "console");
+            error_submit("ERROR::Assertion must be between parentheses", "submit_error");
             document.getElementById("expression").style.color = "red";
             //alert("ERROR::Assertion must be between parenthesis");
             i = 1;

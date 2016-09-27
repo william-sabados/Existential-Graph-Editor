@@ -1,28 +1,27 @@
-// The context governs whether something is positive or negative, as well as nesting. All assertions are stored
-// Either in a context or the full sheet.
-function egContext(prevContext, id)
+// The Existential Graph Sheet is the base of the model. Its only purpose is to store assertions and contexts
+// in an initially positive context. Its uses are quite similar to the context.
+function egSheet()
 {
-    this.isNegative= !prevContext;
     this.terms = [];
-    this.id = id;
-
-    // invert() swaps the current negation status, for when it is nested.
-    this.invert = function()
-    {
-        this.isNegative = !this.isNegative;
-    }
-    // addTerm(term) adds a term to the context's list of terms, whether it adds an assertion or another context.
+    this.id = 0;
+    // This is initialized but will never change.
+    this.isNegative = false;
+    // addTerm(term) adds a term to the sheet's list of terms, whether it adds an assertion or acontext.
     this.addTerm = function(term) 
     {
         this.terms.push(term)	
     };
-    //insertTerm(term, index) into the context, in the case that it is needed.
+    // insertTerm(term, index) inserts a term into the context at the index, in the case that it is needed.
     this.insertTerm = function(term,index)
     {
         this.terms.splice(index,0,term)
     };
-    // removeTerm(index)
-	//-------------------------------------------------------------------------
+    // returnterm() returns the term from the context.
+    this.returnTerm = function(index){
+	    return this.terms[index];
+	}; 
+	
+	// removeTerm(index) removes the term at the index
 	this.removeTerm = function(index){
 		this.terms.splice(index,1);
 		this.terms.join();
@@ -35,13 +34,9 @@ function egContext(prevContext, id)
     //returnTermByID(id) looks recursively through the object for an id, and if found, returns the object associated to it.
     this.returnTermByID = function(id, contextCheck)
     {
-        if(contextCheck == null)
-            contextCheck = 0;
-        // If this is the correct object, return it.
-        if(this.id == id)
-        {
-            return this;
-        }
+        // If the ID is 0, return something so the model knows what to do.
+        if(id == 0)
+            return -1;
         for(let t = 0; t < this.terms.length; t++)
         {
             let tt = this.returnTerm(t);
@@ -65,7 +60,6 @@ function egContext(prevContext, id)
                     else if(contextCheck == 2)
                         return t;
                 }
-                
                 let checkterm = tt.returnTermByID(id, contextCheck);
                 if(checkterm != null)
                     return checkterm;
@@ -73,8 +67,7 @@ function egContext(prevContext, id)
         }
         return null;
     };
-    // Functionally copy from the context level.
-    this.copy = function(target, num)
+    this.copy = function(target)
     {
         if(num == 1)
         {
@@ -83,43 +76,44 @@ function egContext(prevContext, id)
                 return;
             }
             if(this.copyCheck(target) == false)
-            {
-                return;
-            }
+        {
+            return;
         }
-         // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
+        }
+        // As a context, copy itself and all of its non-context children. Context children get to follow their parent.
         let con = model.addNegativeContext(target);
         for(let t of this.terms)
         {
-            t.copy(con, 0);
+            t.copy(con);
         }
-        return true;
     };
     this.copyCheck = function(target)
-    // Ensures what is being copied occurs NOWHERE in the target location.
-    {
-        let rVal = true;
-        if(target == this.id)
-            return false;
-        for(t of this.terms)
+        // Ensures what is being copied occurs NOWHERE in the target location.
         {
-            if(t instanceof egAssertion)
+            let rVal = true;
+            if(target == this.id)
+                return false;
+            for(t of this.terms)
             {
-                if(target == t.id)
-                    return false;
+                if(t instanceof egAssertion)
+                {
+                    if(target == t.id)
+                        return false;
+                }
+                else
+                {
+                    rVal = t.copyCheck(target);
+                }
             }
-            else
-            {
-                rVal = t.copyCheck(target);
-            }
-        }
-        return rVal;
-    };
-    // toString capable of calling other object's toString.
+            return rVal;
+        };
+    // toString
     this.toString = function()
     {
         // Open the term.
-        let termsText = "(";
+        let termsText = "";
+        if(this.terms.length > 1)
+            termsText = "(";
         for(let t of this.terms)
         {
             if(t instanceof egAssertion)
@@ -130,12 +124,14 @@ function egContext(prevContext, id)
             {
                 termsText += "!" + t.toString();
             }
-            termsText += "^";
+            termsText += "&";
         }
-        if(termsText[termsText.length-1] == "^")
+        // Lop off the last and.
+        if(termsText[termsText.length-1] == "&")
             termsText = termsText.substring(0, termsText.length-1);
         // Close the term.
-        termsText += ")";
+        if(this.terms.length > 1)
+            termsText += ")";
         return termsText;
     };
 }
