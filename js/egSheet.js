@@ -124,10 +124,10 @@ function egSheet()
             {
                 termsText += "!" + t.toString();
             }
-            termsText += "^";
+            termsText += "&";
         }
-        // Lop off the last karot.
-        if(termsText[termsText.length-1] == "^")
+        // Lop off the last and.
+        if(termsText[termsText.length-1] == "&")
             termsText = termsText.substring(0, termsText.length-1);
         // Close the term.
         if(this.terms.length > 1)

@@ -14,6 +14,8 @@ function fixSyntax(syntax)
         (code > 96 && code < 123)))
         charcount++;
     }*/
+    while(syntax.indexOf("&") != -1)
+        syntax = syntax.replace("&", "^");
     if(syntax.indexOf("^") == -1 && syntax.indexOf(">") == -1 && syntax.indexOf("|") == -1)
     {
         charcount = 1;

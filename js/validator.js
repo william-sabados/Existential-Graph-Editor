@@ -49,7 +49,7 @@ function validate_input(str)
 	var check2 = str.match(/\^/gi);
 	if (check1 != null && check2 == null && tokenized.length % 2 == 0)
 	{
-		if (checker) {document.write("<br>ERROR::Uneven letters or carrots(1)");return false;}
+		if (checker) {document.write("<br>ERROR::Uneven letters or ampersands(1)");return false;}
 		if (!checker) {return "error3";}
 	}
 	
@@ -63,7 +63,7 @@ function validate_input(str)
 	//An egAssertion must be between a pair of "()"
 	else if ((tokenized[0] != "(" && tokenized[0] != "!(") || (tokenized[tokenized.length-1] != ")"))
 	{
-		if (checker) {document.write("<br>ERROR::Assertion must be between parenthesis");return false;}
+		if (checker) {document.write("<br>ERROR::Assertion must be between parentheses");return false;}
 		if (!checker) {return "error5";}
 	}
 
