@@ -523,18 +523,22 @@
          let str = serializer.serializeToString(svg);
 
          img.setAttribute("src","data:image/svg+xml;base64,"+btoa(str));
-
          img.onload = function(){
             //draws the svg on the hypothetical canvas
             ctx.drawImage(img, 0, 0);
-
+           
+           //This WILL save the image, but as a generic file; not as a png or jpeg. But if you open it with a photo viewer it will worl
+           //document.location.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            
             //creates a fake html element and simulates a click that downloads the image
             let a = document.createElement('a');
             //(change later if removing from submit_error)
-            a.download = "(EG) " + document.getElementById("expression").value + ".png";
             a.href = canvas.toDataURL('image/png');
+            a.download = "(EG) " + document.getElementById("expression").value + ".png";
+            document.body.appendChild(a);
             a.click();
-         }
+            document.body.removeChild(a);
+        }
      }
 
      function disableButtons(){
